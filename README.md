@@ -1,7 +1,7 @@
 # sarjom-ba
 Welcome to the code repository of www.citsci.earth . This is version is being developed on Java, MongoDb and React.
 
-Sarjom-ba is the flower of the [Sarjom] (https://en.wikipedia.org/wiki/Shorea_robusta) tree. It blossoms once in a while.
+Sarjom-ba is the flower of the Sarjom tree. It blossoms once in a while.
 
 Sarjom is the name given to the tree [Shorea robusta](https://en.wikipedia.org/wiki/Shorea_robusta) in the "ho" language. Sarjom represents the guiding philosophy of our software development lifecycle. We want to grow slow like a tree while ensuring the growth and development of all other species, flora and fauna that make up our environment.
 
