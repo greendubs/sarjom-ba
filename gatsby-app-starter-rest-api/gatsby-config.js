@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Not Todo app`,
-    description: `A demo Gatsby app connected to a REST API`,
-    author: `@smakosh`,
+    title: `CitSci Earth`,
+    description: `An online directory of citizen science projects.`,
+    author: `SARJOM`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

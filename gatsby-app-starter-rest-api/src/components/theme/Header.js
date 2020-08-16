@@ -4,9 +4,10 @@ import React from 'react'
 export default ({ siteTitle, isLoggedIn, logout }) => (
   <header
     style={{
-      background: `rebeccapurple`,
+      background: `white`,
       marginBottom: `1.45rem`,
       padding: '1rem 0',
+      borderBottom: '2px gray solid'
     }}
   >
     <div className="center-text flex-container container">
@@ -14,11 +15,11 @@ export default ({ siteTitle, isLoggedIn, logout }) => (
         <Link
           to="/"
           style={{
-            color: `white`,
+            color: `black`,
             textDecoration: `none`,
           }}
         >
-          {siteTitle}
+          {'Sarjom | ' + siteTitle}
         </Link>
       </h1>
       {isLoggedIn && (

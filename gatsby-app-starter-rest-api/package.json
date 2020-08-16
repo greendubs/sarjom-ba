@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Ismail Ghallou <ismai23l@hotmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "axios": "^0.18.0",
     "dotenv": "^8.2.0",
     "gatsby": "^2.24.47",
