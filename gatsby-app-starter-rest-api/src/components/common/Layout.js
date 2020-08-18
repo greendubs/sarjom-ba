@@ -12,6 +12,7 @@ export default ({ children, isLoggedIn, logout }) => {
         site {
           siteMetadata {
             title
+            author
           }
         }
       }
@@ -22,6 +23,7 @@ export default ({ children, isLoggedIn, logout }) => {
     <>
       <Header
         siteTitle={site.siteMetadata.title}
+        siteAuthor={site.siteMetadata.author}
         isLoggedIn={isLoggedIn}
         logout={logout}
       />
