@@ -1,0 +1,29 @@
+.header {
+  background: green;
+  margin-bottom: 1.45rem;
+  padding: 1rem 0;
+  border-bottom: 2px gray solid;
+}
+
+.footer {
+  background: green;
+  margin-top: 1.45rem;
+  padding: 0 1rem;
+  border-top: 2px gray solid;
+}
+
+.nav {
+  margin-left: 10rem;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  margin: 2.5rem;
+}
+
+.footernav {
+  color: white;
+  text-decoration: None;
+  margin-right: 1rem;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from 'components/theme/Header'
+import Footer from 'components/theme/Footer'
 import './layout.css'
 import 'unnamed'
 
@@ -25,6 +26,7 @@ export default ({ children, isLoggedIn, logout }) => {
         logout={logout}
       />
       <main>{children}</main>
+      <Footer />
     </>
   )
 }
