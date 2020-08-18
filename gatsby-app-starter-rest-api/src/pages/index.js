@@ -7,7 +7,10 @@ import { Container, Button } from '@material-ui/core'
 export default () => (
   <Layout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <div className="container center-text">
+    <div
+      className="container center-text"
+      style={{ backgroundColor: '#e9ecef' }}
+    >
       <Container maxWidth="xs">
         <h2>Welcome to CitSci Earth</h2>
         <p>
@@ -16,9 +19,15 @@ export default () => (
           whenever their datasets are published by a community.
         </p>
       </Container>
-      <Button variant="contained" style={{ backgroundColor: '#3EC28F' }}>
+      <Button variant="contained" style={{ backgroundColor: 'green' }}>
         Sign Up
       </Button>
+      <Container maxWidth="xs" style={{ marginTop: `1.5rem` }}>
+        <p>
+          Get an invite from a citizen science project or start your own project
+          and join our movement to save the environment from climate change.
+        </p>
+      </Container>
     </div>
   </Layout>
 )
