@@ -4,10 +4,22 @@ import { navigate } from 'gatsby'
 import setAuthToken from 'helpers/setAuthToken'
 import Layout from 'components/common/Layout'
 import Context from './common/Context'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import green from '@material-ui/core/styles' 
+
+
 
 export default ({ children }) => {
   const { user, dispatchUserAction } = useContext(Context)
   const [loading, setLoading] = useState(true)
+
+  // const CitSciTheme = createMuiTheme({
+  //   palette: {
+  //       primary: {
+  //           main: green,
+  //       },
+  //   },
+  // });
 
   const fetchUser = async () => {
     try {
@@ -78,9 +90,11 @@ export default ({ children }) => {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
-          {children}
-        </Layout>
+        // <MuiThemeProvider theme={CitSciTheme}>
+          <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
+            {children}
+          </Layout>
+        //{/* </MuiThemeProvider> */}
       )}
     </>
   )

@@ -93,7 +93,7 @@ const navButtonTheme = createMuiTheme({
                   </Link>
                 </Button>
                 <Button>
-                  <Link to="/directory" className={styles.link}>
+                  <Link to="/indev" className={styles.link}>
                     Directory
                   </Link>
                 </Button>
@@ -106,7 +106,7 @@ const navButtonTheme = createMuiTheme({
                   Login
                 </Button>
               </Typography>
-              </ThemeProvider> 
+            </ThemeProvider> 
         </ToolBar>
       </AppBar>
     );

@@ -2,3 +2,9 @@
     color: black;
     text-decoration: none;
   }
+
+.Button {
+  background-color: '#3EC28F'; 
+  margin-left: '0px'; 
+  color: 'white'
+}

@@ -4,4 +4,13 @@
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
 
-// You can delete this file if you're not using it
+// import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+
+// // You can delete this file if you're not using it
+
+
+// export const wrapRootElement = ({ element }) => {
+//     <ThemeProvider theme={CitSciTheme}>
+//         {element}
+//     </ThemeProvider>
+// }
