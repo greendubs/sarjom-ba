@@ -1,10 +1,12 @@
 import React from 'react'
 import Layout from 'components/common/Layout'
 import { Container } from '@material-ui/core'
+import SEO from 'components/common/Seo'
 
 export default () => (
   <Layout>
     <div className="container">
+      <SEO title="About Us" />
       <Container>
         <h2>About Us</h2>
         <hr />
