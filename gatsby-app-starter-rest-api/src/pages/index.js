@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import styles from './pagestyles.modules.css'
 import Layout from 'components/common/Layout'
 import SEO from 'components/common/Seo'
+import SignUpForm from 'components/common/SignUpForm'
 import { Container, Button, Grid, Divider, Typography } from '@material-ui/core'
 
 function LandingGridItem(props) {
@@ -35,9 +36,8 @@ export default () => (
           organizations across the world. Contributors receive attributions
           whenever their datasets are published by a community.
         </p>
-        <Button
+        {/* <Button
           variant="contained"
-          size="medium"
           style={{
             backgroundColor: '#3EC28F',
             marginLeft: '0px',
@@ -45,7 +45,8 @@ export default () => (
           }}
         >
           Sign Up
-        </Button>
+        </Button> */}
+        <SignUpForm/>
       </Container>
       <Container maxWidth="sm" style={{ marginTop: `1.5rem` }}>
         <Typography variant="caption" gutterBottom={true}>
