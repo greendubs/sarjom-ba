@@ -3,7 +3,10 @@ import { createContext } from 'react'
 const Context = createContext({
   user: {
     isLoggedIn: false,
-    userType: "guest"
+    toggleLogStatus: () => {},
+    userType: "guest",
+    fetchDecoy: false //just a decoy value so appwrapper doesn't load infinitely trying to fetch the user
+    
   }
 })
 

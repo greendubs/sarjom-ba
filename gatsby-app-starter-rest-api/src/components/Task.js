@@ -48,7 +48,8 @@ export default ({ id }) => {
   }
 
   useEffect(() => {
-    fetchTask()
+    //fetchTask()
+    setLoading(false)
   }, [])
 
   return (

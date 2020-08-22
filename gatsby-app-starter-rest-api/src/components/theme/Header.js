@@ -1,6 +1,7 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import styles from './header-footer.module.css'
+import Context from 'components/common/Context'
 import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -110,46 +111,59 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
-        <ToolBar>
-          <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
-            <Link
-              to="/"
-              style={{
-                color: `black`,
-                textDecoration: `none`,
-              }}
-            >
-              {this.props.siteAuthor + ' | ' + this.props.siteTitle}
-            </Link>
-          </Typography>
-          <ThemeProvider theme={navTheme}> 
-            <Typography> 
-              <Button>
-                <Link to="/" className={styles.link}>
-                  Home
+      <Context.Consumer>
+        {context => (
+          <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
+            <ToolBar>
+              <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
+                <Link
+                  to="/"
+                  style={{
+                    color: `black`,
+                    textDecoration: `none`,
+                  }}
+                >
+                  {this.props.siteAuthor + ' | ' + this.props.siteTitle}
                 </Link>
-              </Button> 
-              <Button>
-                <Link to="/about" className={styles.link}>
-                    About Us
-                </Link>
-              </Button>
-              <Button>
-                <Link to="/indev" className={styles.link}>
-                  Directory
-                </Link>
-              </Button>
-              <Button>
-                <Link to="/join-us" className={styles.link}>
-                  Join Us
-                </Link>
-              </Button>
-              <LoginMenu/>
-            </Typography>
-          </ThemeProvider> 
-        </ToolBar>
-      </AppBar>
+              </Typography>
+              <ThemeProvider theme={navTheme}> 
+                <Typography> 
+                  <Button>
+                    <Link to="/" className={styles.link}>
+                      Home
+                    </Link>
+                  </Button> 
+                  <Button>
+                    <Link to="/about" className={styles.link}>
+                        About Us
+                    </Link>
+                  </Button>
+                  <Button>
+                    <Link to="/indev" className={styles.link}>
+                      Directory
+                    </Link>
+                  </Button>
+                  <Button>
+                    <Link to="/join-us" className={styles.link}>
+                      Join Us
+                    </Link>
+                  </Button>
+                  {context.isLoggedIn ? (
+                    <Button variant='outlined'>
+                      <Link to="/join-us" className={styles.link}>
+                        Logout
+                      </Link>
+                    </Button>
+                  ) : (
+                    <LoginMenu/>
+                  )}
+                  
+                </Typography>
+              </ThemeProvider> 
+            </ToolBar>
+          </AppBar>
+        )}
+      </Context.Consumer>
     );
   }
 }

@@ -21,7 +21,8 @@ export default () => {
   }
 
   useEffect(() => {
-    fetchTasks()
+    //fetchTasks()
+    setLoading(false)
   }, [])
 
   return (

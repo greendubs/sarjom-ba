@@ -5,6 +5,7 @@ import Layout from 'components/common/Layout'
 import SEO from 'components/common/Seo'
 import SignUpForm from 'components/common/SignUpForm'
 import AppWrapper from 'components/AppWrapper'
+import Context from 'components/common/Context'
 import { Container, Button, Grid, Divider, Typography } from '@material-ui/core'
 
 function LandingGridItem(props) {
@@ -22,78 +23,77 @@ function LandingGridItem(props) {
   )
 }
 
-export default () => (
-  <AppWrapper>
-    <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
+export default class Products extends React.Component{
 
-    <div
-      className="container center-text"
-      style={{ backgroundColor: '#e9ecef' }}
-    >
-      <Container maxWidth="xs">
-        <h1>Welcome to CitSci Earth</h1>
-        <p>
-          CitSci Earth lets you share your datasets with people and
-          organizations across the world. Contributors receive attributions
-          whenever their datasets are published by a community.
-        </p>
-        {/* <Button
-          variant="contained"
-          style={{
-            backgroundColor: '#3EC28F',
-            marginLeft: '0px',
-            color: 'white',
-          }}
-        >
-          Sign Up
-        </Button> */}
-        <SignUpForm/>
-      </Container>
-      <Container maxWidth="sm" style={{ marginTop: `1.5rem` }}>
-        <Typography variant="caption" gutterBottom={true}>
-          Get an invite from a citizen science project or start your own project
-          and join our movement to save the environment from climate change.
-        </Typography>
-      </Container>
+  render() {
+    return ( 
+      <AppWrapper>
+        <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
+        <Context.Consumer>
+          {(context) => (
+            <div
+              className="container center-text"
+              style={{ backgroundColor: '#e9ecef' }}
+            >
+              {/*console.log(context.userType)   when we access from the context, we don't need to refer to structure from wrapper*/}
+              <Container maxWidth="xs">
+                <h1>Welcome to CitSci Earth</h1>
+                <p>
+                  CitSci Earth lets you share your datasets with people and
+                  organizations across the world. Contributors receive attributions
+                  whenever their datasets are published by a community.
+                </p>
+                <SignUpForm/>
+              </Container>
+              <Container maxWidth="sm" style={{ marginTop: `1.5rem` }}>
+                <Typography variant="caption" gutterBottom={true}>
+                  Get an invite from a citizen science project or start your own project
+                  and join our movement to save the environment from climate change.
+                </Typography>
+              </Container>
 
-      <Container maxWidth="sm">
-        <Divider />
-        <br />
-        <Grid container spacing={3}>
-          <LandingGridItem
-            to="/about-citsci"
-            title="Citizen Science"
-            subtitle="Learn about citizen science and contribute valuable data
-            about our environment."
-          />
-          <LandingGridItem
-            to="/data-licenses"
-            title="Data Licenses"
-            subtitle="Know your data rights and receive attributions/acknowledgments
-            for your contributions."
-          />
-          <LandingGridItem
-            to="/send"
-            title="Send Data"
-            subtitle="Click here to send data to your citizen science projects."
-          />
-          <LandingGridItem
-            to="/data-privacy"
-            title="Data Privacy"
-            subtitle="Learn about privacy and how we manage and secure your data."
-          />
-          <LandingGridItem
-            to="/collect"
-            title="Collect Data"
-            subtitle="Click here to connect, manage, and publish your citizen science projects."
-          />
-          <LandingGridItem
-            to="/terms-conditions"
-            title="Terms & Conditions"
-            subtitle="By using this site, you agree to the terms and conditions set forward here."
-          />
-        </Grid>
-      </Container>
-    </div>
-  </AppWrapper>
-)
+              <Container maxWidth="sm">
+                <Divider />
+                <br />
+                <Grid container spacing={3}>
+                  <LandingGridItem
+                    to="/about-citsci"
+                    title="Citizen Science"
+                    subtitle="Learn about citizen science and contribute valuable data
+                    about our environment."
+                  />
+                  <LandingGridItem
+                    to="/data-licenses"
+                    title="Data Licenses"
+                    subtitle="Know your data rights and receive attributions/acknowledgments
+                    for your contributions."
+                  />
+                  <LandingGridItem
+                    to="/send"
+                    title="Send Data"
+                    subtitle="Click here to send data to your citizen science projects."
+                  />
+                  <LandingGridItem
+                    to="/data-privacy"
+                    title="Data Privacy"
+                    subtitle="Learn about privacy and how we manage and secure your data."
+                  />
+                  <LandingGridItem
+                    to="/collect"
+                    title="Collect Data"
+                    subtitle="Click here to connect, manage, and publish your citizen science projects."
+                  />
+                  <LandingGridItem
+                    to="/terms-conditions"
+                    title="Terms & Conditions"
+                    subtitle="By using this site, you agree to the terms and conditions set forward here."
+                  />
+                </Grid>
+              </Container>
+            </div>
+          )}
+        </Context.Consumer>
+      </AppWrapper>
+    )
+  }
+}
