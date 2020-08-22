@@ -2,9 +2,12 @@ import { Link } from 'gatsby'
 import React from 'react'
 import styles from './header-footer.module.css'
 import AppBar from '@material-ui/core/AppBar'
-import ToolBar from '@material-ui/core/ToolBar'
+import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Divider from '@material-ui/core/Divider'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 // export default ({ siteTitle, isLoggedIn, logout }) => (
@@ -54,60 +57,97 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 //   </header>
 // )
 
-const navButtonTheme = createMuiTheme({
-    overrides: {
-      MuiButton: {
-        root: {
-          marginLeft: "2rem"
-        }
-      }
-    }
-  });
-  
-  export default class Header extends React.Component { 
+function LoginMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-    render() {
-      return (
-        <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
-          <ToolBar>
-            <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <span>
+      <Button variant='contained' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        Login
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>
+          <Link to='/app'>
+            Sender Login
+          </Link>
+        </MenuItem>
+        <Divider/>
+        <MenuItem onClick={handleClose}>
+          <Link to='/app'>
+            Collector Login
+          </Link>
+        </MenuItem>
+      </Menu>
+    </span>
+  );
+}
+
+const navTheme = createMuiTheme({
+  overrides: {
+    MuiButton: {
+      root: {
+        marginLeft: "2rem"
+      }
+    },
+  }
+});
+  
+export default class Header extends React.Component { 
+
+  render() {
+    return (
+      <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
+        <ToolBar>
+          <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
             <Link
-                to="/"
-                style={{
-                  color: `black`,
-                  textDecoration: `none`,
-                }}
-              >
-                {this.props.siteAuthor + ' | ' + this.props.siteTitle}
-              </Link>
+              to="/"
+              style={{
+                color: `black`,
+                textDecoration: `none`,
+              }}
+            >
+              {this.props.siteAuthor + ' | ' + this.props.siteTitle}
+            </Link>
+          </Typography>
+          <ThemeProvider theme={navTheme}> 
+            <Typography> 
+              <Button>
+                <Link to="/" className={styles.link}>
+                  Home
+                </Link>
+              </Button> 
+              <Button>
+                <Link to="/about" className={styles.link}>
+                    About Us
+                </Link>
+              </Button>
+              <Button>
+                <Link to="/indev" className={styles.link}>
+                  Directory
+                </Link>
+              </Button>
+              <Button>
+                <Link to="/join-us" className={styles.link}>
+                  Join Us
+                </Link>
+              </Button>
+              <LoginMenu/>
             </Typography>
-            <ThemeProvider theme={navButtonTheme}> 
-              <Typography> 
-                <Button>
-                  <Link to="/" className={styles.link}>
-                    Home
-                  </Link>
-                </Button> 
-                <Button>
-                  <Link to="/about" className={styles.link}>
-                     About Us
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to="/indev" className={styles.link}>
-                    Directory
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to="/join-us" className={styles.link}>
-                    Join Us
-                  </Link>
-                </Button>
-                <Button variant="contained" color="white">
-                  Login
-                </Button>
-              </Typography>
-            </ThemeProvider> 
+          </ThemeProvider> 
         </ToolBar>
       </AppBar>
     );
