@@ -4,6 +4,7 @@ import styles from './pagestyles.modules.css'
 import Layout from 'components/common/Layout'
 import SEO from 'components/common/Seo'
 import SignUpForm from 'components/common/SignUpForm'
+import AppWrapper from 'components/AppWrapper'
 import { Container, Button, Grid, Divider, Typography } from '@material-ui/core'
 
 function LandingGridItem(props) {
@@ -22,7 +23,7 @@ function LandingGridItem(props) {
 }
 
 export default () => (
-  <Layout>
+  <AppWrapper>
     <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
 
     <div
@@ -94,5 +95,5 @@ export default () => (
         </Grid>
       </Container>
     </div>
-  </Layout>
+  </AppWrapper>
 )

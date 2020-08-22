@@ -65,6 +65,7 @@ const navButtonTheme = createMuiTheme({
   });
   
   export default class Header extends React.Component { 
+
     render() {
       return (
         <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>

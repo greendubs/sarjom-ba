@@ -81,6 +81,7 @@ export default ({ children }) => {
 
   useEffect(() => {
     if (!user.isLoggedIn) {
+
       fetchUser()
     }
   }, [])
@@ -92,6 +93,7 @@ export default ({ children }) => {
       ) : (
         // <MuiThemeProvider theme={CitSciTheme}>
           <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
+            {console.log(user)}
             {children}
           </Layout>
         //{/* </MuiThemeProvider> */}

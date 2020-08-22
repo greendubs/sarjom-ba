@@ -35,7 +35,9 @@ export default function SignUpForm() {
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
-          Sign-Up Form
+          <Typography variant='h5' align='center'>
+            Sign-Up Form
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -57,10 +59,11 @@ export default function SignUpForm() {
             id='description'
             type='text'
             fullWidth
+            variant='outlined'
             placeholder='Enter a brief description of your requirements/interests(250 words)'
             />
           <TextField
-            autoFocus
+            
             margin='dense'
             id='contact'
             type='text'
@@ -71,10 +74,7 @@ export default function SignUpForm() {
         <DialogActions>
           <Button 
             variant="contained"
-            style={{
-              backgroundColor: '#3EC28F',
-              marginLeft: '0px',
-              color: 'white'}}
+          
             onClick={handleClose}>
             Cancel
           </Button>
@@ -82,7 +82,7 @@ export default function SignUpForm() {
             variant="contained"
             style={{
               backgroundColor: '#3EC28F',
-              marginLeft: '0px',
+              margin: '1rem',
               color: 'white'}} 
             onClick={handleClose}>
             Submit
