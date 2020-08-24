@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 const Context = createContext({
-  user: {
+  data: {
     isLoggedIn: false,
     toggleLogStatus: () => {},
     userType: "guest",

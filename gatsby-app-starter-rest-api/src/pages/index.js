@@ -35,7 +35,7 @@ export default class Products extends React.Component {
               style={{ backgroundColor: '#e9ecef' }}
             >
               {console.log(
-                context.user.isLoggedIn
+                context.data.isLoggedIn
               ) /*access data from context*/}
               <Container maxWidth="xs">
                 <h1>Welcome to CitSci Earth</h1>

@@ -32,6 +32,7 @@ export default ({ form }) => {
     e.preventDefault()
     setSubmitting(true)
 
+    console.log(e)
     try {
       const { username, email, password } = details
 
@@ -51,6 +52,9 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
+          //TODO: edit Context variables to show user is now logged in
+          console.log(data)
+          console.log("login success!")
           navigate('/app/tasks/')
         }
       } else {
@@ -69,10 +73,12 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
+          
           navigate('/app/tasks/')
         }
       }
     } catch (err) {
+      console.log(err)
       if (err.response.data.email) {
         setErrors({ ...errors, email: err.response.data.email })
       } else if (err.response.data.email) {

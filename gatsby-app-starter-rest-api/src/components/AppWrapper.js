@@ -8,7 +8,7 @@ import Provider from '../providers/Provider'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 export default ({ children }) => {
-  const { user, dispatchUserAction } = useContext(Context)
+  const { data, dispatchUserAction } = useContext(Context)
   const [loading, setLoading] = useState(true)
 
   const fetchUser = async () => {
@@ -71,7 +71,7 @@ export default ({ children }) => {
   }
 
   useEffect(() => {
-    if (!user.fetchDecoy) {
+    if (!data.fetchDecoy) {
       fetchUser()
       // console.log("using effect")
       // setLoading(false)
@@ -84,7 +84,7 @@ export default ({ children }) => {
         <span>Loading...</span>
       ) : (
         
-          <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
+          <Layout isLoggedIn={data.isLoggedIn} logout={logout}>
             {/*console.log(context.user.isLoggedIn)*/}
             {children}
           </Layout>

@@ -81,9 +81,11 @@ function LoginMenu() {
         }}
         aria-controls="simple-menu"
         aria-haspopup="true"
-        onClick={handleClick}
+        //onClick={handleClick}
       >
-        Login
+        <Link to='/app'>
+          Login
+        </Link>
       </Button>
 
       <Menu
@@ -163,8 +165,8 @@ export default class Header extends React.Component {
                       Join Us
                     </Link>
                   </Button>
-                  {console.log(context.user.isLoggedIn)}
-                  {context.user.isLoggedIn ? (
+                  {/* {console.log(context.user.isLoggedIn)} */}
+                  {context.data.isLoggedIn ? (
                     /*TODO: need this button to log out current user, call on context function?*/
                     <Button variant="outlined">
                       <Link to="/join-us" className={styles.link}>

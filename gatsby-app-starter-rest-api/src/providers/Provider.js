@@ -4,18 +4,18 @@ import reducer from './taskReducer'
 import userReducer from './userReducer'
 
 export default ({ children }) => {
-  // const [tasks, dispatch] = useReducer(reducer, [])
-  // const [user, dispatchUseAction] = useReducer(userReducer, {})
-  const {user, dispatchUserAction} = useContext(Context);
+  const [tasks, dispatch] = useReducer(reducer, [])
+  const [user, dispatchUserAction] = useReducer(userReducer, {})
+  const {data} = useContext(Context);
 
   return (
     <Context.Provider
       value={{
-        // tasks,
-        // dispatch,
-        // user,
-        // dispatchUserAction,
-        user
+        tasks,
+        dispatch,
+        user,
+        dispatchUserAction,
+        data
       }}
     >
       {children}
