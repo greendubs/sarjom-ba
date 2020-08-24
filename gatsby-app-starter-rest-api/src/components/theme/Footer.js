@@ -21,9 +21,13 @@ export default () => (
           Feedback
         </Link>
         {` `}
-        <Link to="https://github.com/greendubs" className={styles.footernav}>
+        <a
+          href="https://github.com/greendubs"
+          rel="noopener noreferrer"
+          className={styles.footernav}
+        >
           Github
-        </Link>
+        </a>
         {` `}
       </nav>
     </div>

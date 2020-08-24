@@ -6,8 +6,6 @@ import Layout from 'components/common/Layout'
 import Context from './common/Context'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-
-
 export default ({ children }) => {
   const { user, dispatchUserAction } = useContext(Context)
   const [loading, setLoading] = useState(true)
@@ -18,7 +16,7 @@ export default ({ children }) => {
       if (token) {
         const { data } = await axios({
           method: 'GET',
-          url: `${process.env.API}/user/verify`,
+          url: `${process.env.API}/login`,
           headers: {
             'Content-Type': 'application/json',
             'x-auth': token,
@@ -73,7 +71,6 @@ export default ({ children }) => {
 
   useEffect(() => {
     if (!user.fetchDecoy) {
-
       fetchUser()
       // console.log("using effect")
       // setLoading(false)

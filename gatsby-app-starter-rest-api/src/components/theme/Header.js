@@ -10,6 +10,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Divider from '@material-ui/core/Divider'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Login from 'components/Login'
 
 // export default ({ siteTitle, isLoggedIn, logout }) => (
 //   <header className={styles.header}>
@@ -59,21 +60,33 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 // )
 
 function LoginMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <span>
-      <Button variant='contained' aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Login
+      <Button
+        variant="contained"
+        style={{
+          backgroundColor: '#3EC28F',
+          marginLeft: '2rem',
+        }}
+        aria-controls="simple-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <Link to="/app/login" className={styles.login} component={Login}>
+          Login
+        </Link>
       </Button>
+
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -82,40 +95,43 @@ function LoginMenu() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link to='/app'>
+          <Link to="/app" className={styles.login}>
             Sender Login
           </Link>
         </MenuItem>
-        <Divider/>
+        <Divider />
         <MenuItem onClick={handleClose}>
-          <Link to='/app'>
+          <Link to="/app" className={styles.login}>
             Collector Login
           </Link>
         </MenuItem>
       </Menu>
     </span>
-  );
+  )
 }
 
 const navTheme = createMuiTheme({
   overrides: {
     MuiButton: {
       root: {
-        marginLeft: "2rem"
-      }
+        marginLeft: '2rem',
+      },
     },
-  }
-});
-  
-export default class Header extends React.Component { 
+  },
+})
 
+export default class Header extends React.Component {
   render() {
     return (
       <Context.Consumer>
         {context => (
-          <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
+          <AppBar
+            position="static"
+            color="default"
+            style={{ marginBottom: '2rem' }}
+          >
             <ToolBar>
-              <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
+              <Typography type="title" color="inherit" style={{ flexGrow: 1 }}>
                 <Link
                   to="/"
                   style={{
@@ -126,16 +142,16 @@ export default class Header extends React.Component {
                   {this.props.siteAuthor + ' | ' + this.props.siteTitle}
                 </Link>
               </Typography>
-              <ThemeProvider theme={navTheme}> 
-                <Typography> 
+              <ThemeProvider theme={navTheme}>
+                <Typography>
                   <Button>
                     <Link to="/" className={styles.link}>
                       Home
                     </Link>
-                  </Button> 
+                  </Button>
                   <Button>
                     <Link to="/about" className={styles.link}>
-                        About Us
+                      About Us
                     </Link>
                   </Button>
                   <Button>
@@ -149,21 +165,20 @@ export default class Header extends React.Component {
                     </Link>
                   </Button>
                   {context.isLoggedIn ? (
-                    <Button variant='outlined'>
+                    <Button variant="outlined">
                       <Link to="/join-us" className={styles.link}>
                         Logout
                       </Link>
                     </Button>
                   ) : (
-                    <LoginMenu/>
+                    <LoginMenu />
                   )}
-                  
                 </Typography>
-              </ThemeProvider> 
+              </ThemeProvider>
             </ToolBar>
           </AppBar>
         )}
       </Context.Consumer>
-    );
+    )
   }
 }

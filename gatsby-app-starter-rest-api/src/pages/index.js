@@ -23,14 +23,13 @@ function LandingGridItem(props) {
   )
 }
 
-export default class Products extends React.Component{
-
+export default class Products extends React.Component {
   render() {
-    return ( 
+    return (
       <AppWrapper>
         <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
         <Context.Consumer>
-          {(context) => (
+          {context => (
             <div
               className="container center-text"
               style={{ backgroundColor: '#e9ecef' }}
@@ -40,15 +39,17 @@ export default class Products extends React.Component{
                 <h1>Welcome to CitSci Earth</h1>
                 <p>
                   CitSci Earth lets you share your datasets with people and
-                  organizations across the world. Contributors receive attributions
-                  whenever their datasets are published by a community.
+                  organizations across the world. Contributors receive
+                  attributions whenever their datasets are published by a
+                  community.
                 </p>
-                <SignUpForm/>
+                <SignUpForm />
               </Container>
               <Container maxWidth="sm" style={{ marginTop: `1.5rem` }}>
                 <Typography variant="caption" gutterBottom={true}>
-                  Get an invite from a citizen science project or start your own project
-                  and join our movement to save the environment from climate change.
+                  Get an invite from a citizen science project or start your own
+                  project and join our movement to save the environment from
+                  climate change.
                 </Typography>
               </Container>
 
@@ -69,7 +70,7 @@ export default class Products extends React.Component{
                     for your contributions."
                   />
                   <LandingGridItem
-                    to="/send"
+                    to="/app/send"
                     title="Send Data"
                     subtitle="Click here to send data to your citizen science projects."
                   />
@@ -79,7 +80,7 @@ export default class Products extends React.Component{
                     subtitle="Learn about privacy and how we manage and secure your data."
                   />
                   <LandingGridItem
-                    to="/collect"
+                    to="/app/collect"
                     title="Collect Data"
                     subtitle="Click here to connect, manage, and publish your citizen science projects."
                   />
