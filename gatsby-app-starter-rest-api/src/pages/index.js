@@ -34,7 +34,9 @@ export default class Products extends React.Component {
               className="container center-text"
               style={{ backgroundColor: '#e9ecef' }}
             >
-              {/*console.log(context.userType)   when we access from the context, we don't need to refer to structure from wrapper*/}
+              {console.log(
+                context.user.isLoggedIn
+              ) /*access data from context*/}
               <Container maxWidth="xs">
                 <h1>Welcome to CitSci Earth</h1>
                 <p>

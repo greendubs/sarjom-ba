@@ -11,6 +11,7 @@ import {Button,
 export default function SignUpForm() {
   const [open, setOpen] = React.useState(false);
 
+  //TODO: send data after submission
   const handleClickOpen = () => {
       setOpen(true);
   }
