@@ -77,14 +77,13 @@ function LoginMenu() {
         style={{
           backgroundColor: '#3EC28F',
           marginLeft: '2rem',
+          color: 'white',
         }}
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Link to="/app/login" className={styles.login} component={Login}>
-          Login
-        </Link>
+        Login
       </Button>
 
       <Menu

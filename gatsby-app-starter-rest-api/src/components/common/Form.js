@@ -43,7 +43,7 @@ export default ({ form }) => {
             password: 'Field is required',
           })
         } else {
-          const { data } = await axios.post(`${process.env.API}/user/login`, {
+          const { data } = await axios.post(`${process.env.API}/login`, {
             email,
             password,
           })
@@ -139,7 +139,11 @@ export default ({ form }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn btn-rounded gradient-green"
+            className="btn btn-primary"
+            style={{
+              backgroundColor: '#3EC28F',
+              color: 'white',
+            }}
           >
             {form}
           </button>

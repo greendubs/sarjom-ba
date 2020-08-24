@@ -16,7 +16,7 @@ export default ({ children }) => {
       if (token) {
         const { data } = await axios({
           method: 'GET',
-          url: `${process.env.API}/login`,
+          url: `${process.env.API}/user/verify`,
           headers: {
             'Content-Type': 'application/json',
             'x-auth': token,

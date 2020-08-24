@@ -24,6 +24,8 @@
 .login {
   color: white;
   text-decoration: none;
+  background-color: #3ec28f;
+  margin-left: 2rem;
 }
 
 .footernav {
