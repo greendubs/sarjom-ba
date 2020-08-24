@@ -148,7 +148,9 @@ export default class Header extends React.Component {
                       Join Us
                     </Link>
                   </Button>
-                  {context.isLoggedIn ? (
+                  {console.log(context.user.isLoggedIn)}
+                  {context.user.isLoggedIn ? (
+                    /*TODO: need this button to log out current user, call on context function?*/
                     <Button variant='outlined'>
                       <Link to="/join-us" className={styles.link}>
                         Logout

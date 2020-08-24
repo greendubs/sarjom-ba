@@ -4,6 +4,7 @@ import { navigate } from 'gatsby'
 import setAuthToken from 'helpers/setAuthToken'
 import Layout from 'components/common/Layout'
 import Context from './common/Context'
+import Provider from '../providers/Provider'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 
@@ -65,7 +66,7 @@ export default ({ children }) => {
       window.localStorage.removeItem('token')
       setAuthToken(false)
       navigate('/')
-      //TO-DO: edit context after logging out to guest settings
+      //TO-DO: EDIT CONTEXT
     } catch (err) {
       console.log(err)
     }
@@ -85,12 +86,12 @@ export default ({ children }) => {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <Context.Provider value={user}>
+        
           <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
-            {/* {console.log(user.isLoggedIn)} */}
+            {/*console.log(context.user.isLoggedIn)*/}
             {children}
           </Layout>
-        </Context.Provider>
+        
       )}
     </>
   )
