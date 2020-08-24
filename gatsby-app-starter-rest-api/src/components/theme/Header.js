@@ -6,6 +6,7 @@ import ToolBar from '@material-ui/core/ToolBar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Login from 'components/Login'
 
 // export default ({ siteTitle, isLoggedIn, logout }) => (
 //   <header className={styles.header}>
@@ -55,60 +56,76 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 // )
 
 const navButtonTheme = createMuiTheme({
-    overrides: {
-      MuiButton: {
-        root: {
-          marginLeft: "2rem"
-        }
-      }
-    }
-  });
-  
-  export default class Header extends React.Component { 
-    render() {
-      return (
-        <AppBar position="static" color='default' style={{marginBottom: '2rem'}}>
-          <ToolBar>
-            <Typography type="title" color="inherit" style={{ flexGrow: 1}}>
+  overrides: {
+    MuiButton: {
+      root: {
+        marginLeft: '2rem',
+      },
+    },
+  },
+})
+
+export default class Header extends React.Component {
+  render() {
+    return (
+      <AppBar
+        position="static"
+        color="default"
+        style={{ marginBottom: '2rem' }}
+      >
+        <ToolBar>
+          <Typography type="title" color="inherit" style={{ flexGrow: 1 }}>
             <Link
-                to="/"
+              to="/"
+              style={{
+                color: `black`,
+                textDecoration: `none`,
+              }}
+            >
+              {this.props.siteAuthor + ' | ' + this.props.siteTitle}
+            </Link>
+          </Typography>
+          <ThemeProvider theme={navButtonTheme}>
+            <Typography>
+              <Button>
+                <Link to="/" className={styles.link}>
+                  Home
+                </Link>
+              </Button>
+              <Button>
+                <Link to="/about" className={styles.link}>
+                  About Us
+                </Link>
+              </Button>
+              <Button>
+                <Link to="/indev" className={styles.link}>
+                  Directory
+                </Link>
+              </Button>
+              <Button>
+                <Link to="/join-us" className={styles.link}>
+                  Join Us
+                </Link>
+              </Button>
+              <Button
+                variant="contained"
                 style={{
-                  color: `black`,
-                  textDecoration: `none`,
+                  backgroundColor: '#3EC28F',
+                  marginLeft: '2.5rem',
                 }}
               >
-                {this.props.siteAuthor + ' | ' + this.props.siteTitle}
-              </Link>
-            </Typography>
-            <ThemeProvider theme={navButtonTheme}> 
-              <Typography> 
-                <Button>
-                  <Link to="/" className={styles.link}>
-                    Home
-                  </Link>
-                </Button> 
-                <Button>
-                  <Link to="/about" className={styles.link}>
-                     About Us
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to="/indev" className={styles.link}>
-                    Directory
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to="/join-us" className={styles.link}>
-                    Join Us
-                  </Link>
-                </Button>
-                <Button variant="contained" color="white">
+                <Link
+                  to="/app/login"
+                  className={styles.login}
+                  component={Login}
+                >
                   Login
-                </Button>
-              </Typography>
-            </ThemeProvider> 
+                </Link>
+              </Button>
+            </Typography>
+          </ThemeProvider>
         </ToolBar>
       </AppBar>
-    );
+    )
   }
 }

@@ -71,7 +71,7 @@ export default () => (
             for your contributions."
           />
           <LandingGridItem
-            to="/send"
+            to="/app/send"
             title="Send Data"
             subtitle="Click here to send data to your citizen science projects."
           />
@@ -81,7 +81,7 @@ export default () => (
             subtitle="Learn about privacy and how we manage and secure your data."
           />
           <LandingGridItem
-            to="/collect"
+            to="/app/collect"
             title="Collect Data"
             subtitle="Click here to connect, manage, and publish your citizen science projects."
           />

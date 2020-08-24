@@ -5,9 +5,7 @@ import setAuthToken from 'helpers/setAuthToken'
 import Layout from 'components/common/Layout'
 import Context from './common/Context'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import green from '@material-ui/core/styles' 
-
-
+import green from '@material-ui/core/styles'
 
 export default ({ children }) => {
   const { user, dispatchUserAction } = useContext(Context)
@@ -27,7 +25,8 @@ export default ({ children }) => {
       if (token) {
         const { data } = await axios({
           method: 'GET',
-          url: `${process.env.API}/user/verify`,
+          //url: `${process.env.API}/login`,
+          url: 'http://34.222.180.182:8080/login',
           headers: {
             'Content-Type': 'application/json',
             'x-auth': token,
@@ -91,9 +90,9 @@ export default ({ children }) => {
         <span>Loading...</span>
       ) : (
         // <MuiThemeProvider theme={CitSciTheme}>
-          <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
-            {children}
-          </Layout>
+        <Layout isLoggedIn={user.isLoggedIn} logout={logout}>
+          {children}
+        </Layout>
         //{/* </MuiThemeProvider> */}
       )}
     </>
