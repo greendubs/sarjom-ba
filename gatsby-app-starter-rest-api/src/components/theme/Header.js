@@ -122,6 +122,7 @@ const navTheme = createMuiTheme({
 })
 
 export default class Header extends React.Component {
+
   render() {
     return (
       <Context.Consumer>
@@ -168,13 +169,29 @@ export default class Header extends React.Component {
                   {/* {console.log(context.user.isLoggedIn)} */}
                   {context.data.isLoggedIn ? (
                     /*TODO: need this button to log out current user, call on context function?*/
-                    <Button variant="outlined">
-                      <Link to="/join-us" className={styles.link}>
+                    <Button variant="contained"
+                      style={{
+                        //backgroundColor: '#3EC28F',
+                        marginLeft: '2rem',
+                        color: 'black',
+                      }}
+                      onClick={() => {console.log("logging out"); context.data.toggleLogStatus(); this.forceUpdate()}}
+                    >
                         Logout
-                      </Link>
                     </Button>
                   ) : (
-                    <LoginMenu />
+                    <Button 
+                      variant="contained"
+                      style={{
+                        backgroundColor: '#3EC28F',
+                        marginLeft: '2rem',
+                        color: 'white',
+                      }}
+                    >
+                      <Link to='/app'>
+                        Login
+                      </Link>
+                    </Button>
                   )}
                 </Typography>
               </ThemeProvider>

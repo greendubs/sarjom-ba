@@ -8,6 +8,13 @@ export default ({ children }) => {
   const [user, dispatchUserAction] = useReducer(userReducer, {})
   const {data} = useContext(Context);
 
+  data.toggleLogStatus = () => {
+    let oldStatus = data.isLoggedIn;
+    console.log("old status: " + oldStatus);
+    data.isLoggedIn = !oldStatus;
+    console.log(data.isLoggedIn)
+  }
+
   return (
     <Context.Provider
       value={{
@@ -15,7 +22,7 @@ export default ({ children }) => {
         dispatch,
         user,
         dispatchUserAction,
-        data
+        data,
       }}
     >
       {children}

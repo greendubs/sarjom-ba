@@ -5,7 +5,7 @@ import Context from 'components/common/Context'
 import setAuthToken from 'helpers/setAuthToken'
 
 export default ({ form }) => {
-  const { dispatchUserAction } = useContext(Context)
+  const {data, dispatchUserAction } = useContext(Context)
   const [isSubmitting, setSubmitting] = useState(false)
   const [details, setDetails] = useState({
     username: '',
@@ -17,6 +17,8 @@ export default ({ form }) => {
     email: '',
     password: '',
   })
+
+  const meta = data
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
@@ -32,7 +34,7 @@ export default ({ form }) => {
     e.preventDefault()
     setSubmitting(true)
 
-    console.log(e)
+    //console.log(e)
     try {
       const { username, email, password } = details
 
@@ -55,6 +57,7 @@ export default ({ form }) => {
           //TODO: edit Context variables to show user is now logged in
           console.log(data)
           console.log("login success!")
+          meta.toggleLogStatus()
           navigate('/app/tasks/')
         }
       } else {
