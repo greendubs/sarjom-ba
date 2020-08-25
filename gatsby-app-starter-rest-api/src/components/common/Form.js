@@ -18,7 +18,8 @@ export default ({ form }) => {
     password: '',
   })
 
-  const meta = data
+  //Context variable renaming to accomodate axiom calls
+  const meta = data 
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
@@ -54,7 +55,7 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
-          //TODO: edit Context variables to show user is now logged in
+          
           console.log(data)
           console.log("login success!")
           meta.toggleLogStatus()

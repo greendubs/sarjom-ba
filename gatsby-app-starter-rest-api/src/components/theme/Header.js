@@ -1,4 +1,4 @@
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import React from 'react'
 import styles from './header-footer.module.css'
 import Context from 'components/common/Context'
@@ -168,14 +168,17 @@ export default class Header extends React.Component {
                   </Button>
                   {/* {console.log(context.user.isLoggedIn)} */}
                   {context.data.isLoggedIn ? (
-                    /*TODO: need this button to log out current user, call on context function?*/
+                    /*TODO: write a component to create a confirm popup before logging out and then */
                     <Button variant="contained"
                       style={{
-                        //backgroundColor: '#3EC28F',
                         marginLeft: '2rem',
                         color: 'black',
                       }}
-                      onClick={() => {console.log("logging out"); context.data.toggleLogStatus(); this.forceUpdate()}}
+                      onClick={() => {console.log("logging out");     //wrap these in the confirmation popup
+                                      context.data.toggleLogStatus();
+                                      this.forceUpdate();
+                                      navigate("/");
+                                    }}
                     >
                         Logout
                     </Button>
@@ -188,7 +191,7 @@ export default class Header extends React.Component {
                         color: 'white',
                       }}
                     >
-                      <Link to='/app'>
+                      <Link to='/app' className={styles.login}>
                         Login
                       </Link>
                     </Button>
