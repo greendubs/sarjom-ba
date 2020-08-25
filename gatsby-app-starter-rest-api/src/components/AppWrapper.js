@@ -4,7 +4,6 @@ import { navigate } from 'gatsby'
 import setAuthToken from 'helpers/setAuthToken'
 import Layout from 'components/common/Layout'
 import Context from './common/Context'
-import Provider from '../providers/Provider'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 export default ({ children }) => {

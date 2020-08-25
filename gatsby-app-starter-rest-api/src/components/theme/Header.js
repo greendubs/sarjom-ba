@@ -178,7 +178,7 @@ export default class Header extends React.Component {
                                       context.data.toggleLogStatus();
                                       this.forceUpdate();
                                       navigate("/");
-                                    }}
+                                    }}                     
                     >
                         Logout
                     </Button>

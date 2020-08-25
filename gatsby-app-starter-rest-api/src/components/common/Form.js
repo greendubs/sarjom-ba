@@ -56,10 +56,28 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
-          console.log(data)
-          console.log("login success!")
-          meta.toggleLogStatus()
-          navigate('/app/tasks/')
+
+          // console.log(data.response.token)
+          if (data.status === "SUCCESS") {
+            console.log(data.status)
+            console.log("login success!")
+            meta.toggleLogStatus()
+            navigate('/app/tasks/')
+          } else {
+            if(data.reason === "Incorrect password") {
+              setErrors({
+                ...errors,
+                password: 'Incorrect password',
+              })
+              setSubmitting(false)
+            } else {
+              setErrors({
+                ...errors,
+                email: 'No account found for this email',
+              })
+              setSubmitting(false)
+            }
+          }
         }
       } else {
         if (!username || !email || !password) {
@@ -82,6 +100,7 @@ export default ({ form }) => {
         }
       }
     } catch (err) {
+      setSubmitting(false)
       console.log(err)
       if (err.response.data.email) {
         setErrors({ ...errors, email: err.response.data.email })
@@ -109,8 +128,8 @@ export default ({ form }) => {
         Login to Send or Collect Your Data
       </Typography>
       <form onSubmit={handleSubmit}>
-        {/* {form === 'register' && (                                 Don't need this for now
-          <div className="input-field black-input">
+        {/* {form === 'register' && (                              <== Don't need this for now, all accounts
+          <div className="input-field black-input">                    created in backend
             <input
               onChange={handleChange}
               onBlur={handleBlur}
@@ -169,6 +188,8 @@ export default ({ form }) => {
         list your citizen science projects/organization in our directory so that more people can find and join your work.
       </Typography>
       <Typography align='center'> 
+        
+        {/* TODO: Wireframes this needs to link to join-us in new window? */}
         <Button 
           variant="contained"
           style={{
