@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
-import { navigate } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 import Context from 'components/common/Context'
 import setAuthToken from 'helpers/setAuthToken'
+import { Container, Typography, Button } from '@material-ui/core'
 
 export default ({ form }) => {
   const {data, dispatchUserAction } = useContext(Context)
@@ -55,7 +56,6 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
-          
           console.log(data)
           console.log("login success!")
           meta.toggleLogStatus()
@@ -104,11 +104,13 @@ export default ({ form }) => {
   }
 
   return (
-    <div className="container">
+    <Container maxWidth='xs'>
+      <Typography align='center' variant='subtitle1'>
+        Login to Send or Collect Your Data
+      </Typography>
       <form onSubmit={handleSubmit}>
-        {form === 'register' && (
+        {/* {form === 'register' && (                                 Don't need this for now
           <div className="input-field black-input">
-            <span className="user-icon" />
             <input
               onChange={handleChange}
               onBlur={handleBlur}
@@ -120,9 +122,8 @@ export default ({ form }) => {
               <span style={{ color: 'red' }}>{errors.username}</span>
             )}
           </div>
-        )}
+        )} */}
         <div className="input-field black-input">
-          <span className="email-icon" />
           <input
             onChange={handleChange}
             onBlur={handleBlur}
@@ -133,7 +134,6 @@ export default ({ form }) => {
           {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
         </div>
         <div className="input-field black-input">
-          <span className="lock-icon" />
           <input
             onChange={handleChange}
             onBlur={handleBlur}
@@ -146,19 +146,46 @@ export default ({ form }) => {
           )}
         </div>
         <div className="center-text">
-          <button
+          {/* TODO: lets style this a little differently to emphasize and differentiate from the button below */}
+          <Button               
             type="submit"
+            variant="contained"
+            size="large"
             disabled={isSubmitting}
-            className="btn btn-primary"
             style={{
               backgroundColor: '#3EC28F',
               color: 'white',
+              marginLeft: '0px'
             }}
           >
             {form}
-          </button>
+          </Button>
         </div>
       </form>
-    </div>
+      
+      <br/>
+      <Typography variant='body2' align='center' gutterBottom={true}>
+        In case your organization is not listed here and you would like to join us then enroll your community,
+        list your citizen science projects/organization in our directory so that more people can find and join your work.
+      </Typography>
+      <Typography align='center'> 
+        <Button 
+          variant="contained"
+          style={{
+            backgroundColor: '#3EC28F',
+            marginLeft: '0px',
+            color: 'white',
+          }}
+        >
+          <Link to='/join-us'
+                style={{color: 'white',
+                textDecoration: 'none',
+                backgroundColor: '#3ec28f'}}
+          >
+            Join Us
+          </Link>
+        </Button>
+      </Typography> 
+    </Container>
   )
 }

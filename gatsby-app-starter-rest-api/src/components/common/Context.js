@@ -5,7 +5,7 @@ const Context = createContext({
     isLoggedIn: false,
     toggleLogStatus: () => {},
     userType: "guest",
-    fetchDecoy: false //just a decoy value so appwrapper doesn't load infinitely trying to fetch the user, need to figure out what this is for
+    fetchDecoy: false //just a decoy value so AppWrapper doesn't load infinitely trying to fetch the user, need to figure out what this is for
     //what other data should be stored here?
   }
 })

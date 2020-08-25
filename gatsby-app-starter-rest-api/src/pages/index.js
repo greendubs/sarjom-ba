@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styles from './pagestyles.modules.css'
-import Layout from 'components/common/Layout'
 import SEO from 'components/common/Seo'
 import SignUpForm from 'components/common/SignUpForm'
 import AppWrapper from 'components/AppWrapper'
 import Context from 'components/common/Context'
-import { Container, Button, Grid, Divider, Typography } from '@material-ui/core'
+import { Container, Grid, Divider, Typography } from '@material-ui/core'
 
 function LandingGridItem(props) {
   return (
@@ -72,7 +71,7 @@ export default class Products extends React.Component {
                     for your contributions."
                   />
                   <LandingGridItem
-                    to="/app/send"
+                    to="/app/send" //TODO: have this path be dependent on isLoggedIn
                     title="Send Data"
                     subtitle="Click here to send data to your citizen science projects."
                   />
@@ -82,7 +81,7 @@ export default class Products extends React.Component {
                     subtitle="Learn about privacy and how we manage and secure your data."
                   />
                   <LandingGridItem
-                    to="/app/collect"
+                    to="/app/collect" //TODO: have this path be dependent on isLoggedIn
                     title="Collect Data"
                     subtitle="Click here to connect, manage, and publish your citizen science projects."
                   />

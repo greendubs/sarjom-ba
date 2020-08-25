@@ -59,57 +59,57 @@ import Login from 'components/Login'
 //   </header>
 // )
 
-function LoginMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null)
+// function LoginMenu() {
+//   const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget)
-  }
+//   const handleClick = event => {
+//     setAnchorEl(event.currentTarget)
+//   }
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+//   const handleClose = () => {
+//     setAnchorEl(null)
+//   }
 
-  return (
-    <span>
-      <Button
-        variant="contained"
-        style={{
-          backgroundColor: '#3EC28F',
-          marginLeft: '2rem',
-          color: 'white',
-        }}
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        //onClick={handleClick}
-      >
-        <Link to='/app'>
-          Login
-        </Link>
-      </Button>
+//   return (
+//     <span>
+//       <Button
+//         variant="contained"
+//         style={{
+//           backgroundColor: '#3EC28F',
+//           marginLeft: '2rem',
+//           color: 'white',
+//         }}
+//         aria-controls="simple-menu"
+//         aria-haspopup="true"
+//         //onClick={handleClick}
+//       >
+//         <Link to='/app'>
+//           Login
+//         </Link>
+//       </Button>
 
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>
-          <Link to="/app" className={styles.login}>
-            Sender Login
-          </Link>
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <Link to="/app" className={styles.login}>
-            Collector Login
-          </Link>
-        </MenuItem>
-      </Menu>
-    </span>
-  )
-}
+//       <Menu
+//         id="simple-menu"
+//         anchorEl={anchorEl}
+//         keepMounted
+//         open={Boolean(anchorEl)}
+//         onClose={handleClose}
+//       >
+//         <MenuItem onClick={handleClose}>
+//           <Link to="/app" className={styles.login}>
+//             Sender Login
+//           </Link>
+//         </MenuItem>
+//         <Divider />
+//         <MenuItem onClick={handleClose}>
+//           <Link to="/app" className={styles.login}>
+//             Collector Login
+//           </Link>
+//         </MenuItem>
+//       </Menu>
+//     </span>
+//   )
+// }
 
 const navTheme = createMuiTheme({
   overrides: {
@@ -191,7 +191,7 @@ export default class Header extends React.Component {
                         color: 'white',
                       }}
                     >
-                      <Link to='/app' className={styles.login}>
+                      <Link to='/app/login' className={styles.login}>
                         Login
                       </Link>
                     </Button>
