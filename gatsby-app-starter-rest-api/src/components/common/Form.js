@@ -59,9 +59,13 @@ export default ({ form }) => {
 
           // console.log(data.response.token)
           if (data.status === "SUCCESS") {
-            console.log(data.status)
+            console.log(data)
             console.log("login success!")
             meta.toggleLogStatus()
+            console.log(data.response.user.role)
+            let role = data.response.user.role
+            console.log(role)
+            meta.setUserData(role, data.response.user.name, data.response.token, data.response.tokenId)
             navigate('/app/tasks/')
           } else {
             if(data.reason === "Incorrect password") {

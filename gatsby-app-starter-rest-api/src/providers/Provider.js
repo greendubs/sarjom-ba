@@ -10,9 +10,18 @@ export default ({ children }) => {
 
   data.toggleLogStatus = () => {
     let oldStatus = data.isLoggedIn;
-    console.log("old status: " + oldStatus);
+    // console.log("old status: " + oldStatus);
     data.isLoggedIn = !oldStatus;
-    console.log(data.isLoggedIn)
+    // console.log(data.isLoggedIn)
+  }
+
+  data.setUserData = (role, userName, token, tokenId) => {
+    data.role = role
+    data.userName = userName
+    data.token = token
+    data.tokenId = tokenId
+    console.log("context updated")
+    console.log(data)
   }
 
   return (
