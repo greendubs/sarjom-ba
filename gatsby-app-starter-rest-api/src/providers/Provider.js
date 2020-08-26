@@ -15,11 +15,16 @@ export default ({ children }) => {
     // console.log(data.isLoggedIn)
   }
 
-  data.setUserData = (role, userName, token, tokenId) => {
-    data.role = role
-    data.userName = userName
-    data.token = token
+  data.setUserData = (token, tokenId, email, userId,
+                      userName, organizations, role) => {
+    console.log(data)
+    data.token = token                   
     data.tokenId = tokenId
+    data.email = email
+    data.userId = userId 
+    data.userName = userName
+    data.organizations = organizations
+    data.role = role
     console.log("context updated")
     console.log(data)
   }

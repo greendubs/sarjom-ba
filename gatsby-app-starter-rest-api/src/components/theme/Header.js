@@ -176,7 +176,7 @@ export default class Header extends React.Component {
                       }}
                       onClick={() => {console.log("logging out");     //wrap these in the confirmation popup
                                       context.data.toggleLogStatus();
-                                      context.data.setUserData("guest", "", "", "")
+                                      context.data.setUserData("", "","","","",[],"guest")
                                       this.forceUpdate();
                                       navigate("/");
                                     }}                     

@@ -65,7 +65,13 @@ export default ({ form }) => {
             console.log(data.response.user.role)
             let role = data.response.user.role
             console.log(role)
-            meta.setUserData(role, data.response.user.name, data.response.token, data.response.tokenId)
+            meta.setUserData(data.response.token,
+                             data.response.tokenId,
+                             data.response.user.email,
+                             data.response.user.id,
+                             data.response.user.name,
+                             data.response.user.organisations,
+                             data.response.user.role)
             navigate('/app/tasks/')
           } else {
             if(data.reason === "Incorrect password") {
