@@ -17,10 +17,12 @@ export default () => (
     <AppWrapper>
       <Router>
         <App path="/app/" component={App} />
-        <Tasks path="/app/tasks/" component={Tasks} />
+        <PrivateRoute path="/app/tasks" role="COLLECTOR" component={Tasks} />
+        {/* <Tasks path="/app/tasks/" component={Tasks} /> */}
         <Register path="/app/register/" component={Register} />
         <Login path="/app/login/" component={Login} />
-        <PrivateRoute path="/app/send/" component={Send} />
+        <PrivateRoute path="/app/send/" role="COLLECTOR" component={Send} />
+        {/*Must be changed to Sender*/}
         <Task path="/app/task/:id" component={Task} />
         <AddTask path="/app/task/new" component={AddTask} />
         <NotFound default component={NotFound} />
