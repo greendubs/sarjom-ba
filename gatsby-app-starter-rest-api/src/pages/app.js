@@ -9,7 +9,8 @@ import AddTask from 'components/AddTask'
 import NotFound from 'components/common/NotFound'
 import Register from 'components/Register'
 import Login from 'components/Login'
-
+import Send from 'components/Send'
+import PrivateRoute from 'components/privateRoute'
 
 export default () => (
   <Provider>
@@ -19,6 +20,7 @@ export default () => (
         <Tasks path="/app/tasks/" component={Tasks} />
         <Register path="/app/register/" component={Register} />
         <Login path="/app/login/" component={Login} />
+        <PrivateRoute path="/app/send/" component={Send} />
         <Task path="/app/task/:id" component={Task} />
         <AddTask path="/app/task/new" component={AddTask} />
         <NotFound default component={NotFound} />

@@ -6,7 +6,7 @@ import setAuthToken from 'helpers/setAuthToken'
 import { Container, Typography, Button } from '@material-ui/core'
 
 export default ({ form }) => {
-  const {data, dispatchUserAction } = useContext(Context)
+  const { data, dispatchUserAction } = useContext(Context)
   const [isSubmitting, setSubmitting] = useState(false)
   const [details, setDetails] = useState({
     username: '',
@@ -20,7 +20,7 @@ export default ({ form }) => {
   })
 
   //Context variable renaming to accomodate axiom calls
-  const meta = data 
+  const meta = data
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
@@ -58,23 +58,30 @@ export default ({ form }) => {
           window.localStorage.setItem('token', data.token)
 
           // console.log(data.response.token)
-          if (data.status === "SUCCESS") {
+          if (data.status === 'SUCCESS') {
             console.log(data)
-            console.log("login success!")
+            console.log('login success!')
             meta.toggleLogStatus()
             console.log(data.response.user.role)
             let role = data.response.user.role
             console.log(role)
-            meta.setUserData(data.response.token,
-                             data.response.tokenId,
-                             data.response.user.email,
-                             data.response.user.id,
-                             data.response.user.name,
-                             data.response.user.organisations,
-                             data.response.user.role)
-            navigate('/app/tasks/')
+            meta.setUserData(
+              data.response.token,
+              data.response.tokenId,
+              data.response.user.email,
+              data.response.user.id,
+              data.response.user.name,
+              data.response.user.organisations,
+              data.response.user.role
+            )
+            //Need to update the redirect based on role. This is for testing.
+            if (data.response.user.role == 'COLLECTOR') {
+              navigate('/app/send')
+            } // else if (data.response.user.role == 'COLLECTOR') {
+            //navigate('/app/collect')
+            //}
           } else {
-            if(data.reason === "Incorrect password") {
+            if (data.reason === 'Incorrect password') {
               setErrors({
                 ...errors,
                 password: 'Incorrect password',
@@ -105,7 +112,7 @@ export default ({ form }) => {
           await setAuthToken(data.token)
           dispatchUserAction({ type: 'SAVE_USER', payload: data })
           window.localStorage.setItem('token', data.token)
-          
+
           navigate('/app/tasks/')
         }
       }
@@ -133,8 +140,8 @@ export default ({ form }) => {
   }
 
   return (
-    <Container maxWidth='xs'>
-      <Typography align='center' variant='subtitle1'>
+    <Container maxWidth="xs">
+      <Typography align="center" variant="subtitle1">
         Login to Send or Collect Your Data
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -153,6 +160,7 @@ export default ({ form }) => {
           </div>
         )} */}
         <div className="input-field black-input">
+          <span className="email-icon" />
           <input
             onChange={handleChange}
             onBlur={handleBlur}
@@ -163,6 +171,7 @@ export default ({ form }) => {
           {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
         </div>
         <div className="input-field black-input">
+          <span className="lock-icon" />
           <input
             onChange={handleChange}
             onBlur={handleBlur}
@@ -176,7 +185,7 @@ export default ({ form }) => {
         </div>
         <div className="center-text">
           {/* TODO: lets style this a little differently to emphasize and differentiate from the button below */}
-          <Button               
+          <Button
             type="submit"
             variant="contained"
             size="large"
@@ -184,23 +193,24 @@ export default ({ form }) => {
             style={{
               backgroundColor: '#3EC28F',
               color: 'white',
-              marginLeft: '0px'
+              marginLeft: '0px',
             }}
           >
             {form}
           </Button>
         </div>
       </form>
-      
-      <br/>
-      <Typography variant='body2' align='center' gutterBottom={true}>
-        In case your organization is not listed here and you would like to join us then enroll your community,
-        list your citizen science projects/organization in our directory so that more people can find and join your work.
+
+      <br />
+      <Typography variant="body2" align="center" gutterBottom={true}>
+        In case your organization is not listed here and you would like to join
+        us then enroll your community, list your citizen science
+        projects/organization in our directory so that more people can find and
+        join your work.
       </Typography>
-      <Typography align='center'> 
-        
+      <Typography align="center">
         {/* TODO: Wireframes this needs to link to join-us in new window? */}
-        <Button 
+        <Button
           variant="contained"
           style={{
             backgroundColor: '#3EC28F',
@@ -208,15 +218,18 @@ export default ({ form }) => {
             color: 'white',
           }}
         >
-          <Link to='/join-us'
-                style={{color: 'white',
-                textDecoration: 'none',
-                backgroundColor: '#3ec28f'}}
+          <Link
+            to="/join-us"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              backgroundColor: '#3ec28f',
+            }}
           >
             Join Us
           </Link>
         </Button>
-      </Typography> 
+      </Typography>
     </Container>
   )
 }

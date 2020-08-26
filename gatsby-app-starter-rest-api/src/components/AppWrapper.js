@@ -8,12 +8,15 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 export default ({ children }) => {
   const { data, dispatchUserAction } = useContext(Context)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const fetchUser = async () => {
     try {
       const token = window.localStorage.getItem('token')
+      console.log(token)
+      console.log(data)
       if (token) {
+        console.log('token is not undefined')
         const { data } = await axios({
           method: 'GET',
           url: `${process.env.API}/user/verify`,
@@ -28,14 +31,14 @@ export default ({ children }) => {
         window.localStorage.setItem('token', data.token)
 
         if (
-          window.location.pathname === '/app/login' ||
-          window.location.pathname === '/app/register' ||
+          //window.location.pathname === '/app/login' ||
+          window.location.pathname === '/app/send' ||
           window.location.pathname === '/app' ||
-          window.location.pathname === '/app/login/' ||
-          window.location.pathname === '/app/register/' ||
+          //window.location.pathname === '/app/login/' ||
+          window.location.pathname === '/app/send/' ||
           window.location.pathname === '/app/'
         ) {
-          navigate('/app/tasks/')
+          navigate('/app/send/')
         }
         setLoading(false)
       } else {
@@ -45,7 +48,8 @@ export default ({ children }) => {
           window.location.pathname === '/app/task' ||
           window.location.pathname === '/app/task/' ||
           window.location.pathname === '/app/task/new/' ||
-          window.location.pathname === '/app/task/new'
+          window.location.pathname === '/app/task/new' ||
+          window.location.pathname === '/app/send'
         ) {
           navigate('/app/login/')
         }
@@ -69,25 +73,23 @@ export default ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    if (!data.fetchDecoy) {
-      fetchUser()
-      // console.log("using effect")
-      // setLoading(false)
-    }
-  }, [])
+  //useEffect(() => {
+  //  if (!data.fetchDecoy) {
+  //    fetchUser()
+  //   console.log('using effect')
+  //  setLoading(false)
+  //}
+  //}, [])
 
   return (
     <>
       {loading ? (
         <span>Loading...</span>
       ) : (
-        
-          <Layout isLoggedIn={data.isLoggedIn} logout={logout}>
-            {/*console.log(context.user.isLoggedIn)*/}
-            {children}
-          </Layout>
-        
+        <Layout isLoggedIn={data.isLoggedIn} logout={logout}>
+          {/*console.log(context.user.isLoggedIn)*/}
+          {children}
+        </Layout>
       )}
     </>
   )

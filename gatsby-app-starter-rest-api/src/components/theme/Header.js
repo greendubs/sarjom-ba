@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar'
 import ToolBar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Avatar from '@material-ui/core/Avatar'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Divider from '@material-ui/core/Divider'
@@ -122,7 +123,6 @@ const navTheme = createMuiTheme({
 })
 
 export default class Header extends React.Component {
-
   render() {
     return (
       <Context.Consumer>
@@ -144,6 +144,13 @@ export default class Header extends React.Component {
                   {this.props.siteAuthor + ' | ' + this.props.siteTitle}
                 </Link>
               </Typography>
+              {/* The position and avatar can be modified. I thought it would be good to indicate that the user is logged in. */}
+              {context.data.isLoggedIn && (
+                <Avatar style={{ backgroundColor: `mediumseagreen` }}>
+                  {' '}
+                  {context.data.userName.charAt(0).toUpperCase()}
+                </Avatar>
+              )}
               <ThemeProvider theme={navTheme}>
                 <Typography>
                   <Button>
@@ -169,22 +176,33 @@ export default class Header extends React.Component {
                   {/* {console.log(context.user.isLoggedIn)} */}
                   {context.data.isLoggedIn ? (
                     /*TODO: write a component to create a confirm popup before logging out and then */
-                    <Button variant="contained"
+                    <Button
+                      variant="contained"
                       style={{
                         marginLeft: '2rem',
-                        color: 'black',
+                        color: 'white',
+                        backgroundColor: '#3EC28F',
                       }}
-                      onClick={() => {console.log("logging out");     //wrap these in the confirmation popup
-                                      context.data.toggleLogStatus();
-                                      context.data.setUserData("", "","","","",[],"guest")
-                                      this.forceUpdate();
-                                      navigate("/");
-                                    }}                     
+                      onClick={() => {
+                        console.log('logging out') //wrap these in the confirmation popup
+                        context.data.toggleLogStatus()
+                        context.data.setUserData(
+                          '',
+                          '',
+                          '',
+                          '',
+                          '',
+                          [],
+                          'guest'
+                        )
+                        this.forceUpdate()
+                        navigate('/')
+                      }}
                     >
-                        Logout
+                      Logout
                     </Button>
                   ) : (
-                    <Button 
+                    <Button
                       variant="contained"
                       style={{
                         backgroundColor: '#3EC28F',
@@ -192,7 +210,7 @@ export default class Header extends React.Component {
                         color: 'white',
                       }}
                     >
-                      <Link to='/app/login' className={styles.login}>
+                      <Link to="/app/login" className={styles.login}>
                         Login
                       </Link>
                     </Button>
