@@ -9,6 +9,7 @@ import AddTask from 'components/AddTask'
 import NotFound from 'components/common/NotFound'
 import Register from 'components/Register'
 import Login from 'components/Login'
+import PrivateRoute from "components/privateRoute"
 
 
 export default () => (
@@ -16,7 +17,8 @@ export default () => (
     <AppWrapper>
       <Router>
         <App path="/app/" component={App} />
-        <Tasks path="/app/tasks/" component={Tasks} />
+        <PrivateRoute path="/app/tasks" role='COLLECTOR' component={Tasks}/>
+        {/* <Tasks path="/app/tasks/" component={Tasks} /> */}
         <Register path="/app/register/" component={Register} />
         <Login path="/app/login/" component={Login} />
         <Task path="/app/task/:id" component={Task} />

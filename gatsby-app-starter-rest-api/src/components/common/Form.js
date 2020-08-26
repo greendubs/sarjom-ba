@@ -61,11 +61,12 @@ export default ({ form }) => {
           if (data.status === "SUCCESS") {
             console.log(data)
             console.log("login success!")
-            meta.toggleLogStatus()
-            console.log(data.response.user.role)
-            let role = data.response.user.role
-            console.log(role)
-            meta.setUserData(data.response.token,
+            // meta.toggleLogStatus()
+            // console.log(data.response.user.role)
+            // let role = data.response.user.role
+            // console.log(role)
+            meta.setUserData(true,
+                             data.response.token,
                              data.response.tokenId,
                              data.response.user.email,
                              data.response.user.id,

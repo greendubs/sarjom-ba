@@ -15,9 +15,10 @@ export default ({ children }) => {
     // console.log(data.isLoggedIn)
   }
 
-  data.setUserData = (token, tokenId, email, userId,
+  data.setUserData = (loginStatus, token, tokenId, email, userId,
                       userName, organizations, role) => {
     console.log(data)
+    data.isLoggedIn = loginStatus
     data.token = token                   
     data.tokenId = tokenId
     data.email = email
