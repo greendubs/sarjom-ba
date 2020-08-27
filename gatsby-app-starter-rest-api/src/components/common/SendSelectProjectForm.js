@@ -11,7 +11,9 @@ import {
   Avatar,
   Container,
   Divider,
+  Grid,
 } from '@material-ui/core'
+import axios from 'axios'
 import { Link } from 'gatsby'
 import SEO from 'components/common/Seo'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
@@ -22,6 +24,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import Context from 'components/common/Context'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -30,6 +33,16 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 300,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
   },
 }))
 
@@ -45,7 +58,25 @@ export default function SendSelectProjectForm() {
     project: '',
   })
 
-  const meta = data
+  const headers = { token: data.token, tokenId: data.tokenId }
+
+  console.log(headers)
+
+  // const getProjects = async => {
+  try {
+    const { response } = axios.get(
+      `${process.env.API}/projects`,
+      {
+        headers: headers,
+      },
+      {}
+    )
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+  //}
+
   const classes = useStyles()
 
   const handleChange = e => {
@@ -101,21 +132,38 @@ export default function SendSelectProjectForm() {
         </Link>
       </Breadcrumbs>
       <Container maxWidth="sm" align="center">
-        <Typography align="center" variant="h6">
+        <Typography align="center" variant="h5">
           Select your project
         </Typography>
         <Divider variant="middle" />
-        <Avatar
-          style={{ backgroundColor: `mediumseagreen`, marginTop: '1.5rem' }}
-        >
-          {' '}
-          {data.userName.charAt(0).toUpperCase()}
-        </Avatar>
-        <Typography variant="h6" style={{ textTransform: 'capitalize' }}>
-          {data.userName}
-        </Typography>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor="outlined-organization">Organization</InputLabel>
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
+            <Grid container wrap="nowrap" spacing={2}>
+              <Grid item>
+                <Avatar
+                  style={{
+                    backgroundColor: `mediumseagreen`,
+                    /*marginTop: '1.5rem',*/
+                  }}
+                >
+                  {data.userName.charAt(0).toUpperCase()}
+                </Avatar>
+              </Grid>
+              <Grid item xs zeroMinWidth>
+                <Typography
+                  noWrap
+                  variant="h6"
+                  style={{ textTransform: 'capitalize' }}
+                >
+                  {data.userName}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Paper>
+        </div>
+
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="filled-organization">Organization</InputLabel>
           <Select
             native
             value={details.organization}
@@ -123,18 +171,41 @@ export default function SendSelectProjectForm() {
             label="Organization"
             inputProps={{
               name: 'organization',
-              id: 'outlined-organization',
+              id: 'filled-organization',
+            }}
+          >
+            <option aria-label="None" value="" />
+            {data.organizations.map(org => (
+              <option value={org.id}>{org.name}</option>
+            ))}
+            {/*<option aria-label="None" value="" />
+            <option value={data.organizations.id}>
+              {data.organizations.name}
+            </option>*/}
+          </Select>
+          <FormHelperText>Select your organization</FormHelperText>
+        </FormControl>
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="filled-project">Project</InputLabel>
+          <Select
+            native
+            value={details.project}
+            onChange={handleChange}
+            label="Project"
+            inputProps={{
+              name: 'project',
+              id: 'filled-project',
             }}
           >
             {data.organizations.map(org => (
               <option value={org.id}>{org.name}</option>
             ))}
-            <option aria-label="None" value="" />
+            {/*<option aria-label="None" value="" />
             <option value={data.organizations.id}>
               {data.organizations.name}
-            </option>
+            </option>*/}
           </Select>
-          <FormHelperText>Select your organization</FormHelperText>
+          <FormHelperText>Select your project</FormHelperText>
         </FormControl>
       </Container>
     </div>
