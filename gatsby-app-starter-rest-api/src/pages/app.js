@@ -10,14 +10,16 @@ import NotFound from 'components/common/NotFound'
 import Register from 'components/Register'
 import Login from 'components/Login'
 import Send from 'components/Send'
+import Collect from 'components/Collect'
 import PrivateRoute from 'components/privateRoute'
+
 
 export default () => (
   <Provider>
     <AppWrapper>
       <Router>
         <App path="/app/" component={App} />
-        <PrivateRoute path="/app/tasks" role="COLLECTOR" component={Tasks} />
+        <PrivateRoute path="/app/collect" role="COLLECTOR" component={Collect} />
         {/* <Tasks path="/app/tasks/" component={Tasks} /> */}
         <Register path="/app/register/" component={Register} />
         <Login path="/app/login/" component={Login} />
