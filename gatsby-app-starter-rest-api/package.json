@@ -17,6 +17,7 @@
     "gatsby-plugin-sharp": "^2.6.27",
     "gatsby-source-filesystem": "^2.3.24",
     "gatsby-transformer-sharp": "^2.5.13",
+    "material-ui-dropzone": "^3.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-content-loader": "^4.3.4",
