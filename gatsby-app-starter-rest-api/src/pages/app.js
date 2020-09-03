@@ -11,20 +11,34 @@ import Register from 'components/Register'
 import Login from 'components/Login'
 import Send from 'components/Send'
 import Collect from 'components/Collect'
+import SendUploadDatasetForm from 'components/common/SendUploadDatasetForm'
 import PrivateRoute from 'components/privateRoute'
-
 
 export default () => (
   <Provider>
     <AppWrapper>
       <Router>
         <App path="/app/" component={App} />
-        <PrivateRoute path="/app/collect" role="COLLECTOR" component={Collect} />
+        <PrivateRoute
+          path="/app/collect"
+          role="COLLECTOR"
+          component={Collect}
+        />
         {/* <Tasks path="/app/tasks/" component={Tasks} /> */}
         <Register path="/app/register/" component={Register} />
         <Login path="/app/login/" component={Login} />
-        <PrivateRoute path="/app/send/" role="COLLECTOR" component={Send} />
         {/*Must be changed to Sender*/}
+        <PrivateRoute
+          path="/app/send/project"
+          role="COLLECTOR"
+          component={Send}
+        />
+        <PrivateRoute
+          path="/app/send/dataset"
+          role="COLLECTOR"
+          component={SendUploadDatasetForm}
+        />
+
         <Task path="/app/task/:id" component={Task} />
         <AddTask path="/app/task/new" component={AddTask} />
         <NotFound default component={NotFound} />

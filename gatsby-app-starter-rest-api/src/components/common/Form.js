@@ -77,7 +77,7 @@ export default ({ form }) => {
             )
             //Need to update the redirect based on role. This is for testing.
             if (data.response.user.role == 'COLLECTOR') {
-              navigate('/app/send')
+              navigate('/app/send/project')
             } // else if (data.response.user.role == 'COLLECTOR') {
             //navigate('/app/collect')
             //}

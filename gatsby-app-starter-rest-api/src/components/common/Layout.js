@@ -2,8 +2,8 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import Header from 'components/theme/Header'
 import Footer from 'components/theme/Footer'
-import './layout.css'
 import 'unnamed'
+import './layout.css'
 
 export default ({ children, isLoggedIn, logout }) => {
   const { site } = useStaticQuery(

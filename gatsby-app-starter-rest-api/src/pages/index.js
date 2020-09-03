@@ -71,7 +71,7 @@ export default class Products extends React.Component {
                     for your contributions."
                   />
                   <LandingGridItem
-                    to="/app/send" //TODO: have this path be dependent on isLoggedIn
+                    to="/app/send/project" //TODO: have this path be dependent on isLoggedIn
                     title="Send Data"
                     subtitle="Click here to send data to your citizen science projects."
                   />
