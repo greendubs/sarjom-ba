@@ -34,6 +34,7 @@ export default class InviteUsers extends React.Component {
 
     console.log(file)
     const ReactS3Client = new S3(inviteConfig)
+    // TODO: change front tag to formatted project name
     ReactS3Client
       .uploadFile(file, ('testproject/').concat(file.name.substring(0, file.name.indexOf('.'))))
       .then(data => {

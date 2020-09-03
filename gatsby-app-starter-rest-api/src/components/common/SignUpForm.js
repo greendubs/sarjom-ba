@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {Button,
         TextField,
         Dialog,
@@ -10,14 +11,49 @@ import {Button,
 
 export default function SignUpForm() {
   const [open, setOpen] = React.useState(false);
+  const [desc, setDesc] = React.useState("");
+  const [email, setEmail] = React.useState("")
 
   //TODO: send data after submission, see Form.js
   const handleClickOpen = () => {
       setOpen(true);
   }
 
-  const handleClose = () => {
-      setOpen(false);
+  const handleClose = () => { 
+    setOpen(false);
+  }
+
+  const submit = () => {
+    console.log(desc)
+    console.log(email)
+    var axios = require('axios');
+    var data = JSON.stringify({"description":desc,"emailList":email});
+
+    var config = {
+      method: 'post',
+      url: `${process.env.API}/sign-up-interest`,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    handleClose()
+  }
+
+  const handleDesc = (e) => {
+    setDesc(e.target.value)
+  }
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value)
   }
 
   return (
@@ -62,6 +98,7 @@ export default function SignUpForm() {
             fullWidth
             variant='outlined'
             placeholder='Enter a brief description of your requirements/interests(250 words)'
+            onChange={handleDesc}
             />
           <TextField
             
@@ -70,6 +107,7 @@ export default function SignUpForm() {
             type='text'
             fullWidth
             placeholder='Enter your email ID and contract details'
+            onChange={handleEmail}
             />
         </DialogContent>
         <DialogActions>
@@ -85,7 +123,7 @@ export default function SignUpForm() {
               backgroundColor: '#3EC28F',
               margin: '1rem',
               color: 'white'}} 
-            onClick={handleClose}>
+            onClick={submit}>
             Submit
           </Button>
         </DialogActions>

@@ -38,6 +38,7 @@ export default class AddProject extends React.Component {
     this.context.setDescription(e.target.value.substring(0, 200))
   }
 
+  // need to change S3 submissions to custom folders for each project
   handleSave1(files) {
     const ReactS3Client = new S3(filesConfig);
     let promises = []
@@ -45,6 +46,7 @@ export default class AddProject extends React.Component {
     let docLinks = []
     files.forEach(file => {
       fileNames.push(file.name)
+      // TODO: change front tag to formatted project name
       promises.push(
         ReactS3Client.uploadFile(file, 
           ('testproject/').concat(file.name.substring(0, file.name.indexOf('.'))))
@@ -79,6 +81,7 @@ export default class AddProject extends React.Component {
     })
 
     const ReactS3Client = new S3(filesConfig);
+    // TODO: change front tag to formatted project name
     ReactS3Client
       .uploadFile(banner, ('testproject/').concat(banner.name.substring(0, banner.name.indexOf('.'))))
       .then(data => this.context.setBannerLink(data.location))
