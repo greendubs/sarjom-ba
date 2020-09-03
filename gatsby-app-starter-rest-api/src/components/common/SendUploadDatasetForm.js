@@ -1,13 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import {
-  Button,
-  Typography,
-  Avatar,
-  Container,
-  Divider,
-  Grid,
-  Input,
-} from '@material-ui/core'
+import { Button, Typography, Container, Grid } from '@material-ui/core'
 import axios from 'axios'
 import { Link, navigate } from 'gatsby'
 import SEO from 'components/common/Seo'
@@ -28,7 +20,6 @@ import ClearIcon from '@material-ui/icons/Clear'
 import ImageIcon from '@material-ui/icons/Image'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Box from '@material-ui/core/Box'
 import PropTypes from 'prop-types'
@@ -175,9 +166,8 @@ export default function SendUploadDatasetForm() {
   const [changeIndex, setChangeIndex] = useState(0)
   const [isInitialLoad, setInitialLoad] = useState(false)
   const [details, setDetails] = useState({
-    images: [],
+    image_links: [],
     license: '',
-    location: {},
     metaDate: moment().format('yyyy-MM-DD'),
     tags: [],
     comment: '',
@@ -220,7 +210,6 @@ export default function SendUploadDatasetForm() {
   }
 
   const handleImagesChange = e => {
-    setDetails({ ...details, [e.target.name]: e.target.value })
     console.log(e.target.name, e.target.value)
     if (e.target.files) {
       const files = Array.from(e.target.files)
@@ -629,96 +618,6 @@ export default function SendUploadDatasetForm() {
           </Grid>
         </Grid>
       </Container>
-
-      {/*  <form onSubmit={handleSubmit}>
-          <div className={classes.root}>
-            <Paper className={classes.paper}></Paper>
-            <Paper className={classes.paper}>
-              <Grid container>
-                <Grid item xs>
-                  <FormControl variant="filled" className={classes.formControl}>
-                    <InputLabel htmlFor="filled-organization">
-                      Organization
-                    </InputLabel>
-                    <Select
-                      native
-                      value={details.organization}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      label="Organization"
-                      inputProps={{
-                        name: 'organization',
-                        id: 'filled-organization',
-                      }}
-                    >
-                      <option aria-label="None" value="" />
-                      {data.organizations.map(org => (
-                        <option value={org.id}>{org.name}</option>
-                      ))}
-                    </Select>
-                    <FormHelperText>Select your organization</FormHelperText>
-                    {errors.organization && (
-                      <span style={{ color: 'red' }}>
-                        {errors.organization}
-                      </span>
-                    )}
-                  </FormControl>
-                </Grid>
-              </Grid>
-
-              <Grid container>
-                <Grid item xs>
-                  <FormControl variant="filled" className={classes.formControl}>
-                    <InputLabel htmlFor="filled-project">Project</InputLabel>
-                    <Select
-                      native
-                      value={details.project}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      label="Project"
-                      inputProps={{
-                        name: 'project',
-                        id: 'filled-project',
-                      }}
-                    >
-                      <option aria-label="None" value="" />
-                      {projectOptions.map(item => (
-                        <option value={item.id}>{item.name}</option>
-                      ))}
-                    </Select>
-                    <FormHelperText>Select your project</FormHelperText>
-                    {errors.project && (
-                      <span style={{ color: 'red' }}>{errors.project}</span>
-                    )}
-                  </FormControl>
-                </Grid>
-              </Grid>
-              <br />
-              <Typography variant="caption" align="center" gutterBottom={true}>
-                Select the organization and project to send your data
-              </Typography>
-              <br />
-              <br />
-              <div className="center-text">
-                {/* TODO: lets style this a little differently to emphasize and differentiate from the button below */}
-      {/*<Button
-                  type="submit"
-                  variant="contained"
-                  size="medium"
-                  disabled={isSubmitting}
-                  style={{
-                    backgroundColor: '#3EC28F',
-                    color: 'white',
-                    marginLeft: '0px',
-                  }}
-                >
-                  Continue
-                </Button>
-              </div>
-            </Paper>
-          </div>
-                </form>
-      </Container> */}
       <br />
     </div>
   )
