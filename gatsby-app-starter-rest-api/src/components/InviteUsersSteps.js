@@ -6,11 +6,14 @@ import { Grid,
          Button,
          Select,
          MenuItem } from '@material-ui/core'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { inviteConfig } from './Keys'
+import S3 from 'react-aws-s3'
 
 export default class InviteUsers extends React.Component {
   state = {
     dropOpen: false,
-    upload: []
+    uploaded: false
   }
 
   static contextType = ProjectContext
@@ -18,21 +21,34 @@ export default class InviteUsers extends React.Component {
   componentDidMount() {
     this.setState({
       dropOpen: false,
-      upload: []
+      uploaded: false
     })
   }
 
   handleSave(files) {
+    let file = files[0]
     this.setState({
-      upload: files,
+      uploaded: true,
       dropOpen: false
     })
-    // TODO: send to S3 and get key back and give to context
-    this.context.setInviteKey("key")
+
+    console.log(file)
+    const ReactS3Client = new S3(inviteConfig)
+    ReactS3Client
+      .uploadFile(file, ('testproject/').concat(file.name.substring(0, file.name.indexOf('.'))))
+      .then(data => {
+              console.log(data)
+              this.context.setInviteKey(data.key)})
+      .catch(err => {
+              console.log(err);
+              this.setState({
+                uploaded: false
+              })
+      })
   }
 
   componentDidUpdate() {
-    console.log(this.state)
+    //console.log(this.state)
   }
 
   render() {
@@ -44,13 +60,16 @@ export default class InviteUsers extends React.Component {
               <Typography variant='h6' gutterBottom>
                 Download Invitation Template
               </Typography>
-              <Button
-                variant="contained"
-                style={{ marginLeft: '.25rem', 
-                         backgroundColor: `#3EC28F`, 
-                         color: 'white' }}>
-                Download
-              </Button>
+              <a href="https://sarjom-user-invitations.s3-us-west-2.amazonaws.com/user-invitation.csv" download>
+                <Button
+                  variant="contained"
+                  style={{ marginLeft: '.25rem', 
+                          backgroundColor: `#3EC28F`, 
+                          color: 'white' }}
+                >
+                  Download
+                </Button>
+              </a>
             </Grid>
             <Grid item xs={6}>
               <br/>
@@ -63,7 +82,10 @@ export default class InviteUsers extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <Typography variant='h6' gutterBottom>
+                <Grid container direction='row' alignItems='center'>
                 Invite Users
+                <ErrorOutlineIcon  color='disabled' fontSize='small' style={{ marginLeft: '.5rem'}}/>
+                </Grid>
               </Typography>
               <Button
                 variant="contained" 
@@ -82,7 +104,13 @@ export default class InviteUsers extends React.Component {
                 filesLimit={1}
               >
               </DropzoneDialog>
-              </Grid>
+              { this.state.uploaded &&
+                (<Typography variant='body2' style={{marginLeft: '.5rem'}}>
+                  Email Template Uploaded
+                </Typography>)
+              }
+              
+            </Grid>
             <Grid item xs={6}>
               <br/>
               <Typography variant='body2'>

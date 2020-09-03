@@ -12,5 +12,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
+    node: {
+      fs: 'empty'
+    }
   })
 }
