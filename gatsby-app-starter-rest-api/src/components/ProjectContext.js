@@ -9,20 +9,26 @@ export class ProjectProvider extends React.Component {
     projectName: "",
     description: "",
     documentLinks: [],
-    bannerLink: [],    // change this to just string laters
+    bannerLink: "",
     dataTypes: [],
     metaData: [],
     license: "",
     projectType: "",
-    inviteKey:""
+    inviteKey:"",
+
+    token: "",
+    tokenId: "",
+    docNames: [],
+    banners: [],
   }
 
-  setStart = (user, org, name) => {
-    console.log(user)
+  setStart = (user, org, name, tok, tokId) => {
     this.setState({
       userId: user,
       orgId: org,
-      projectName: name
+      projectName: name,
+      token: tok,
+      tokenId: tokId
     })
   }
 
@@ -41,6 +47,18 @@ export class ProjectProvider extends React.Component {
   setBannerLink = (link) => {
     this.setState({
       bannerLink: link
+    })
+  }
+
+  setDocNames = (names) => {
+    this.setState({
+      docNames: names
+    })
+  }
+
+  setBanners = (names) => {
+    this.setState({
+      banners: names
     })
   }
 
@@ -87,8 +105,14 @@ export class ProjectProvider extends React.Component {
       license: "",
       projectType: "",
       inviteKey: "",
+
+      token: "",
+      tokenId: "",
+      docNames: [],
+      banners: [],
     })
   }
+  
 
   componentDidUpdate() {
     console.log(this.state)
@@ -104,6 +128,8 @@ export class ProjectProvider extends React.Component {
           setDescription: this.setDescription,
           setDocLinks: this.setDocLinks,
           setBannerLink: this.setBannerLink,
+          setDocNames: this.setDocNames,
+          setBanners: this.setBanners,
           setDataTypes: this.setDataTypes,
           setMetaData: this.setMetaData,
           setLicense: this.setLicense,

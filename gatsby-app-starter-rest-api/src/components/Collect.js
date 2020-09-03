@@ -38,6 +38,9 @@ export default class Collect extends React.Component {
   // })
   state = {
     data: [],
+    projectNames: [],
+    open: false,
+    newProjectName: "",
   }
 
   constructor(props) {
@@ -46,8 +49,9 @@ export default class Collect extends React.Component {
       data: [
         { name: "Sample Project", organisation: { name: "Organization"}, } // placeholder project for when no projects yet
       ],
+      projectNames: [],
       open: false,
-      projectName: "",
+      newProjectName: "",
     }
   }
 
@@ -61,11 +65,16 @@ export default class Collect extends React.Component {
         headers: {
           token: this.context.data.token,
           tokenId: this.context.data.tokenId
-        }
+        },
       })
 
       // console.log(data)
-      this.setState({data: data.response.projects})
+      if (data.status === 'SUCCESS') {
+        await this.setState({data: data.response.projects})
+        this.extractDocNames()
+      } else {
+        console.log(data.reason)
+      }
     } catch (err) {
       console.log(err)
       console.log(this.state.data)
@@ -77,7 +86,15 @@ export default class Collect extends React.Component {
   }
   
   componentDidUpdate() {
-    //console.log(this.state)
+    console.log(this.state)
+  }
+
+  extractDocNames() {
+    let names = []
+    this.state.data.forEach(project => names.push(project.name))
+    this.setState({
+      projectNames: names
+    })
   }
 
   dummy() {
@@ -100,7 +117,7 @@ export default class Collect extends React.Component {
 
   handleTFChange = (e) => {
     this.setState({
-      projectName: e.target.value
+      newProjectName: e.target.value
     })
   }
 
@@ -114,7 +131,9 @@ export default class Collect extends React.Component {
               { state: {
                   userId: this.context.data.userId,
                   orgId: this.context.data.organizations[0].id, 
-                  projectName: this.state.projectName,
+                  projectName: this.state.newProjectName,
+                  token: this.context.data.token,
+                  tokenId: this.context.data.tokenId
               }})
   }  
   
@@ -227,6 +246,8 @@ export default class Collect extends React.Component {
             </Button>
             <Button
               variant="contained"
+              disabled={this.state.newProjectName === "" || (this.state.projectNames &&
+                        this.state.projectNames.includes(this.state.newProjectName))}
               style={{
                 backgroundColor: '#3EC28F',
                 margin: '1rem',

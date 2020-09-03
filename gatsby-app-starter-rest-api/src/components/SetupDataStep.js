@@ -7,6 +7,7 @@ import { Grid,
          Button,
          Select,
          MenuItem,} from '@material-ui/core'
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 export default class SetupData extends React.Component {
   state = {
@@ -31,6 +32,8 @@ export default class SetupData extends React.Component {
     // remove this when more licenses available
     this.context.setLicense("CreativeCommons")
   }
+
+
 
   handleNewDataType = (e) => {
     this.setState({
@@ -107,7 +110,10 @@ export default class SetupData extends React.Component {
           <Grid container spacing={3}>  
             <Grid item xs={6}>
               <Typography variant='h6' gutterBottom>
+                <Grid container direction='row' alignItems='center'>
                 Select Data Types
+                <ErrorOutlineIcon  color='disabled' fontSize='small' style={{ marginLeft: '.5rem'}}/>
+                </Grid>
               </Typography>
               <Select
                 variant="outlined"
@@ -147,7 +153,10 @@ export default class SetupData extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <Typography variant='h6' gutterBottom>
+                <Grid container direction='row' alignItems='center'>
                 Select Meta Data
+                <ErrorOutlineIcon  color='disabled' fontSize='small' style={{ marginLeft: '.5rem'}}/>
+                </Grid>
               </Typography>
               <Select
                 variant="outlined"
@@ -188,7 +197,10 @@ export default class SetupData extends React.Component {
             </Grid>
             <Grid item xs={6} >
               <Typography variant='h6' gutterBottom>
+                <Grid container direction='row' alignItems='center'>
                 Attach License
+                <ErrorOutlineIcon  color='disabled' fontSize='small' style={{ marginLeft: '.5rem'}}/>
+                </Grid>
               </Typography>
               <Select
                 variant="outlined"
