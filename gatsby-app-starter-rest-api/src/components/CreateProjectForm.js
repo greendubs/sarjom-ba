@@ -46,7 +46,6 @@ export default class CreateProjectForm extends React.Component {
   static contextType = ProjectContext
 
   componentDidMount() {
-    //console.log(window.history.state)
     this.setState({
       stepIndex: 0,
       projectName: window.history.state.projectName,
@@ -78,62 +77,124 @@ export default class CreateProjectForm extends React.Component {
   }
 
   async submitForm() {
-    //TODO: make sure to check all required fields are set
     await this.context.setProjectType("OPEN")
     console.log("sending project")
-    try {
-      console.log(this.context)
-      // TODO: make API request to post context details as new project
-      const { data } = await axios.post(`${process.env.API}/projects`, {
-        headers: {
-          token: this.context.token,
-          tokenId: this.context.tokenId
-        },
-        organisationId: this.context.orgId,
-        createdByUserId: this.context.userId,
-        name: this.context.projectName,
-        description: this.context.description,
-        documentLinks: this.context.documentLinks,
-        bannerLink: this.context.bannerLink,
-        dataTypes: this.context.dataTypes,
-        metaData: this.context.metaData,
-        license: this.context.license,
-        projectType: this.context.projectType
-      })
+    // try {
+    //   console.log(this.context)
+    //   // TODO: make API request to post context details as new project
+    //   const { data } = await axios.post(`${process.env.API}/projects`, {
+    //     headers: {
+    //       token: this.context.token,
+    //       tokenId: this.context.tokenId
+    //     },
+    //     organisationId: this.context.orgId,
+    //     createdByUserId: this.context.userId,
+    //     name: this.context.projectName,
+    //     description: this.context.description,
+    //     documentLinks: this.context.documentLinks,
+    //     bannerLink: this.context.bannerLink,
+    //     dataTypes: this.context.dataTypes,
+    //     metaData: this.context.metaData,
+    //     license: this.context.license,
+    //     projectType: this.context.projectType
+    //   })
 
-      if (data.status === 'SUCCESS'){
-        console.log("sending invites")
-        this.sendInvites(data.response.createdProject.id)
-      } else {
-        console.log(data.reason)
-      }
-    } catch (err) {
-      console.log(err)
-    }
+    //   if (data.status === 'SUCCESS'){
+    //     console.log("sending invites")
+    //     this.sendInvites(data.response.createdProject.id)
+    //   } else {
+    //     console.log(data.reason)
+    //   }
+    // } catch (err) {
+    //   console.log(err)
+    // }
+    var axios = require('axios');
+    var data = JSON.stringify({"organisationId":this.context.orgId,
+                              "createdByUserId":this.context.userId,
+                              "name":this.context.projectName,
+                              "description":this.context.description,
+                              "documentLinks":this.context.documentLinks,
+                              "bannerLink":this.context.bannerLink,
+                              "dataTypes":this.context.dataTypes,
+                              "metaData":this.context.metaData,
+                              "license":this.context.license,
+                              "projectType":this.context.projectType});
+
+    var config = {
+      method: 'post',
+      url: `${process.env.API}/projects`,
+      headers: { 
+        'token': this.context.token, 
+        'tokenId': this.context.tokenId, 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      //console.log("sending invites")
+      this.sendInvites(response.data.response.createdProject.id)
+    }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   async sendInvites(newId) {
-    try {
-      const { data } = await axios.post(`${process.env.API}/users/invite`, {
-        headers: {
-          token: this.context.token,
-          tokenId: this.context.tokenId
-        },
-        organisationId: this.context.orgId,
-        projectId: newId,
-        bucketName: inviteLocation,
-        userInvitationFileS3Key: this.context.inviteKey
-      })
+    // try {
+    //   const { data } = await axios.post(`${process.env.API}/users/invite`, {
+    //     headers: {
+    //       token: this.context.token,
+    //       tokenId: this.context.tokenId
+    //     },
+    //     organisationId: this.context.orgId,
+    //     projectId: newId,
+    //     bucketName: inviteLocation,
+    //     userInvitationFileS3Key: this.context.inviteKey
+    //   })
 
-      if(data.status === 'SUCCESS') {
-        this.context.clearProject()
-        console.log("We did it!")
-        navigate("/app/collect/projectCreated", 
-                { state: { createdProject: this.state.projectName }})
-      }
-    } catch(err) {
-      console.log(err)
-    }
+    //   if(data.status === 'SUCCESS') {
+    //     this.context.clearProject()
+    //     console.log("We did it!")
+    //     navigate("/app/collect/projectCreated", 
+    //             { state: { createdProject: this.state.projectName }})
+    //   }
+    // } catch(err) {
+    //   console.log(err)
+    // }
+    var axios = require('axios');
+    var data = JSON.stringify({"organisationId":this.context.orgId,
+                                "projectId":newId,
+                                "bucketName":inviteLocation,
+                                "userInvitationFileS3Key":this.context.inviteKey});
+
+    var config = {
+      method: 'post',
+      url: `${process.env.API}/users/invite`,
+      headers: { 
+        'token': this.context.token,
+        'tokenId': this.context.tokenId, 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      this.context.clearProject()
+      console.log("We did it!")
+      navigate("/app/collect/projectCreated", 
+                { state: { 
+                  createdProject: this.state.projectName 
+                }})
+      }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   checkFields() {

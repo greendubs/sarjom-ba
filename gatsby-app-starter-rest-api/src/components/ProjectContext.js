@@ -99,7 +99,7 @@ export class ProjectProvider extends React.Component {
       projectName: "",
       description: "",
       documentLinks: [],
-      bannerLink: [],  // make sure to change this later
+      bannerLink: "", 
       dataTypes: [],
       metaData: [],
       license: "",
