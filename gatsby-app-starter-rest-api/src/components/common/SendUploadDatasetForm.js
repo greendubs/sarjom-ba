@@ -6,18 +6,15 @@ import SEO from 'components/common/Seo'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import { makeStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import Context from 'components/common/Context'
-import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import InfoIcon from '@material-ui/icons/Info'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import ClearIcon from '@material-ui/icons/Clear'
-import ImageIcon from '@material-ui/icons/Image'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -33,6 +30,14 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import ViewCarouselIcon from '@material-ui/icons/ViewCarousel'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { filesConfig } from 'components/Keys'
+import S3 from 'react-aws-s3'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -162,9 +167,11 @@ CircularProgressWithLabel.propTypes = {
 export default function SendUploadDatasetForm() {
   const { data } = useContext(Context)
   const [isSubmitting, setSubmitting] = useState(false)
-  const [progress, setProgress] = useState(10)
+  const [progress, setProgress] = useState(0)
   const [changeIndex, setChangeIndex] = useState(0)
-  const [isInitialLoad, setInitialLoad] = useState(false)
+  const [uploaded, setUploaded] = useState(false)
+  const [open, setOpen] = useState(false)
+
   const [details, setDetails] = useState({
     image_links: [],
     license: '',
@@ -173,6 +180,7 @@ export default function SendUploadDatasetForm() {
     comment: '',
   })
   const [previewImages, setPreviewImages] = useState([])
+  const [uploadImages, setUploadImages] = useState([])
   const [location, setLocation] = React.useState({ lat: '', lng: '' })
   const [errors, setErrors] = useState({
     images: '',
@@ -210,9 +218,9 @@ export default function SendUploadDatasetForm() {
   }
 
   const handleImagesChange = e => {
-    console.log(e.target.name, e.target.value)
     if (e.target.files) {
       const files = Array.from(e.target.files)
+      console.log(files)
 
       let totalSize = 0
 
@@ -262,8 +270,11 @@ export default function SendUploadDatasetForm() {
           /* Once all promises are resolved, update state with image URI array */
           console.log(images)
           setPreviewImages(images)
+          setUploadImages(files)
           setChangeIndex(0)
-          //console.log(previewImages)
+          setProgress(0)
+          setUploaded(false)
+          console.log(uploadImages)
         },
         error => {
           console.error(error)
@@ -277,10 +288,42 @@ export default function SendUploadDatasetForm() {
     let newPreviewImages = previewImages.filter(
       (_, index) => index !== changeIndex
     )
+    let newUploadImages = uploadImages.filter(
+      (_, index) => index !== changeIndex
+    )
     setPreviewImages(newPreviewImages)
+    setUploadImages(newUploadImages)
+    console.log(uploadImages)
     if (changeIndex > newPreviewImages.length - 1) {
       setChangeIndex(changeIndex - 1)
     }
+  }
+
+  const handleUploadImages = e => {
+    console.log(uploadImages)
+    const ReactS3Client = new S3(filesConfig)
+    const s3_links = []
+    uploadImages.map((image, ind) => {
+      ReactS3Client.uploadFile(
+        image,
+        data.sendProjectId.concat(
+          '/',
+          image.name.substring(0, image.name.indexOf('.'))
+        )
+      )
+        .then(response => {
+          console.log(response)
+          s3_links.push(response.location)
+        })
+        .catch(error => {
+          console.log(error)
+          setErrors({ ...errors, images: error })
+        })
+      setProgress(((ind + 1) * 100) / uploadImages.length)
+    })
+    console.log(s3_links)
+    setDetails({ ...details, image_links: s3_links })
+    setUploaded(true)
   }
 
   const handleBlur = e => {
@@ -289,45 +332,91 @@ export default function SendUploadDatasetForm() {
     }
   }
 
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleClickOkay = () => {
+    setOpen(false)
+  }
+
   const handleSubmit = async e => {
     e.preventDefault()
     setSubmitting(true)
 
     //console.log(e)
     try {
-      const { organization, project } = details
-      console.log(organization, project)
+      const { image_links, license, metaDate, tags, comment } = details
+      console.log(license)
+      console.log(metaDate)
+      console.log(tags)
+      console.log(comment)
+      console.log(image_links)
+      console.log(location.lat)
+      console.log(location.lng)
+      console.log(data.sendProjectName)
 
-      if (!organization || !project) {
+      if (!image_links || !license || !metaDate || !location) {
         console.log('Reached errors')
-        console.log(organization, project)
         setErrors({
           ...errors,
-          organization: 'Field is required',
-          project: 'Field is required',
+          images: 'Still uploading',
+          license: 'Field is required',
+          metaDate: 'Field is required',
+          location: 'Field is required',
         })
       } else {
         // store project and organization details in context
-        data.setSendData(organization, project)
-        console.log('isSubmitting')
-        console.log(data)
-        navigate('/')
+        image_links.map(link => {
+          ;(async () => {
+            try {
+              const response = await axios.post(
+                `${process.env.API}/files`,
+                {
+                  projectId: data.sendProjectId,
+                  name: data.sendProjectName,
+                  fileLink: link,
+                  comments: comment,
+                  customTags: tags,
+                  latitude: location.lat,
+                  longitude: location.lng,
+                  license: license,
+                  fileType: 'RAW_DATA',
+                  createdAt: metaDate,
+                },
+                {
+                  headers: headers,
+                }
+              )
+              console.log('response recieved is')
+              console.log(response)
+            } catch (error) {
+              console.log(error)
+            }
+          })()
+        })
+
+        navigate('../complete')
       }
     } catch (error) {
       setSubmitting(false)
       console.log(error)
     }
   }
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress(prevProgress =>
-        prevProgress >= 100 ? 10 : prevProgress + 10
-      )
-    }, 800)
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
+  //useEffect(() => {
+  //const timer = setInterval(() => {
+  //setProgress(prevProgress =>
+  //prevProgress >= 100 ? 10 : prevProgress + 10
+  //)
+  //}, 800)
+  //return () => {
+  //clearInterval(timer)
+  //}
+  //}, [])
 
   return (
     <div className="container">
@@ -399,7 +488,6 @@ export default function SendUploadDatasetForm() {
                 <CardContent className={classes.content}>
                   <Typography variant="h6">Preview</Typography>
                 </CardContent>
-                {/*<CircularProgressWithLabel value={progress} />*/}
                 {previewImages.length >= 1 ? (
                   <img
                     className="image-uploaded"
@@ -495,7 +583,7 @@ export default function SendUploadDatasetForm() {
                   if (newValue.length <= 5) {
                     setDetails({ ...details, tags: newValue })
                     if (errors.tags) {
-                      setErrors({ ...errors, tags: [] })
+                      setErrors({ ...errors, tags: '' })
                     }
                   } else {
                     setErrors({
@@ -552,6 +640,7 @@ export default function SendUploadDatasetForm() {
                 variant="contained"
                 color="primary"
                 disabled={previewImages.length < 1}
+                onClick={handleUploadImages}
                 style={{
                   backgroundColor: '#3EC28F',
                   marginLeft: 0,
@@ -559,6 +648,14 @@ export default function SendUploadDatasetForm() {
               >
                 Upload Images
               </Button>
+              <br />
+              <br />
+              {uploadImages.length >= 1 && (
+                <CircularProgressWithLabel
+                  value={progress}
+                  style={{ color: '#3EC28F' }}
+                />
+              )}
             </Grid>
             <Grid item xs={4}>
               <Typography variant="h6" className={classes.subheading}>
@@ -583,37 +680,78 @@ export default function SendUploadDatasetForm() {
               )}
               <br />
               <br />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={true}
-                    onChange={handleChange}
-                    name="autoApply"
-                    color="primary"
-                    style={{ color: '#3EC28F' }}
+              <Grid container wrap="nowrap" spacing={2}>
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={true}
+                        onChange={handleChange}
+                        name="autoApply"
+                        color="primary"
+                        style={{ color: '#3EC28F' }}
+                        fontSize="small"
+                      />
+                    }
+                    label="Apply metadata to all files"
                   />
-                }
-                label="Apply metadata to all files"
-              />
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    aria-label="information"
+                    onClick={handleClickOpen}
+                  >
+                    <PriorityHighIcon style={{ color: '#3EC28f' }} />
+                  </IconButton>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {'Information about metadata'}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        The metadata will be applied to all the images uploaded.
+                        Individual metadata to each image is not supported now.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button
+                        onClick={handleClickOkay}
+                        color="primary"
+                        autoFocus
+                      >
+                        Okay
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <Grid container item xs={12}>
             <Grid item xs={4}></Grid>
             <Grid item xs={4}></Grid>
             <Grid item xs={4}>
-              <Button
-                type="submit"
-                variant="contained"
-                size="large"
-                disabled={isSubmitting}
-                style={{
-                  backgroundColor: '#3EC28F',
-                  color: 'white',
-                  float: 'right',
-                }}
-              >
-                Send
-              </Button>
+              <div>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  disabled={isSubmitting}
+                  onClick={handleSubmit}
+                  style={{
+                    backgroundColor: '#3EC28F',
+                    color: 'white',
+                    float: 'right',
+                  }}
+                >
+                  Send
+                </Button>
+              </div>
             </Grid>
           </Grid>
         </Grid>

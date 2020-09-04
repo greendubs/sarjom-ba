@@ -38,10 +38,11 @@ export default ({ children }) => {
     console.log(data)
   }
 
-  data.setSendData = (organizationId, projectId) => {
+  data.setSendData = (organizationId, projectId, projectName) => {
     console.log(data)
     data.sendProjectId = projectId
     data.sendOrganizationId = organizationId
+    data.sendProjectName = projectName
     console.log('send data updated')
     console.log(data)
   }

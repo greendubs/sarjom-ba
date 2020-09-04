@@ -17,6 +17,7 @@ const Context = createContext({
     //what other data should be stored here?
 
     sendProjectId: '',
+    sendProjectName: '',
     sendOrganizationId: '',
     setSendData: () => {},
   },

@@ -52,6 +52,7 @@ export default function SendSelectProjectForm() {
     organization: '',
     project: '',
   })
+  const [projectName, setProjectName] = useState('')
 
   const [projectOptions, setProjectOptions] = useState([])
 
@@ -78,6 +79,7 @@ export default function SendSelectProjectForm() {
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
+    console.log(e.target.options[e.target.selectedIndex].text)
     console.log(e.target.name, e.target.value)
     if (e.target.name === 'organization') {
       const options = []
@@ -94,6 +96,9 @@ export default function SendSelectProjectForm() {
       console.log(options)
       setProjectOptions(options)
       //console.log(projectOptions)
+    } else if (e.target.name === 'project') {
+      const proName = e.target.options[e.target.selectedIndex].text
+      setProjectName(proName)
     }
   }
 
@@ -122,7 +127,8 @@ export default function SendSelectProjectForm() {
         })
       } else {
         // store project and organization details in context
-        data.setSendData(organization, project)
+        console.log(organization, project, projectName)
+        data.setSendData(organization, project, projectName)
         console.log('isSubmitting')
         console.log(data)
         navigate('../dataset')

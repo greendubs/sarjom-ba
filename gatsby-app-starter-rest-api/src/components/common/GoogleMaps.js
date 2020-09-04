@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import parse from 'autosuggest-highlight/parse'
 import throttle from 'lodash/throttle'
+import { googleAPIKey } from 'components/Keys'
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -39,11 +40,11 @@ export default function GoogleMaps({ name, location, setLocation }) {
 
   if (typeof window !== 'undefined' && !loaded.current) {
     if (!document.querySelector('#google-maps')) {
-      loadScript(
-        'https://maps.googleapis.com/maps/api/js?key={key}&libraries=places',
-        document.querySelector('head'),
-        'google-maps'
-      )
+      const url =
+        'https://maps.googleapis.com/maps/api/js?key=' +
+        googleAPIKey +
+        '&libraries=places'
+      loadScript(url, document.querySelector('head'), 'google-maps')
     }
 
     loaded.current = true
@@ -124,8 +125,8 @@ export default function GoogleMaps({ name, location, setLocation }) {
                 console.log(results[0].geometry.location)
                 setLocation({
                   ...location,
-                  lat: results[0].geometry.location.lat,
-                  lng: results[0].geometry.location.lng,
+                  lat: results[0].geometry.location.lat(),
+                  lng: results[0].geometry.location.lng(),
                 })
               }
             }

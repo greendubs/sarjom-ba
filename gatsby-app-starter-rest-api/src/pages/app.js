@@ -12,6 +12,7 @@ import Login from 'components/Login'
 import Send from 'components/Send'
 import Collect from 'components/Collect'
 import SendUploadDatasetForm from 'components/common/SendUploadDatasetForm'
+import SendCompleteForm from 'components/common/SendCompleteForm'
 import CreateProjectForm from './../components/CreateProjectForm'
 import ProjectCreated from 'components/ProjectCreated'
 import { ProjectProvider } from 'components/ProjectContext'
@@ -51,7 +52,11 @@ export default () => (
             role="COLLECTOR"
             component={SendUploadDatasetForm}
           />
-
+          <PrivateRoute
+            path="/app/send/complete"
+            role="COLLECTOR"
+            component={SendCompleteForm}
+          />
           <NotFound default component={NotFound} />
         </Router>
       </AppWrapper>
