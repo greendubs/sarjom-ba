@@ -79,35 +79,6 @@ export default class CreateProjectForm extends React.Component {
   async submitForm() {
     await this.context.setProjectType("OPEN")
     console.log("sending project")
-    // try {
-    //   console.log(this.context)
-    //   // TODO: make API request to post context details as new project
-    //   const { data } = await axios.post(`${process.env.API}/projects`, {
-    //     headers: {
-    //       token: this.context.token,
-    //       tokenId: this.context.tokenId
-    //     },
-    //     organisationId: this.context.orgId,
-    //     createdByUserId: this.context.userId,
-    //     name: this.context.projectName,
-    //     description: this.context.description,
-    //     documentLinks: this.context.documentLinks,
-    //     bannerLink: this.context.bannerLink,
-    //     dataTypes: this.context.dataTypes,
-    //     metaData: this.context.metaData,
-    //     license: this.context.license,
-    //     projectType: this.context.projectType
-    //   })
-
-    //   if (data.status === 'SUCCESS'){
-    //     console.log("sending invites")
-    //     this.sendInvites(data.response.createdProject.id)
-    //   } else {
-    //     console.log(data.reason)
-    //   }
-    // } catch (err) {
-    //   console.log(err)
-    // }
     var axios = require('axios');
     var data = JSON.stringify({"organisationId":this.context.orgId,
                               "createdByUserId":this.context.userId,
@@ -144,27 +115,6 @@ export default class CreateProjectForm extends React.Component {
   }
 
   async sendInvites(newId) {
-    // try {
-    //   const { data } = await axios.post(`${process.env.API}/users/invite`, {
-    //     headers: {
-    //       token: this.context.token,
-    //       tokenId: this.context.tokenId
-    //     },
-    //     organisationId: this.context.orgId,
-    //     projectId: newId,
-    //     bucketName: inviteLocation,
-    //     userInvitationFileS3Key: this.context.inviteKey
-    //   })
-
-    //   if(data.status === 'SUCCESS') {
-    //     this.context.clearProject()
-    //     console.log("We did it!")
-    //     navigate("/app/collect/projectCreated", 
-    //             { state: { createdProject: this.state.projectName }})
-    //   }
-    // } catch(err) {
-    //   console.log(err)
-    // }
     var axios = require('axios');
     var data = JSON.stringify({"organisationId":this.context.orgId,
                                 "projectId":newId,
@@ -202,7 +152,7 @@ export default class CreateProjectForm extends React.Component {
             this.context.dataTypes.length !== 0 &&
             this.context.metaData.length !== 0 &&
             this.context.license !== "" &&
-            this.inviteKey !== "")
+            this.context.inviteKey !== "")
   }
 
   componentDidUpdate() {
@@ -269,11 +219,6 @@ export default class CreateProjectForm extends React.Component {
               </Button>
             </Grid>
           </Grid>
-          {/* <Snackbar open={this.state.ready} autoHideDuration={6000} onClose={() => this.setState({ready:false})}>
-            <Alert onClose={() => this.setState({ready:false})} severity="error">
-              Sorry, a project with this name already exists!
-            </Alert>
-          </Snackbar> */}
         </Container>
       </Container>
       </ThemeProvider>  
