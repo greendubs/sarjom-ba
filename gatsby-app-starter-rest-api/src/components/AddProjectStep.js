@@ -184,7 +184,7 @@ export default class AddProject extends React.Component {
           <br/>
           <Typography variant='body2'>
             (Optional) You may add additional documents up to 2GB
-            (instructions, help docs, videos, ets.) and a banner image
+            (instructions, help docs, videos, etc.) and a banner image
             for your project.
           </Typography>
         </Grid>

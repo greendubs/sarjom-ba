@@ -3,21 +3,11 @@ import { navigate } from '@reach/router'
 import axios from 'axios'
 import SEO from './common/Seo'
 import Context from './common/Context'
+import DashPanel from './common/DashPanel'
 import { makeStyles } from '@material-ui/core/styles'
 import {Container,
         Typography,
-        MenuList,
-        MenuItem,
-        Grid,
-        GridList,
-        GridListTile,
-        Card,
-        CardContent,
-        CardActions,
         Button,
-        Avatar, 
-        CardActionArea,
-        Link,
         DialogActions,
         Dialog,
         DialogTitle,
@@ -136,86 +126,24 @@ export default class Collect extends React.Component {
                   tokenId: this.context.data.tokenId
               }})
   }  
-  
+
   render() {
   return (
     <>
       <SEO title="Collect" />
       <Container maxWidth="lg" style={{ backgroundColor: '#e9ecef' }}> 
         <br/>
-        <Typography variant='h5' align='center' gutterBottom>
+        <Typography variant='h4' align='center' gutterBottom style={{marginBottom: '1rem'}}>
           Collect Dashboard
         </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <MenuList >
-              {[{ label:'Setup Organization Profile', task: () => this.dummy(), hide: true },
-                { label:'Add New Project', task: () => this.handleClickOpen(), hide: false },
-                { label:'Upload Existing Projects', task: () => this.dummy(), hide: true },
-                { label:'Publish DataStory', task: () => this.dummy(), hide: false },
-                { label:'Download Project Data', task: () => this.dummy(), hide: false },
-                { label:'Add/Approve Users', task:() => this.dummy(), hide: true },
-                { label:'Some Future Options', task: () => this.dummy(), hide: true }].map((properties) => (
-                  <MenuItem>
-                      <Button 
-                        variant="contained" 
-                        onClick={properties.task}  
-                        disabled={properties.hide}
-                        style={{marginLeft: '1.25rem', textTransform: 'none', width: '213px'}}>
-                        {properties.label}
-                      </Button>
-                  </MenuItem>
-              ))}
-            </MenuList>
-          </Grid>
-          <Grid item xs={9}>
-            {/* TODO: increase padding both in the grid item and gridlist to make it a little cleaner */}
-            <GridList cols={4} spacing={6} cellHeight={300} style={{ backgroundColor: '#A9A9A9' }}>
-              {(this.state.data).map((project) => (  
-                <GridListTile>
-                  <Card>
-                    <CardContent align='center'>
-                    <Avatar
-                          style={{ backgroundColor: `#3EC28F`, marginTop: '.5rem', marginBottom: '.5rem'  }}
-                        >
-                          {' '}
-                          {project.name.charAt(0).toUpperCase()}
-                        </Avatar>
-                      <Typography align='center' variant="subtitle1"> 
-                        {project.name}
-                      </Typography>
-                      <Typography align='center' variant="body2" gutterBottom> 
-                        {project.organisation.name}
-                      </Typography>
-                    </CardContent>
-                    <Grid container 
-                      spacing={1} 
-                      direction='column' 
-                      alignItems='center' 
-                      justify='center' 
-                      style={{marginBottom: '10px'}}>   
-                      <Grid item>
-                        <Button variant='outlined' style={{marginLeft:'0px'}}>
-                          DataStory
-                        </Button>
-                      </Grid>
-                      <Grid item>
-                        <Button variant='outlined' style={{marginLeft:'0px'}}>
-                          Contributors
-                        </Button>
-                      </Grid>
-                    </Grid> 
-                    
-                  </Card>
-                </GridListTile>
-              ))} 
-            </GridList>
-            <Typography variant="body2" align='center' style={{marginTop: '15px'}}>
-                Free tier includes a mazimum of 3 projects with 5GBs of data capacity.
-                Please contact support@citsci.earth for additional data capacity.
-            </Typography>
-          </Grid>
-        </Grid>
+        <DashPanel buttons={[{ label:'Setup Organization Profile', task: () => this.dummy(), hide: true },
+                            { label:'Add New Project', task: () => this.handleClickOpen(), hide: false },
+                            { label:'Upload Existing Projects', task: () => this.dummy(), hide: true },
+                            { label:'Publish DataStory', task: () => this.dummy(), hide: false },
+                            { label:'Download Project Data', task: () => this.dummy(), hide: false },
+                            { label:'Add/Approve Users', task:() => this.dummy(), hide: true },
+                            { label:'Some Future Options', task: () => this.dummy(), hide: true }]} data={this.state.data}/>
+
         <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">
             <Typography variant='h5' align='left'>

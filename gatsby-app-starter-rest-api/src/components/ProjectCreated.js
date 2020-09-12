@@ -3,6 +3,7 @@ import { navigate } from '@reach/router'
 import axios from 'axios'
 import SEO from './common/Seo'
 import Context from './common/Context'
+import FeedbackForm from "./common/FeedbackForm"
 import { Container, 
          Button,
          Typography,
@@ -74,13 +75,7 @@ export default class ProjectCreated extends React.Component {
         </Typography>
         <br/>
         <Typography align='center' gutterBottom>
-          <Button 
-            variant="contained"
-            style={{backgroundColor: '#3EC28F', color: 'white', marginLeft: '0px'}}
-            onClick={() => this.handleClickOpen()}
-          >
-            Send Message
-          </Button>
+          <FeedbackForm/>
         </Typography>
         <br/>
         <Typography align='center' gutterBottom>
