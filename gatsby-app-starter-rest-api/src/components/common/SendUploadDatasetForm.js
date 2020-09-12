@@ -191,8 +191,6 @@ export default function SendUploadDatasetForm() {
     comment: '',
   })
 
-  const [projectOptions, setProjectOptions] = useState([])
-
   const classes = useStyles()
 
   const headers = { token: data.token, tokenId: data.tokenId }
@@ -364,7 +362,7 @@ export default function SendUploadDatasetForm() {
         console.log('Reached errors')
         setErrors({
           ...errors,
-          images: 'Still uploading',
+          images: 'Field is required',
           license: 'Field is required',
           metaDate: 'Field is required',
           location: 'Field is required',
