@@ -25,7 +25,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Set up build environment
         run: |
-          ls
+          cd gatsby-app-starter-rest-api
           sudo apt-get update
           curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
           sudo apt-get install -y nodejs
