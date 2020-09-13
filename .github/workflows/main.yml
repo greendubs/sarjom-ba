@@ -25,16 +25,17 @@ jobs:
       # Runs a single command using the runners shell
       - name: Set up build environment
         run: |
+          ls
           sudo apt-get update
           curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
           sudo apt-get install -y nodejs
           npm install -g yarn
           yarn
-        working-directory: gatsby-app-starter-rest-api
+        #working-directory: gatsby-app-starter-rest-api
 
       # Runs a set of commands using the runners shell
       - name: Build code
         run: |
           wget -O src/components/Keys https://gist.githubusercontent.com/mayukhnair/db9c23cef1f50e9b64c12add18789b74/raw/5f28795a8b47b57f75fab458c03c28dcf6f5ff82/Greendubs%2520dummy%2520keyfile
           yarn gatsby build
-        working-directory: gatsby-app-starter-rest-api
+        #working-directory: gatsby-app-starter-rest-api
