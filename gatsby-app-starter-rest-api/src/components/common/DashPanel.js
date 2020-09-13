@@ -6,7 +6,7 @@ import {Grid,
         Button, } from '@material-ui/core'
 
 
-export default ({ buttons, data }) => {
+export default ({ buttons, children }) => {
 
   return (
     <Grid container spacing={3}>
@@ -26,7 +26,7 @@ export default ({ buttons, data }) => {
         </MenuList>
       </Grid>
       <Grid item xs={9}>
-        <CardSet cards={data}/>
+        {children}
       </Grid>
     </Grid>
   )

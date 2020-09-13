@@ -13,6 +13,7 @@ export default ({ cards }) => {
 
   return (
     <>
+    {console.log('creating set')}
     <GridList cols={4} spacing={6} cellHeight={300} style={{ backgroundColor: '#A9A9A9', padding:'.5rem'}}>
     {/* TODO: increase padding both in the grid item and gridlist to make it a little cleaner */}
     {cards.map((project) => (  

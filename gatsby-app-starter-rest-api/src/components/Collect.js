@@ -4,6 +4,7 @@ import axios from 'axios'
 import SEO from './common/Seo'
 import Context from './common/Context'
 import DashPanel from './common/DashPanel'
+import CardSet from './common/CardSet'
 import { makeStyles } from '@material-ui/core/styles'
 import {Container,
         Typography,
@@ -142,8 +143,9 @@ export default class Collect extends React.Component {
                             { label:'Publish DataStory', task: () => this.dummy(), hide: false },
                             { label:'Download Project Data', task: () => this.dummy(), hide: false },
                             { label:'Add/Approve Users', task:() => this.dummy(), hide: true },
-                            { label:'Some Future Options', task: () => this.dummy(), hide: true }]} data={this.state.data}/>
-
+                            { label:'Some Future Options', task: () => this.dummy(), hide: true }]}>
+          <CardSet cards={this.state.data}/>
+        </DashPanel>
         <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">
             <Typography variant='h5' align='left'>
