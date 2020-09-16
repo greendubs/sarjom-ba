@@ -9,12 +9,11 @@ import {GridList,
         Typography } from '@material-ui/core'
 
 
-export default ({ cards }) => {
+export default ({ cards, button1, button2 }) => {
 
   return (
     <>
-    {console.log('creating set')}
-    <GridList cols={4} spacing={6} cellHeight={300} style={{ backgroundColor: '#A9A9A9', padding:'.5rem'}}>
+    <GridList cols={4} spacing={6} cellHeight={300} style={{ backgroundColor: '#A9A9A9', padding:'1rem'}}>
     {/* TODO: increase padding both in the grid item and gridlist to make it a little cleaner */}
     {cards.map((project) => (  
       <GridListTile>
@@ -40,13 +39,13 @@ export default ({ cards }) => {
             justify='center' 
             style={{marginBottom: '10px'}}>   
             <Grid item>
-              <Button variant='outlined' style={{marginLeft:'0px'}}>
-                DataStory
+              <Button variant='outlined' style={{marginLeft:'0px', fontSize: '13px'}}>
+                {button1}
               </Button>
             </Grid>
             <Grid item>
-              <Button variant='outlined' style={{marginLeft:'0px'}}>
-                Contributors
+              <Button variant='outlined' style={{marginLeft:'0px', fontSize: '13px'}}>
+                {button2}
               </Button>
             </Grid>
           </Grid> 

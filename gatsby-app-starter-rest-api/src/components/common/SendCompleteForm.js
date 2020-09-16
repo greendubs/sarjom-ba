@@ -76,7 +76,20 @@ export default class SendCompleteForm extends React.Component {
           </Typography>
           <Typography variant="body2" align="center" gutterBottom>
             We will soon be building a dashboard for you and we need your
-            support, ideas and words of encouragement.
+            support, ideas and words of encouragement. Preview it below!
+          </Typography>
+          <Typography align="center" gutterBottom>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: '#3EC28F',
+                color: 'white',
+                marginLeft: '0px',
+              }}
+              onClick={() => navigate('/app/send/dashboard')}
+            >
+              Sender Dashboard
+            </Button>
           </Typography>
           <br />
           <Typography variant="body2" align="center" gutterBottom>

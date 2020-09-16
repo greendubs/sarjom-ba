@@ -426,7 +426,7 @@ export default function SendUploadDatasetForm() {
         <Link color="inherit" to="/">
           Home
         </Link>
-        <Link color="textPrimary" to="/app/send" aria-current="page">
+        <Link color="textPrimary" to="/app/send/project" aria-current="page">
           Send Data
         </Link>
       </Breadcrumbs>

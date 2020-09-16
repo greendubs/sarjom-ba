@@ -18,6 +18,7 @@ export default ({ buttons, children }) => {
                     variant="contained" 
                     onClick={button.task}  
                     disabled={button.hide}
+                    key={button.label}
                     style={{marginLeft: '1.25rem', textTransform: 'none', width: '213px'}}>
                     {button.label}
                   </Button>
