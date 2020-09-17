@@ -4,6 +4,7 @@ import Provider from 'providers/Provider'
 import AppWrapper from 'components/AppWrapper'
 import App from 'components/App'
 import NotFound from 'components/common/NotFound'
+import OrganizationProfile from 'components/OrganizationProfile'
 import Register from 'components/Register'
 import Login from 'components/Login'
 import Send from 'components/Send'
@@ -22,6 +23,7 @@ export default () => (
       <AppWrapper>
         <Router>
           <App path="/app/" component={App} />
+          <OrganizationProfile path="/app/organizations" component={OrganizationProfile}/>
           <PrivateRoute
             path="/app/collect"
             role="COLLECTOR"

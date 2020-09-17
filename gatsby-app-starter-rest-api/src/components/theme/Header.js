@@ -164,7 +164,7 @@ export default class Header extends React.Component {
                     </Link>
                   </Button>
                   <Button>
-                    <Link to="/indev" className={styles.link}>
+                    <Link to="/directory" className={styles.link}>
                       Directory
                     </Link>
                   </Button>

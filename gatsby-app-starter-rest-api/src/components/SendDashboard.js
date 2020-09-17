@@ -76,9 +76,15 @@ export default class SendDashboard extends React.Component {
                               { label:'Some Future Options', task: () => this.dummy(), hide: true }]}>
             {(() => {
               switch (this.state.content) {
-                case 'projects': return <CardSet cards={this.state.data} button1="My Contributions" button2="View Datastories"/>
+                case 'projects': return <CardSet 
+                                          cards={this.state.data} 
+                                          button1={{label: "My Contributions", function: () => this.dummy()}}
+                                          button2={{label: "View Datastories", function: () => this.dummy()}}/>
                 case 'stories': return <StoriesSet stories={this.state.stories}/>
-                case 'community': return <CardSet cards={this.state.communities} button1='About Us' button2="View Our Stories"/>
+                case 'community': return <CardSet 
+                                          cards={this.state.communities} 
+                                          button1={{label: 'About Us', function: () => this.dummy()}} 
+                                          button2={{label: "View Our Stories", function: () => this.dummy()}}/>
               }
             })()}  
           </DashPanel>
