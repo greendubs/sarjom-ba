@@ -3,16 +3,15 @@ import { Router } from '@reach/router'
 import Provider from 'providers/Provider'
 import AppWrapper from 'components/AppWrapper'
 import App from 'components/App'
-import Tasks from 'components/Tasks'
-import Task from 'components/Task'
-import AddTask from 'components/AddTask'
 import NotFound from 'components/common/NotFound'
+import OrganizationProfile from 'components/OrganizationProfile'
 import Register from 'components/Register'
 import Login from 'components/Login'
 import Send from 'components/Send'
 import Collect from 'components/Collect'
 import SendUploadDatasetForm from 'components/common/SendUploadDatasetForm'
 import SendCompleteForm from 'components/common/SendCompleteForm'
+import SendDashboard from 'components/SendDashboard'
 import CreateProjectForm from './../components/CreateProjectForm'
 import ProjectCreated from 'components/ProjectCreated'
 import { ProjectProvider } from 'components/ProjectContext'
@@ -25,6 +24,7 @@ export default () => (
       <AppWrapper>
         <Router>
           <App path="/app/" component={App} />
+          <OrganizationProfile path="/app/organizations" component={OrganizationProfile}/>
           <PrivateRoute
             path="/app/collect"
             role="COLLECTOR"
@@ -62,6 +62,11 @@ export default () => (
             path="/app/send/complete"
             role="SENDER"
             component={SendCompleteForm}
+          />
+          <PrivateRoute
+            path="/app/send/dashboard"
+            role="SENDER"
+            component={SendDashboard}
           />
           <NotFound default component={NotFound} />
         </Router>

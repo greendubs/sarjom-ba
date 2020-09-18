@@ -9,12 +9,11 @@ import {GridList,
         Typography } from '@material-ui/core'
 
 
-export default ({ cards }) => {
+export default ({ cards, button1, button2 }) => {
 
   return (
     <>
-    <GridList cols={4} spacing={6} cellHeight={300} style={{ backgroundColor: '#A9A9A9', padding:'.5rem'}}>
-    {/* TODO: increase padding both in the grid item and gridlist to make it a little cleaner */}
+    <GridList cols={4} spacing={15} cellHeight={300} style={{ backgroundColor: '#A9A9A9', padding:'1rem'}}>
     {cards.map((project) => (  
       <GridListTile>
         <Card>
@@ -39,13 +38,17 @@ export default ({ cards }) => {
             justify='center' 
             style={{marginBottom: '10px'}}>   
             <Grid item>
-              <Button variant='outlined' style={{marginLeft:'0px'}}>
-                DataStory
+              <Button variant='outlined' 
+                style={{marginLeft:'0px', fontSize: '13px'}}
+                onClick={button1.function}>
+                {button1.label}
               </Button>
             </Grid>
             <Grid item>
-              <Button variant='outlined' style={{marginLeft:'0px'}}>
-                Contributors
+              <Button variant='outlined'
+                style={{marginLeft:'0px', fontSize: '13px'}}
+                onClick={button2.function}>
+                {button2.label}
               </Button>
             </Grid>
           </Grid> 
@@ -54,10 +57,6 @@ export default ({ cards }) => {
       </GridListTile>
     ))} 
   </GridList>
-  <Typography variant="body2" align='center' style={{marginTop: '15px'}}>
-      Free tier includes a mazimum of 3 projects with 5GBs of data capacity.
-      Please contact support@citsci.earth for additional data capacity.
-  </Typography>
   </>
   )
 }

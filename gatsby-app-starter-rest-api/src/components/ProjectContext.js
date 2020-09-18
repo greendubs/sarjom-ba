@@ -115,7 +115,7 @@ export class ProjectProvider extends React.Component {
   
 
   componentDidUpdate() {
-    console.log(this.state)
+    //console.log(this.state)
   }
   
   render() {

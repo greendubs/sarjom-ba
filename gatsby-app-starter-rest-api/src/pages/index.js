@@ -91,6 +91,7 @@ export default class Products extends React.Component {
                     subtitle="By using this site, you agree to the terms and conditions set forward here."
                   />
                 </Grid>
+                <Link to='/app/organizations'>org shortcut</Link>
               </Container>
             </div>
           )}

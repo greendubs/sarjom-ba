@@ -48,6 +48,7 @@ export default ({ form }) => {
             password: 'Field is required',
           })
         } else {
+          console.log(details)
           const { data } = await axios.post(`${process.env.API}/login`, {
             email,
             password,
@@ -82,15 +83,16 @@ export default ({ form }) => {
               navigate('/app/collect')
             }
           } else {
+            console.log(data)
             if (data.reason === 'Incorrect password') {
               setErrors({
-                ...errors,
+                //...errors,
                 password: 'Incorrect password',
               })
               setSubmitting(false)
             } else {
               setErrors({
-                ...errors,
+                //...errors,
                 email: 'No account found for this email',
               })
               setSubmitting(false)
