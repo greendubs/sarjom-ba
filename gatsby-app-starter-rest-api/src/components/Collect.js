@@ -233,9 +233,12 @@ export default class Collect extends React.Component {
                 task: () => this.dummy(),
                 hide: true,
               },
-            ]}
-            data={this.state.data}
-          />
+            ]}>
+               <CardSet 
+                  cards={this.state.data} 
+                  button1={{ label: "DataStory", function: () => this.dummy()}} 
+                  button2={{ label: "Contributors", function: () => this.dummy()}}/>
+          </DashPanel>
           {this.state.task === 'Add New Project' && (
             <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">
