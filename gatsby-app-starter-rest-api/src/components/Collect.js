@@ -39,6 +39,7 @@ export default class Collect extends React.Component {
     projectNames: [],
     open: false,
     newProjectName: '',
+    requestedProject: '',
     task: '',
     dataStoryProjectId: '',
     dataStoryProjects: [],
@@ -54,6 +55,7 @@ export default class Collect extends React.Component {
       projectNames: [],
       open: false,
       newProjectName: '',
+      requestedProject: '',
       task: '',
       dataStoryProjectId: '',
       dataStoryProjects: [],
@@ -144,6 +146,12 @@ export default class Collect extends React.Component {
     })
   }
 
+  handleDLChange = e => {
+    this.setState({ 
+      requestedProject: e.target.value,
+    })
+  }
+
   handleSPChange = e => {
     this.setState({
       dataStoryProjectId: e.target.value,
@@ -180,6 +188,28 @@ export default class Collect extends React.Component {
         dataStoryType: this.state.dataStoryType,
       },
     })
+  }
+
+  async requestDownload() {
+    try {
+      const { data } = await axios.get(`${process.env.API}/files/${this.state.requestedProject}`, {
+        headers: {
+          token: this.context.data.token,
+          tokenId: this.context.data.tokenId,
+        },
+      })
+
+      // console.log(data)
+      if (data.status === 'SUCCESS') {
+        console.log(data.response.status)
+        this.handleClose()
+      } else {
+        console.log(data.reason)
+      }
+    } catch (err) {
+      console.log(err)
+      console.log(this.state.data)
+    }
   }
 
   render() {
@@ -220,7 +250,7 @@ export default class Collect extends React.Component {
               },
               {
                 label: 'Download Project Data',
-                task: () => this.dummy(),
+                task: () => this.handleClickOpen('Download Project Data'),
                 hide: false,
               },
               {
@@ -258,8 +288,8 @@ export default class Collect extends React.Component {
                 />
                 <DialogContentText>
                   <Typography variant="body1" gutterBottom align="center">
-                    Creat a unique name for you project to get you started. The
-                    name of the project should be unique for you organization
+                    Create a unique name for your project to get you started. The
+                    name of the project should be unique for you organization.
                   </Typography>
                 </DialogContentText>
               </DialogContent>
@@ -367,6 +397,55 @@ export default class Collect extends React.Component {
                   onClick={() => this.submitDataStory()}
                 >
                   Create
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
+          {this.state.task === 'Download Project Data' && (
+            <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">
+                <Typography variant="h5" align="left">
+                  Download Project Data
+                </Typography>
+              </DialogTitle>
+              <DialogContent>
+                <Select
+                  variant="outlined"
+                  value={this.state.requestedProject}
+                  onChange={this.handleDLChange}
+                  name="metaData"
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>Select Project</MenuItem>
+                  {this.state.data.map(project => (
+                    <MenuItem value={project.id}>
+                      {project.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <DialogContentText>
+                  <Typography variant="body2" align="center" style={{marginTop: '1rem'}}>
+                    You can download the project data from our servers and free up space in your account.
+                    Once you select a project and click on download, you will receive an email with a URL to
+                    download the data. The project will be removed 72 hours after successful download from the email link.
+                  </Typography>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" onClick={() => this.handleClose()}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={ this.state.requestedProject === '' }
+                  style={{
+                    backgroundColor: '#3EC28F',
+                    margin: '1rem',
+                    color: 'white',
+                  }}
+                  onClick={() => this.requestDownload()}
+                >
+                  Request Download
                 </Button>
               </DialogActions>
             </Dialog>
