@@ -464,6 +464,7 @@ export default function SendUploadDatasetForm() {
                   accept="image/*"
                   className={classes.input}
                   onChange={handleImagesChange}
+                  onBlur={handleBlur}
                   multiple
                 />
                 <label htmlFor="contained-button-file">
@@ -538,6 +539,9 @@ export default function SendUploadDatasetForm() {
                 location={location}
                 setLocation={setLocation}
               />
+              {errors.location && (
+                <span style={{ color: 'red' }}>{errors.location}</span>
+              )}
               <br />
               <TextField
                 id="standard-date"
@@ -551,6 +555,9 @@ export default function SendUploadDatasetForm() {
                 inputProps={{ name: 'metaDate', id: 'standard-date' }}
                 onChange={handleChange}
               />
+              {errors.metaDate && (
+                <span style={{ color: 'red' }}>{errors.metaDate}</span>
+              )}
               <br />
               <Autocomplete
                 multiple
@@ -611,6 +618,9 @@ export default function SendUploadDatasetForm() {
                   </Tooltip>
                 </span>
               </Typography>
+              {errors.license && (
+                <span style={{ color: 'red' }}>{errors.license}</span>
+              )}
               <Typography variant="caption">
                 We use creative common license for your data. It is safe and
                 secure within your community.
@@ -621,6 +631,7 @@ export default function SendUploadDatasetForm() {
                   native
                   value={details.license}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                   inputProps={{
                     name: 'license',
                     id: 'filled-license',

@@ -5,6 +5,10 @@ exports.onCreatePage = async ({ page, actions: { createPage } }) => {
     page.matchPath = '/app/*'
     createPage(page)
   }
+  if (page.path.match(/^\/viewDataStory/)) {
+    page.matchPath = '/viewDataStory/:dataStoryId'
+    createPage(page)
+  }
 }
 
 exports.onCreateWebpackConfig = ({ actions }) => {
@@ -13,7 +17,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
     node: {
-      fs: 'empty'
-    }
+      fs: 'empty',
+    },
   })
 }

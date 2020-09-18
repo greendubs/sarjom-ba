@@ -17,6 +17,7 @@ import CreateProjectForm from './../components/CreateProjectForm'
 import ProjectCreated from 'components/ProjectCreated'
 import { ProjectProvider } from 'components/ProjectContext'
 import PrivateRoute from 'components/privateRoute'
+import CreateDataStoryPanel from 'components/CreateDataStoryPanel'
 
 export default () => (
   <Provider>
@@ -39,22 +40,27 @@ export default () => (
             role="COLLECTOR"
             component={ProjectCreated}
           />
+          <PrivateRoute
+            path="/app/collect/createDataStory"
+            role="COLLECTOR"
+            component={CreateDataStoryPanel}
+          />
           <Register path="/app/register/" component={Register} />
           <Login path="/app/login/" component={Login} />
           {/*Must be changed to Sender*/}
           <PrivateRoute
             path="/app/send/project"
-            role="COLLECTOR"
+            role="SENDER"
             component={Send}
           />
           <PrivateRoute
             path="/app/send/dataset"
-            role="COLLECTOR"
+            role="SENDER"
             component={SendUploadDatasetForm}
           />
           <PrivateRoute
             path="/app/send/complete"
-            role="COLLECTOR"
+            role="SENDER"
             component={SendCompleteForm}
           />
           <NotFound default component={NotFound} />
