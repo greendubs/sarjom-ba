@@ -5,7 +5,7 @@ import Footer from 'components/theme/Footer'
 import 'unnamed'
 import './layout.css'
 
-export default ({ children, isLoggedIn, logout }) => {
+export default ({ children, isLoggedIn, logout, gap }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -22,13 +22,14 @@ export default ({ children, isLoggedIn, logout }) => {
   return (
     <>
       <Header
+        noPad={gap}
         siteTitle={site.siteMetadata.title}
         siteAuthor={site.siteMetadata.author}
         isLoggedIn={isLoggedIn}
         logout={logout}
       />
       <main>{children}</main>
-      <Footer />
+      <Footer noPad={gap}/>
     </>
   )
 }

@@ -11,6 +11,7 @@ import {Button,
 
 export default function SignUpForm() {
   const [open, setOpen] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   const [desc, setDesc] = React.useState("");
   const [email, setEmail] = React.useState("")
 
@@ -46,6 +47,8 @@ export default function SignUpForm() {
       console.log(error);
     });
     handleClose()
+    setSuccess(true)
+
   }
 
   const handleDesc = (e) => {
@@ -65,6 +68,7 @@ export default function SignUpForm() {
             backgroundColor: '#3EC28F',
             marginLeft: '0px',
             color: 'white',
+            margin: '1rem'
           }}
           onClick={handleClickOpen}
         >
@@ -78,11 +82,13 @@ export default function SignUpForm() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            <Typography variant='body1' gutterBottom='true'>
-            Citsci Earth is currently in beta development and is currently invite only.
-            Please complete the form below and we will reach out to you to setup your organization and projects.
+            <Typography variant='body1' gutterBottom='true' style={{color: 'black'}}>
+            Citsci Earth is currently in beta development and we are presently invite only.
+            We follow a communitry driven design process to build the open source tools and technologies for environment.
+            Hence if you would like to get involved, please let us know!
+            We are always happy to work with a diverse set of stakeholders.
             </Typography>
-            <Typography variant='body1' align='left' gutterBottom='true'>
+            <Typography variant='body1' align='left' gutterBottom='true' style={{color: 'black'}}>
               <div>- Looking to join a citizen science project?</div>
               <div>- Looking to develop or host your own citizen science projects?</div>
               <div>- Looking to start your own neighborhood, school, university project?</div>
@@ -92,12 +98,14 @@ export default function SignUpForm() {
           <TextField
             autoFocus
             multiline
+            rows={6}
             margin='dense'
             id='description'
             type='text'
             fullWidth
             variant='outlined'
-            placeholder='Enter a brief description of your requirements/interests(250 words)'
+            style={{ backgroundColor: '#e9ecef' }}
+            placeholder='A brief description of your interests(250 words)'
             onChange={handleDesc}
             />
           <TextField
@@ -106,7 +114,9 @@ export default function SignUpForm() {
             id='contact'
             type='text'
             fullWidth
-            placeholder='Enter your email ID and contract details'
+            variant='outlined'
+            style={{ backgroundColor: '#e9ecef' }}
+            placeholder='Email ID or contact details'
             onChange={handleEmail}
             />
         </DialogContent>
@@ -125,6 +135,21 @@ export default function SignUpForm() {
               color: 'white'}} 
             onClick={submit}>
             Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={success}>
+        <DialogContent>
+          <Typography variant='body1' gutterBottom='true' align='center'>
+            Thank you for your message. A team member will reach out to you soon.
+            For any follow up, you can write to us at <a>hello@citsci.earth</a>
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button 
+            variant="contained"
+            onClick={() => setSuccess(false)}>
+            Close
           </Button>
         </DialogActions>
       </Dialog>

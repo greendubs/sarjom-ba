@@ -130,8 +130,9 @@ export default class Header extends React.Component {
           <AppBar
             position="static"
             color="default"
-            style={{ marginBottom: '2rem' }}
+            style={{ marginBottom: (this.props.noPad ? '5px' : '2rem') }}
           >
+          {console.log(this.props.noPad)}
             <ToolBar>
               <Typography type="title" color="inherit" style={{ flexGrow: 1 }}>
                 <Link

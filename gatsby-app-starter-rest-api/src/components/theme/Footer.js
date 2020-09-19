@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styles from './header-footer.module.css'
 
-export default () => (
-  <footer className={styles.footer}>
+export default ({ noPad }) => (
+  <footer className={styles.footer} style={{marginTop: (noPad ? '0px' : '1.45rem')}}>
     <div className="center-text flex-container container">
-      <h6 style={{ paddingTop: `1rem` }}>
-        &#169;Greendubs, iSchool, University of Washington, 2020
-      </h6>
+      <h5 style={{ color: 'white', paddingTop: `1rem` }}>
+        &#169;Sarjom, CitSci Earth Lab, Seattle, USA
+      </h5>
       <nav>
         <Link to="/help" className={styles.footernav}>
           Help and Support

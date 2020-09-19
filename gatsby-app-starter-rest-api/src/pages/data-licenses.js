@@ -72,9 +72,6 @@ export default () => (
           open and environment-friendly licenses and attributions schemes that
           can fundamentally change and democratize the commercial landscape of
           digital rights and assets management.{' '}
-          <a href="sign-up.html" target="_survey">
-            Click here!
-          </a>
         </p>
       </Container>
     </div>

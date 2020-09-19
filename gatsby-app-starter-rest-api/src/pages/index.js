@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styles from './pagestyles.modules.css'
 import SEO from 'components/common/Seo'
+import transpLogo from 'images/CitSciEarth-Transparent.png'
 import SignUpForm from 'components/common/SignUpForm'
 import AppWrapper from 'components/AppWrapper'
 import Context from 'components/common/Context'
@@ -25,29 +26,35 @@ function LandingGridItem(props) {
 export default class Products extends React.Component {
   render() {
     return (
-      <AppWrapper>
+      <AppWrapper noPad={true}>
         <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
-        <Context.Consumer>
-          {context => (
-            <div
+        <div
               className="container center-text"
               style={{ backgroundColor: '#e9ecef' }}
             >
+        <Context.Consumer>
+          {context => (
+            <>
+              <br/>
               {/*console.log(
                 context.data.isLoggedIn
               ) access data from context*/}
               <Container maxWidth="xs">
-                <h1>Welcome to CitSci Earth</h1>
-                <p>
-                  CitSci Earth lets you share your datasets with people and
+                <img src={transpLogo} height='156px' width='200px' style={{marginBottom: '0px'}}/>
+                <Typography variant='body1' align='center' gutterBottom>
+                  CitSci Earth lets you share your datasets and research with people and
                   organizations across the world. Contributors receive
                   attributions whenever their datasets are published by a
                   community.
-                </p>
+                </Typography>
                 <SignUpForm />
+                <Typography variant="body2" gutterBottom>
+                  Sign up today to get an invite. Join our movement to help collect about
+                  your local environment.
+                </Typography>
               </Container>
               <Container maxWidth="sm" style={{ marginTop: `1.5rem` }}>
-                <Typography variant="caption" gutterBottom={true}>
+                <Typography variant="caption" gutterBottom>
                   Get an invite from a citizen science project or start your own
                   project and join our movement to save the environment from
                   climate change.
@@ -93,9 +100,11 @@ export default class Products extends React.Component {
                 </Grid>
                 {/* <Link to='/app/organizations'>org shortcut</Link> */}
               </Container>
-            </div>
+            </>
           )}
         </Context.Consumer>
+        <br/>
+        </div>
       </AppWrapper>
     )
   }

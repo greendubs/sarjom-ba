@@ -285,7 +285,7 @@ export default class Collect extends React.Component {
                   id="contact"
                   fullWidth
                   ref="nameInput"
-                  style={{backgroundColor: '#e9ecef'}}
+                  style={{ backgroundColor: '#e9ecef' }}
                   onChange={this.handleTFChange}
                 />
                 <DialogContentText>

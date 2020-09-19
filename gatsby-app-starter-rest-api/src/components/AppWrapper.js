@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import { navigate } from 'gatsby'
 import setAuthToken from 'helpers/setAuthToken'
@@ -6,7 +6,7 @@ import Layout from 'components/common/Layout'
 import Context from './common/Context'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-export default ({ children }) => {
+export default ({ noPad, children }) => {
   const { data, dispatchUserAction } = useContext(Context)
   const [loading, setLoading] = useState(false)
 
@@ -86,8 +86,8 @@ export default ({ children }) => {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <Layout isLoggedIn={data.isLoggedIn} logout={logout}>
-          {/*console.log(context.user.isLoggedIn)*/}
+        <Layout gap={noPad} isLoggedIn={data.isLoggedIn} logout={logout}>
+          {console.log(noPad)}
           {children}
         </Layout>
       )}

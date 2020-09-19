@@ -3,6 +3,7 @@ import Layout from 'components/common/Layout'
 import { Container } from '@material-ui/core'
 import SEO from 'components/common/Seo'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import SignUpForm from 'components/common/SignUpForm'
 import Link from '@material-ui/core/Link'
 
 export default () => (
@@ -147,9 +148,10 @@ export default () => (
           the only planet we know as our home, we need all hands on deck!
         </p>
         <p>
-          <a href="sign-up.html" target="_survey">
+          <Container align='center'>
+          <SignUpForm/>
+          </Container>
             Sign up here
-          </a>{' '}
           to list your project in our upcoming directory and create your own
           community!
         </p>
