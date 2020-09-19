@@ -115,8 +115,7 @@ export default class InviteUsers extends React.Component {
             <Grid item xs={6}>
               <br/>
               <Typography variant='body2'>
-                Once you upload the user invitation template, the system will share
-                how many users are added into the project. When you click on next,
+                After you upload the file and click on next,
                 an email invitation with a link will be sent to the users.
                 People can click on that link and start contributing datasets.
               </Typography>

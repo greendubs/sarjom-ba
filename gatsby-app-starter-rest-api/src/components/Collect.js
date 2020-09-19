@@ -279,15 +279,17 @@ export default class Collect extends React.Component {
               </DialogTitle>
               <DialogContent>
                 <TextField
-                  margin="dense"
+                  variant="outlined"
+                  margin='dense'
+                  type='text'
                   id="contact"
-                  type="text"
                   fullWidth
                   ref="nameInput"
+                  style={{backgroundColor: '#e9ecef'}}
                   onChange={this.handleTFChange}
                 />
                 <DialogContentText>
-                  <Typography variant="body1" gutterBottom align="center">
+                  <Typography variant="body2" gutterBottom align="center" style={{color: 'black'}}>
                     Create a unique name for your project to get you started. The
                     name of the project should be unique for you organization.
                   </Typography>

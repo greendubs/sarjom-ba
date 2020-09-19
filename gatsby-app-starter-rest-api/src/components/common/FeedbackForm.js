@@ -76,18 +76,20 @@ export default function FeedbackForm() {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <Typography variant='body1' gutterBottom='true'>
+          <Typography variant='body1' gutterBottom align='center'>
           This site is still in beta development, please let us know what you think of the
           site so far!
           </Typography>
         </DialogContentText>
         <TextField
           multiline
+          rows={8}
           margin='dense'
           id='description'
           type='text'
           fullWidth
           variant='outlined'
+          style={{backgroundColor: '#e9ecef'}}
           onChange={handleComments}
           />  
       </DialogContent>

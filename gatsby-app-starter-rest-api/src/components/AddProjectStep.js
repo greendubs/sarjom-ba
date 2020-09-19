@@ -128,6 +128,7 @@ export default class AddProject extends React.Component {
           {/* TODO: make this text field a little smaller */}
           <TextField
             multiline
+            rows={12}
             margin='dense'
             inputProps={{style: {fontSize: 17}}}
             id='description'
@@ -135,7 +136,8 @@ export default class AddProject extends React.Component {
             fullWidth
             variant='outlined'
             defaultValue={this.state.desc}
-            placeholder='Rich text box - can embed links, urls. 200 words max'
+            placeholder='Start typing here. This is a rich text box, you can embed external links here. 
+                         (200 words max)'
             onChange={this.handleDescChange}
             />
         </Grid>

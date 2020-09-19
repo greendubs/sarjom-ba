@@ -1,5 +1,4 @@
 import React from 'react'
-import CardSet from 'components/common/CardSet'
 import { Grid, MenuList, MenuItem, Button, Typography } from '@material-ui/core'
 
 export default ({ buttons, children }) => {
@@ -27,15 +26,16 @@ export default ({ buttons, children }) => {
         </MenuList>
       </Grid>
       <Grid item xs={9}>
-        {children}
         <Typography
           variant="body2"
           align="center"
-          style={{ marginTop: '15px' }}
+          style={{ marginBottom: '1rem' }}
         >
-          Free tier includes a mazimum of 3 projects with 5GBs of data capacity.
-          Please contact support@citsci.earth for additional data capacity.
+          Free tier includes a maximum of 3 projects with 5GBs of data capacity.
+          Please contact support@citsci.earth for additional data.
         </Typography>
+        {children}
+        <br/>
       </Grid>
     </Grid>
   )
