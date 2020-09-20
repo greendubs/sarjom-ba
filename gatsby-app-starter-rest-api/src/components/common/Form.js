@@ -3,7 +3,14 @@ import axios from 'axios'
 import { Link, navigate } from 'gatsby'
 import Context from 'components/common/Context'
 import setAuthToken from 'helpers/setAuthToken'
-import { Container, Typography, Button } from '@material-ui/core'
+import SignUpForm from 'components/common/SignUpForm'
+import { Container, 
+         Typography, 
+         Button, 
+         TextField,
+         InputAdornment } from '@material-ui/core'
+import EmailIcon from '@material-ui/icons/Email'
+import LockIcon from '@material-ui/icons/Lock'
 
 export default ({ form }) => {
   const { data, dispatchUserAction } = useContext(Context)
@@ -144,9 +151,10 @@ export default ({ form }) => {
 
   return (
     <Container maxWidth="xs">
-      <Typography align="center" variant="subtitle1">
+      <Typography align="center" variant="subtitle1" gutterBottom>
         Login to Send or Collect Your Data
       </Typography>
+      <br/>
       <form onSubmit={handleSubmit}>
         {/* {form === 'register' && (                              <== Don't need this for now, all accounts
           <div className="input-field black-input">                    created in backend
@@ -162,7 +170,7 @@ export default ({ form }) => {
             )}
           </div>
         )} */}
-        <div className="input-field black-input">
+        {/* <div className="input-field black-input">
           <span className="email-icon" />
           <input
             onChange={handleChange}
@@ -172,22 +180,53 @@ export default ({ form }) => {
             name="email"
           />
           {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
-        </div>
-        <div className="input-field black-input">
-          <span className="lock-icon" />
-          <input
-            onChange={handleChange}
-            onBlur={handleBlur}
-            type="password"
-            placeholder="Enter your password"
-            name="password"
-          />
-          {errors.password && (
+        </div> */}
+        <TextField
+          variant='outlined'
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type="email"
+          fullWidth
+          placeholder="Enter your email"
+          style={{ backgroundColor: '#e9ecef' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <EmailIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Typography variant='body1' align='center' gutterBottom style={{marginTop: '.5rem'}}>
+          {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+        </Typography>
+        <br/>
+        <TextField
+          variant='outlined'
+          name="password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type="password"
+          fullWidth
+          placeholder="Enter your email"
+          style={{ backgroundColor: '#e9ecef' }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Typography variant='body1' align='center' gutterBottom style={{marginTop: '.5rem'}}>
+        {errors.password && (
             <span style={{ color: 'red' }}>{errors.password}</span>
           )}
-        </div>
+        </Typography>
+        <br/>
+       
         <div className="center-text">
-          {/* TODO: lets style this a little differently to emphasize and differentiate from the button below */}
           <Button
             type="submit"
             variant="contained"
@@ -206,32 +245,11 @@ export default ({ form }) => {
 
       <br />
       <Typography variant="body2" align="center" gutterBottom={true}>
-        In case your organization is not listed here and you would like to join
-        us then enroll your community, list your citizen science
-        projects/organization in our directory so that more people can find and
-        join your work.
+        List your organization and citizen science projects in our directory 
+        and help accelerate collaboration and innovation!
       </Typography>
       <Typography align="center">
-        {/* TODO: Wireframes this needs to link to join-us in new window? */}
-        <Button
-          variant="contained"
-          style={{
-            backgroundColor: '#3EC28F',
-            marginLeft: '0px',
-            color: 'white',
-          }}
-        >
-          <Link
-            to="/join-us"
-            style={{
-              color: 'white',
-              textDecoration: 'none',
-              backgroundColor: '#3ec28f',
-            }}
-          >
-            Join Us
-          </Link>
-        </Button>
+        <SignUpForm/>
       </Typography>
     </Container>
   )

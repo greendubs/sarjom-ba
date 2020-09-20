@@ -28,7 +28,7 @@ export default ({ children, isLoggedIn, logout, gap }) => {
         isLoggedIn={isLoggedIn}
         logout={logout}
       />
-      <main>{children}</main>
+      <div className="main-container">{children}</div>
       <Footer noPad={gap}/>
     </>
   )

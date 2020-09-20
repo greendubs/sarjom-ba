@@ -641,3 +641,9 @@ input {
 textarea {
   min-height: 2rem;
 }
+
+.main-container {
+  min-height: 81vh;
+  overflow: hidden;
+  position: relative;
+}
