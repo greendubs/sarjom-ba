@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import styles from './pagestyles.modules.css'
 import SEO from 'components/common/Seo'
 import transpLogo from 'images/CitSciEarth-Transparent.png'
 import SignUpForm from 'components/common/SignUpForm'
 import AppWrapper from 'components/AppWrapper'
 import Context from 'components/common/Context'
 import { Container, Grid, Divider, Typography } from '@material-ui/core'
+import './pagestyles.modules.css'
 
 function LandingGridItem(props) {
   return (
@@ -26,6 +26,7 @@ function LandingGridItem(props) {
 export default class Products extends React.Component {
   render() {
     return (
+      <>
       <AppWrapper noPad={true}>
         <SEO title="Home" keywords={[`greendubs`, `citsci`, `sarjom`]} />
         <div
@@ -98,7 +99,7 @@ export default class Products extends React.Component {
                     subtitle="By using this site, you agree to the terms and conditions set forward here."
                   />
                 </Grid>
-                {/* <Link to='/app/organizations'>org shortcut</Link> */}
+                 {/* <Link to='/app/send/complete'>shortcut</Link> */}
               </Container>
             </>
           )}
@@ -106,6 +107,7 @@ export default class Products extends React.Component {
         <br/>
         </div>
       </AppWrapper>
+      </>
     )
   }
 }

@@ -4,7 +4,7 @@ import styles from './header-footer.module.css'
 import { Typography } from '@material-ui/core'
 
 export default ({ noPad }) => (
-  <footer className={styles.footer} style={{ padding: '1rem', marginTop: (noPad ? '0px' : '1.45rem') }}>
+  <footer className={styles.footer} style={{ padding: '1rem' }}>
     <div className="center-text flex-container container">
       <Typography variant='body2' style={{ color: 'white' }}>
         @Sarjom, CitSci Earth Lab, Seattle, USA

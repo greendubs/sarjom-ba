@@ -2,6 +2,7 @@ import React from 'react'
 import { navigate } from '@reach/router'
 import { Link } from 'gatsby'
 import SEO from 'components/common/Seo'
+import FeedbackForm from 'components/common/FeedbackForm'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 
 import {
@@ -93,22 +94,10 @@ export default class SendCompleteForm extends React.Component {
           </Typography>
           <br />
           <Typography variant="body2" align="center" gutterBottom>
-            Let us know what you think!
+            <p>Let us know what you think!</p>
+            <FeedbackForm/>
           </Typography>
           <br />
-          <Typography align="center" gutterBottom>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: '#3EC28F',
-                color: 'white',
-                marginLeft: '0px',
-              }}
-              onClick={() => this.handleClickOpen()}
-            >
-              Send Message
-            </Button>
-          </Typography>
           <br />
           <Typography align="center" gutterBottom>
             <Button

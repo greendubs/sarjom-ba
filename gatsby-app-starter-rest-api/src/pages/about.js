@@ -4,9 +4,7 @@ import { Container,
          Accordion,
          AccordionSummary,
          AccordionDetails,
-         Typography,
-         Card,
-         CardMedia, } from '@material-ui/core'
+         Typography, } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ReactPlayer from "react-player"
 import SEO from 'components/common/Seo'
@@ -16,11 +14,6 @@ export default () => (
     <div className="container">
       <SEO title="About Us" />
       <Container>
-        
-        <Container maxWidth='md' align='center'>
-          <ReactPlayer url="https://www.youtube.com/watch?v=5ydZNa6XDIE&t=3s" controls={true}/>
-        </Container>
-        <br/>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

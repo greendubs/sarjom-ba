@@ -86,7 +86,7 @@ export default ({ noPad, children }) => {
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <Layout gap={noPad} isLoggedIn={data.isLoggedIn} logout={logout}>
+        <Layout noPad={noPad} isLoggedIn={data.isLoggedIn} logout={logout}>
           {console.log(noPad)}
           {children}
         </Layout>

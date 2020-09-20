@@ -11,7 +11,7 @@ export default () => (
       <Container align='center' maxWidth='sm'>
         <Typography variant='body1'>
           <p>Please write to use for any help or support issues at <a>support@citsci.earth</a></p>
-          <p>This page will be enhanced later to develop community guidelines, FAQs and software documentations.</p>
+          <p>This page will be enhanced later to develop community guidelines, FAQs, and software documentations.</p>
         </Typography>
       </Container>
     </>
