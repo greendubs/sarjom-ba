@@ -30,12 +30,12 @@ export default function ViewDataStory({ id }) {
 
   const fetchDataStory = async () => {
     try {
-      console.log('reached fetch story')
+      //console.log('reached fetch story')
       const response = await axios.get(`${process.env.API}/datastories/${id}`)
-      console.log('received response is..')
-      console.log(response)
+      // console.log('received response is..')
+      // console.log(response)
       if (response.data.status === 'SUCCESS') {
-        console.log('setting details..')
+        // console.log('setting details..')
         const contributors = []
         const files = response.data.response.datastory.files
         files.forEach(file => {
@@ -43,7 +43,7 @@ export default function ViewDataStory({ id }) {
             contributors.push(file.uploadedByUser.name)
           }
         })
-        console.log(contributors)
+        // console.log(contributors)
         setDetails({
           ...details,
           files: response.data.response.datastory.files,
@@ -63,7 +63,7 @@ export default function ViewDataStory({ id }) {
   }
 
   useEffect(() => {
-    console.log(details)
+    // console.log(details)
     fetchDataStory()
   }, [])
 

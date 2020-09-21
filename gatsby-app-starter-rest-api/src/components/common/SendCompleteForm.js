@@ -49,7 +49,7 @@ export default class SendCompleteForm extends React.Component {
   }
 
   sendFeedback() {
-    console.log(this.state.feedback)
+    //console.log(this.state.feedback)
     this.setState({
       open: false,
     })

@@ -25,7 +25,7 @@ export default ({ children }) => {
     organizations,
     role
   ) => {
-    console.log(data)
+    //console.log(data)
     data.isLoggedIn = loginStatus
     data.token = token
     data.tokenId = tokenId
@@ -34,17 +34,17 @@ export default ({ children }) => {
     data.userName = userName
     data.organizations = organizations
     data.role = role
-    console.log('context updated')
-    console.log(data)
+    // console.log('context updated')
+    // console.log(data)
   }
 
   data.setSendData = (organizationId, projectId, projectName) => {
-    console.log(data)
+    //console.log(data)
     data.sendProjectId = projectId
     data.sendOrganizationId = organizationId
     data.sendProjectName = projectName
-    console.log('send data updated')
-    console.log(data)
+    // console.log('send data updated')
+    // console.log(data)
   }
 
   return (

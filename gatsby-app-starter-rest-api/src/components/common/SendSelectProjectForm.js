@@ -67,11 +67,11 @@ export default function SendSelectProjectForm() {
       const response = await axios.get(`${process.env.API}/projects`, {
         headers: headers,
       })
-      console.log('response recieved is')
-      console.log(response.data.response.projects)
+      // console.log('response recieved is')
+      // console.log(response.data.response.projects)
 
       setProjects({ ...projects, projects: response.data.response.projects })
-      console.log(projects)
+      //console.log(projects)
     } catch (error) {
       console.log(error)
     }
@@ -79,11 +79,11 @@ export default function SendSelectProjectForm() {
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
-    console.log(e.target.options[e.target.selectedIndex].text)
-    console.log(e.target.name, e.target.value)
+    // console.log(e.target.options[e.target.selectedIndex].text)
+    // console.log(e.target.name, e.target.value)
     if (e.target.name === 'organization') {
       const options = []
-      console.log(projects)
+      //console.log(projects)
       for (let i = 0, l = projects.projects.length; i < l; i += 1) {
         // console.log(projects.projects[i])
         if (projects.projects[i].organisationId === e.target.value) {
@@ -93,7 +93,7 @@ export default function SendSelectProjectForm() {
           })
         }
       }
-      console.log(options)
+      //console.log(options)
       setProjectOptions(options)
       //console.log(projectOptions)
     } else if (e.target.name === 'project') {
@@ -115,11 +115,11 @@ export default function SendSelectProjectForm() {
     //console.log(e)
     try {
       const { organization, project } = details
-      console.log(organization, project)
+      //console.log(organization, project)
 
       if (!organization || !project) {
-        console.log('Reached errors')
-        console.log(organization, project)
+        // console.log('Reached errors')
+        // console.log(organization, project)
         setErrors({
           ...errors,
           organization: 'Field is required',
@@ -127,10 +127,10 @@ export default function SendSelectProjectForm() {
         })
       } else {
         // store project and organization details in context
-        console.log(organization, project, projectName)
+        //console.log(organization, project, projectName)
         data.setSendData(organization, project, projectName)
-        console.log('isSubmitting')
-        console.log(data)
+        // console.log('isSubmitting')
+        // console.log(data)
         navigate('../dataset')
       }
     } catch (error) {

@@ -118,7 +118,7 @@ export default function CreateDataStoryPanel() {
 
   const fetchFiles = async () => {
     try {
-      console.log('reached fetch files')
+      //console.log('reached fetch files')
       const response = await axios.post(
         `${process.env.API}/files/fetch`,
         {
@@ -131,17 +131,17 @@ export default function CreateDataStoryPanel() {
           },
         }
       )
-      console.log('received response is..')
-      console.log(response.data.response.files)
+      // console.log('received response is..')
+      // console.log(response.data.response.files)
       if (response.data.status === 'SUCCESS') {
-        console.log('setting details..')
+        //console.log('setting details..')
         setDetails({
           ...details,
           files: response.data.response.files,
           projectId: window.history.state.dataStoryProjectId,
           dataStoryType: window.history.state.dataStoryType,
         })
-        console.log(details)
+        //console.log(details)
       } else {
         console.log(response.reason)
       }
@@ -153,8 +153,8 @@ export default function CreateDataStoryPanel() {
 
   useEffect(() => {
     if (isInitialLoad) {
-      console.log(window.history.state.dataStoryProjectId)
-      console.log(details)
+      // console.log(window.history.state.dataStoryProjectId)
+      // console.log(details)
       fetchFiles()
       setInitialLoad(false)
     }
@@ -165,12 +165,12 @@ export default function CreateDataStoryPanel() {
   }
 
   const handleTFChange = e => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
     if (!e.target.value) {
       setErrors({ ...errors, dataStoryName: 'Required Field' })
     }
     setDetails({ ...details, dataStoryName: e.target.value })
-    console.log(details)
+    //console.log(details)
   }
 
   const handleSave = data => {
@@ -179,7 +179,7 @@ export default function CreateDataStoryPanel() {
       ...details,
       dataStoryContent: data,
     })
-    console.log(details)
+    //console.log(details)
   }
 
   // handleBack() {
@@ -204,7 +204,7 @@ export default function CreateDataStoryPanel() {
         projectId,
         dataStoryType,
       } = details
-      console.log(dataStoryName, dataStoryContent, projectId, dataStoryType)
+      //console.log(dataStoryName, dataStoryContent, projectId, dataStoryType)
       if (!dataStoryName) {
         console.log('Reached errors')
         setErrors({ ...errors, dataStoryName: 'Field is required' })
@@ -222,11 +222,11 @@ export default function CreateDataStoryPanel() {
             headers: headers,
           }
         )
-        console.log('response received is')
-        console.log(response)
+        // console.log('response received is')
+        // console.log(response)
 
         if (response.data.status === 'SUCCESS') {
-          console.log('viewDataStory/${response.data.response.id}')
+          //console.log('viewDataStory/${response.data.response.id}')
           navigate(
             `/viewDataStory/:${response.data.response.createdDatastory.id}/`,
             {
@@ -254,7 +254,7 @@ export default function CreateDataStoryPanel() {
         projectId,
         dataStoryType,
       } = details
-      console.log(dataStoryName, dataStoryContent, projectId, dataStoryType)
+      //console.log(dataStoryName, dataStoryContent, projectId, dataStoryType)
       if (!dataStoryName) {
         console.log('Reached errors')
         setErrors({ ...errors, dataStoryName: 'Field is required' })
@@ -272,8 +272,8 @@ export default function CreateDataStoryPanel() {
             headers: headers,
           }
         )
-        console.log('response recieved is')
-        console.log(response)
+        // console.log('response recieved is')
+        // console.log(response)
       }
     } catch (error) {
       setSubmitting(false)

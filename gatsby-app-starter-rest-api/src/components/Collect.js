@@ -82,7 +82,7 @@ export default class Collect extends React.Component {
         this.extractDocNames()
         this.extractDataStoryProjects()
       } else {
-        console.log(data.reason)
+        //console.log(data.reason)
       }
     } catch (err) {
       console.log(err)
@@ -95,7 +95,7 @@ export default class Collect extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state)
+    //console.log(this.state)
   }
 
   extractDocNames() {
@@ -107,14 +107,14 @@ export default class Collect extends React.Component {
   }
 
   extractDataStoryProjects() {
-    console.log('Reached Data story projects')
+    //console.log('Reached Data story projects')
     const projects = []
-    console.log(this.context.data.userId)
+    //console.log(this.context.data.userId)
     let userId = this.context.data.userId
     this.state.data
       .filter(proj => proj.createdByUserId === userId)
       .forEach(proj => projects.push({ name: proj.name, id: proj.id }))
-    console.log(projects)
+    //console.log(projects)
     this.setState({
       dataStoryProjects: projects,
     })
@@ -125,8 +125,8 @@ export default class Collect extends React.Component {
   }
 
   handleClickOpen(label) {
-    console.log('opening')
-    console.log(label)
+    // console.log('opening')
+    // console.log(label)
     this.setState({
       open: true,
       task: label,
@@ -201,7 +201,7 @@ export default class Collect extends React.Component {
 
       // console.log(data)
       if (data.status === 'SUCCESS') {
-        console.log(data.response.status)
+        //console.log(data.response.status)
         this.handleClose()
       } else {
         console.log(data.reason)
