@@ -78,7 +78,7 @@ export default class CreateProjectForm extends React.Component {
 
   async submitForm() {
     await this.context.setProjectType("OPEN")
-    console.log("sending project")
+    //console.log("sending project")
     var axios = require('axios');
     var data = JSON.stringify({"organisationId":this.context.orgId,
                               "createdByUserId":this.context.userId,
@@ -104,7 +104,7 @@ export default class CreateProjectForm extends React.Component {
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      //console.log(JSON.stringify(response.data));
       //console.log("sending invites")
       this.sendInvites(response.data.response.createdProject.id)
     }.bind(this))
@@ -134,9 +134,9 @@ export default class CreateProjectForm extends React.Component {
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      //console.log(JSON.stringify(response.data));
       this.context.clearProject()
-      console.log("We did it!")
+      //console.log("We did it!")
       navigate("/app/collect/projectCreated", 
                 { state: { 
                   createdProject: this.state.projectName 
@@ -156,7 +156,7 @@ export default class CreateProjectForm extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state)
+    //console.log(this.state)
     // console.log(this.context)
   }
 

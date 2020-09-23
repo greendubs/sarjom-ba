@@ -32,13 +32,13 @@ export default class InviteUsers extends React.Component {
       dropOpen: false
     })
 
-    console.log(file)
+    //console.log(file)
     const ReactS3Client = new S3(inviteConfig)
     // TODO: change front tag to formatted project name
     ReactS3Client
       .uploadFile(file, ('testproject/').concat(file.name.substring(0, file.name.indexOf('.'))))
       .then(data => {
-              console.log(data)
+              //console.log(data)
               this.context.setInviteKey(data.key)})
       .catch(err => {
               console.log(err);

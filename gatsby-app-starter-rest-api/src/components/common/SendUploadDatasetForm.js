@@ -199,14 +199,14 @@ export default function SendUploadDatasetForm() {
 
   const handleChange = e => {
     setDetails({ ...details, [e.target.name]: e.target.value })
-    console.log(e.target.name, e.target.value)
+    //console.log(e.target.name, e.target.value)
   }
 
   const handleCommentChange = e => {
-    console.log(e.target.value.length)
+    //console.log(e.target.value.length)
     if (e.target.value.length <= 250) {
       setDetails({ ...details, [e.target.name]: e.target.value })
-      console.log(e.target.name, e.target.value)
+      //console.log(e.target.name, e.target.value)
       if (errors.comment) {
         setErrors({ ...errors, [e.target.name]: '' })
       }
@@ -218,7 +218,7 @@ export default function SendUploadDatasetForm() {
   const handleImagesChange = e => {
     if (e.target.files) {
       const files = Array.from(e.target.files)
-      console.log(files)
+      //console.log(files)
 
       let totalSize = 0
 
@@ -266,13 +266,13 @@ export default function SendUploadDatasetForm() {
       ).then(
         images => {
           /* Once all promises are resolved, update state with image URI array */
-          console.log(images)
+          //console.log(images)
           setPreviewImages(images)
           setUploadImages(files)
           setChangeIndex(0)
           setProgress(0)
           setUploaded(false)
-          console.log(uploadImages)
+          //console.log(uploadImages)
         },
         error => {
           console.error(error)
@@ -291,14 +291,14 @@ export default function SendUploadDatasetForm() {
     )
     setPreviewImages(newPreviewImages)
     setUploadImages(newUploadImages)
-    console.log(uploadImages)
+    //console.log(uploadImages)
     if (changeIndex > newPreviewImages.length - 1) {
       setChangeIndex(changeIndex - 1)
     }
   }
 
   const handleUploadImages = e => {
-    console.log(uploadImages)
+    //console.log(uploadImages)
     const ReactS3Client = new S3(filesConfig)
     const s3_links = []
     uploadImages.map((image, ind) => {
@@ -310,7 +310,7 @@ export default function SendUploadDatasetForm() {
         )
       )
         .then(response => {
-          console.log(response)
+          //console.log(response)
           s3_links.push(response.location)
         })
         .catch(error => {
@@ -319,7 +319,7 @@ export default function SendUploadDatasetForm() {
         })
       setProgress(((ind + 1) * 100) / uploadImages.length)
     })
-    console.log(s3_links)
+    //console.log(s3_links)
     setDetails({ ...details, image_links: s3_links })
     setUploaded(true)
   }
@@ -349,14 +349,14 @@ export default function SendUploadDatasetForm() {
     //console.log(e)
     try {
       const { image_links, license, metaDate, tags, comment } = details
-      console.log(license)
-      console.log(metaDate)
-      console.log(tags)
-      console.log(comment)
-      console.log(image_links)
-      console.log(location.lat)
-      console.log(location.lng)
-      console.log(data.sendProjectName)
+      // console.log(license)
+      // console.log(metaDate)
+      // console.log(tags)
+      // console.log(comment)
+      // console.log(image_links)
+      // console.log(location.lat)
+      // console.log(location.lng)
+      // console.log(data.sendProjectName)
 
       if (!image_links || !license || !metaDate || !location) {
         console.log('Reached errors')
@@ -390,8 +390,8 @@ export default function SendUploadDatasetForm() {
                   headers: headers,
                 }
               )
-              console.log('response recieved is')
-              console.log(response)
+              // console.log('response recieved is')
+              // console.log(response)
             } catch (error) {
               console.log(error)
             }
@@ -584,7 +584,7 @@ export default function SendUploadDatasetForm() {
                   />
                 )}
                 onChange={(event, newValue) => {
-                  console.log(newValue.length)
+                  //console.log(newValue.length)
                   if (newValue.length <= 5) {
                     setDetails({ ...details, tags: newValue })
                     if (errors.tags) {

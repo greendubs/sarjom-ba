@@ -13,8 +13,8 @@ export default ({ noPad, children }) => {
   const fetchUser = async () => {
     try {
       const token = window.localStorage.getItem('token')
-      console.log(token)
-      console.log(data)
+      // console.log(token)
+      // console.log(data)
       if (token) {
         console.log('token is not undefined')
         const { data } = await axios({
@@ -87,7 +87,7 @@ export default ({ noPad, children }) => {
         <span>Loading...</span>
       ) : (
         <Layout noPad={noPad} isLoggedIn={data.isLoggedIn} logout={logout}>
-          {console.log(noPad)}
+          {/* {console.log(noPad)} */}
           {children}
         </Layout>
       )}

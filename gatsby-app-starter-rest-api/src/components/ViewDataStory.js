@@ -30,12 +30,12 @@ export default function ViewDataStory({ id, url }) {
 
   const fetchDataStory = async () => {
     try {
-      console.log('reached fetch story')
+      //console.log('reached fetch story')
       const response = await axios.get(`${process.env.API}/datastories/${id}`)
-      console.log('received response is..')
-      console.log(response)
+      // console.log('received response is..')
+      // console.log(response)
       if (response.data.status === 'SUCCESS') {
-        console.log('setting details..')
+        // console.log('setting details..')
         const contributors = []
         const files = response.data.response.datastory.files
         files.forEach(file => {
@@ -43,7 +43,7 @@ export default function ViewDataStory({ id, url }) {
             contributors.push(file.uploadedByUser.name)
           }
         })
-        console.log(contributors)
+        // console.log(contributors)
         setDetails({
           ...details,
           files: response.data.response.datastory.files,
@@ -58,12 +58,12 @@ export default function ViewDataStory({ id, url }) {
       }
     } catch (err) {
       console.log(err)
-      console.log(details)
+      // console.log(details)
     }
   }
 
   useEffect(() => {
-    console.log(details)
+    // console.log(details)
     fetchDataStory()
   }, [])
 
@@ -137,47 +137,6 @@ export default function ViewDataStory({ id, url }) {
             </Typography>
           </Grid>
         </Grid>
-
-        {/*} <Grid item xs={12}>
-          <Grid item xs={6}>
-            <Typography align="left" variant="body1">
-              <em>Project Name: </em>
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography align="left" variant="body1">
-              <b>{details.projectName}</b>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography align="left" variant="body1">
-              <em>Project Owner: </em>
-              <b>{details.owner}</b>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography align="left" variant="body1">
-              <em>Contributors: </em>{' '}
-              <span>
-                <List style={{ padding: 0 }}>
-                  {details.contributors.map(contrib => (
-                    <ListItem
-                      style={{ padding: 0, margin: 0, alignItems: 'left' }}
-                    >
-                      <ListItemText primary={contrib} />
-                    </ListItem>
-                  ))}
-                </List>
-              </span>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography align="left">
-              {' '}
-              Share your story: <a href={url}>{url}</a>
-            </Typography>
-          </Grid>
-                  </Grid>*/}
       </Container>
     </>
   )

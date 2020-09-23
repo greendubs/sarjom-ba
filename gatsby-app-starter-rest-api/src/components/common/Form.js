@@ -55,7 +55,7 @@ export default ({ form }) => {
             password: 'Field is required',
           })
         } else {
-          console.log(details)
+          //console.log(details)
           const { data } = await axios.post(`${process.env.API}/login`, {
             email,
             password,
@@ -67,7 +67,7 @@ export default ({ form }) => {
 
           // console.log(data.response.token)
           if (data.status === 'SUCCESS') {
-            console.log(data)
+            //console.log(data)
             console.log('login success!')
             // meta.toggleLogStatus()
             // console.log(data.response.user.role)
@@ -90,7 +90,7 @@ export default ({ form }) => {
               navigate('/app/collect')
             }
           } else {
-            console.log(data)
+           // console.log(data)
             if (data.reason === 'Incorrect password') {
               setErrors({
                 //...errors,

@@ -44,8 +44,8 @@ export class MapWithMarkers extends React.Component {
         activeMarker: null,
         showingInfoWindow: false,
       })
-    console.log(this.props.files)
-    console.log(this.state.newCenter)
+    // console.log(this.props.files)
+    //console.log(this.state.newCenter)
     this.map = map
     if (this.props.files.length > 0) {
       this.setState((state, props) => ({

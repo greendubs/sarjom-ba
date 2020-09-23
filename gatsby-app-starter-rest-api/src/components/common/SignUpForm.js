@@ -25,8 +25,8 @@ export default function SignUpForm() {
   }
 
   const submit = () => {
-    console.log(desc)
-    console.log(email)
+    // console.log(desc)
+    // console.log(email)
     var axios = require('axios');
     var data = JSON.stringify({"description":desc,"emailList":email});
 
@@ -41,7 +41,7 @@ export default function SignUpForm() {
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);
