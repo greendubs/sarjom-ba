@@ -9,7 +9,20 @@ export class MapWithMarkers extends React.Component {
     activeMarker: {},
     selectedPlace: {},
     showingInfoWindow: false,
-    files: [],
+    newCenter: { lat: 47.391, lng: -122.18 },
+  }
+
+  //Do we need to remove contributors with no location?
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      newCenter: { lat: 47.391, lng: -122.18 },
+      activeMarker: {},
+      selectedPlace: {},
+      showingInfoWindow: false,
+    }
+    // console.log(this.props.files)
   }
 
   onMarkerClick = (props, marker) =>
@@ -26,19 +39,29 @@ export class MapWithMarkers extends React.Component {
     })
 
   onMapClicked = (mapProps, map) => {
-    console.log(this.props.files[0].latitude)
-
     if (this.state.showingInfoWindow)
       this.setState({
         activeMarker: null,
         showingInfoWindow: false,
       })
-
+    console.log(this.props.files)
+    console.log(this.state.newCenter)
     this.map = map
-    map.setCenter({
-      lat: this.props.files[0].latitude,
-      lng: this.props.files[0].longitude,
-    })
+    if (this.props.files.length > 0) {
+      this.setState((state, props) => ({
+        newCenter: {
+          lat: props.files.find(
+            _ => _.latitude !== null && _.longitude !== null
+          ).latitude,
+          lng: props.files.find(
+            _ => _.latitude !== null && _.longitude !== null
+          ).longitude,
+        },
+      }))
+    }
+
+    //console.log(this.state.newCenter)
+    map.setCenter(this.state.newCenter)
   }
 
   render() {
@@ -52,7 +75,11 @@ export class MapWithMarkers extends React.Component {
         style={{ height: '75vh', position: 'relative', width: '50vw' }}
         containerStyle={{ position: 'relative' }}
         zoom={14}
-        initialCenter={{ lat: 47.605, lng: -122.125 }}
+        center={
+          this.state.newCenter
+            ? this.state.newCenter
+            : { lat: 47.391, lng: -122.18 }
+        }
       >
         {this.props.files.map(file => (
           <Marker
@@ -92,18 +119,6 @@ export class MapWithMarkers extends React.Component {
             </Typography>
           </div>
         </InfoWindow>
-
-        {/*<InfoWindow
-                position={{
-                  lat: 47.605,
-                  lng: -122.125,
-                }}
-                visible
-              >
-                <small>
-                  Click on any of the markers to display an additional info.
-                </small>
-              </InfoWindow>*/}
       </Map>
     )
   }

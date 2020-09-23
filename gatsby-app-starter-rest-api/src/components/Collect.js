@@ -147,7 +147,7 @@ export default class Collect extends React.Component {
   }
 
   handleDLChange = e => {
-    this.setState({ 
+    this.setState({
       requestedProject: e.target.value,
     })
   }
@@ -192,12 +192,15 @@ export default class Collect extends React.Component {
 
   async requestDownload() {
     try {
-      const { data } = await axios.get(`${process.env.API}/files/${this.state.requestedProject}`, {
-        headers: {
-          token: this.context.data.token,
-          tokenId: this.context.data.tokenId,
-        },
-      })
+      const { data } = await axios.get(
+        `${process.env.API}/files/${this.state.requestedProject}`,
+        {
+          headers: {
+            token: this.context.data.token,
+            tokenId: this.context.data.tokenId,
+          },
+        }
+      )
 
       // console.log(data)
       if (data.status === 'SUCCESS') {
@@ -263,12 +266,14 @@ export default class Collect extends React.Component {
                 task: () => this.dummy(),
                 hide: true,
               },
-            ]}>
-               <CardSet 
-                  cards={this.state.data} 
-                  button1={{ label: "DataStory", function: () => this.dummy()}} 
-                  button2={{ label: "Contributors", function: () => this.dummy()}}/>
-              {/* added card set */}
+            ]}
+          >
+            <CardSet
+              cards={this.state.data}
+              button1={{ label: 'DataStory', function: () => this.dummy() }}
+              button2={{ label: 'Contributors', function: () => this.dummy() }}
+            />
+            {/* added card set */}
           </DashPanel>
           {this.state.task === 'Add New Project' && (
             <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
@@ -280,8 +285,8 @@ export default class Collect extends React.Component {
               <DialogContent>
                 <TextField
                   variant="outlined"
-                  margin='dense'
-                  type='text'
+                  margin="dense"
+                  type="text"
                   id="contact"
                   fullWidth
                   ref="nameInput"
@@ -289,9 +294,15 @@ export default class Collect extends React.Component {
                   onChange={this.handleTFChange}
                 />
                 <DialogContentText>
-                  <Typography variant="body2" gutterBottom align="center" style={{color: 'black'}}>
-                    Create a unique name for your project to get you started. The
-                    name of the project should be unique for you organization.
+                  <Typography
+                    variant="body2"
+                    gutterBottom
+                    align="center"
+                    style={{ color: 'black' }}
+                  >
+                    Create a unique name for your project to get you started.
+                    The name of the project should be unique for you
+                    organization.
                   </Typography>
                 </DialogContentText>
               </DialogContent>
@@ -390,7 +401,10 @@ export default class Collect extends React.Component {
                 </Button>
                 <Button
                   variant="contained"
-                  disabled={this.state.dataStoryProjectId === ''}
+                  disabled={
+                    this.state.dataStoryProjectId === '' ||
+                    this.state.dataStoryType === ''
+                  }
                   style={{
                     backgroundColor: '#3EC28F',
                     margin: '1rem',
@@ -418,18 +432,24 @@ export default class Collect extends React.Component {
                   name="metaData"
                   displayEmpty
                 >
-                  <MenuItem value="" disabled>Select Project</MenuItem>
+                  <MenuItem value="" disabled>
+                    Select Project
+                  </MenuItem>
                   {this.state.data.map(project => (
-                    <MenuItem value={project.id}>
-                      {project.name}
-                    </MenuItem>
+                    <MenuItem value={project.id}>{project.name}</MenuItem>
                   ))}
                 </Select>
                 <DialogContentText>
-                  <Typography variant="body2" align="center" style={{marginTop: '1rem'}}>
-                    You can download the project data from our servers and free up space in your account.
-                    Once you select a project and click on download, you will receive an email with a URL to
-                    download the data. The project will be removed 72 hours after successful download from the email link.
+                  <Typography
+                    variant="body2"
+                    align="center"
+                    style={{ marginTop: '1rem' }}
+                  >
+                    You can download the project data from our servers and free
+                    up space in your account. Once you select a project and
+                    click on download, you will receive an email with a URL to
+                    download the data. The project will be removed 72 hours
+                    after successful download from the email link.
                   </Typography>
                 </DialogContentText>
               </DialogContent>
@@ -439,7 +459,7 @@ export default class Collect extends React.Component {
                 </Button>
                 <Button
                   variant="contained"
-                  disabled={ this.state.requestedProject === '' }
+                  disabled={this.state.requestedProject === ''}
                   style={{
                     backgroundColor: '#3EC28F',
                     margin: '1rem',

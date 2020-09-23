@@ -20,6 +20,9 @@ import Box from '@material-ui/core/Box'
 import MapWithMarkers from 'components/common/GoogleMapMarkers'
 import MUIRichTextEditor from 'mui-rte'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import DataStoriesSet from 'components/common/DataStoriesSet'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -48,6 +51,10 @@ function a11yProps(index) {
     id: `vertical-tab-${index}`,
     'aria-controls': `vertical-tabpanel-${index}`,
   }
+}
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
 const defaultTheme = createMuiTheme()
@@ -97,7 +104,11 @@ export default function CreateDataStoryPanel() {
     projectId: '',
     dataStoryType: '',
     files: [],
+    dataStories: [],
   })
+
+  const [published, setPublished] = useState([])
+  const [drafts, setDrafts] = useState([])
 
   const [errors, setErrors] = useState({
     dataStoryName: '',
@@ -105,7 +116,13 @@ export default function CreateDataStoryPanel() {
   })
 
   const [isInitialLoad, setInitialLoad] = useState(true)
-  const [isSubmitting, setSubmitting] = useState(false)
+  const [isChanged, setChanged] = useState(false)
+  const [isDraft, setIsDraft] = useState(false)
+  const [draftID, setDraftID] = useState('')
+
+  const [open, setOpen] = useState(false)
+
+  //const [isSubmitting, setSubmitting] = useState(true)
 
   const classes = useStyles()
   const [value, setValue] = useState(0)
@@ -142,6 +159,7 @@ export default function CreateDataStoryPanel() {
           dataStoryType: window.history.state.dataStoryType,
         })
         console.log(details)
+        setInitialLoad(false)
       } else {
         console.log(response.reason)
       }
@@ -151,17 +169,90 @@ export default function CreateDataStoryPanel() {
     }
   }
 
+  const fetchDataStories = async () => {
+    try {
+      console.log('reached fetch data stories')
+      const response = await axios.get(
+        `${process.env.API}/datastories/fetch-list-for-project/${window.history.state.dataStoryProjectId}`,
+        {
+          headers: {
+            token: data.token,
+            tokenId: data.tokenId,
+          },
+        }
+      )
+      console.log('received response is..')
+      console.log(response.data.response.datastories)
+      if (response.data.status === 'SUCCESS') {
+        console.log('setting details..')
+        const dataStories = response.data.response.datastories
+        console.log(dataStories)
+        const published = dataStories.filter(story => story.isDraft === false)
+        const drafts = dataStories.filter(story => story.isDraft === true)
+        console.log('drafts')
+        console.log(drafts)
+        console.log('published')
+        console.log(published)
+        setPublished(published)
+        setDrafts(drafts)
+      } else {
+        console.log(response.reason)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     if (isInitialLoad) {
-      console.log(window.history.state.dataStoryProjectId)
-      console.log(details)
+      console.log('Reached file effect')
       fetchFiles()
       setInitialLoad(false)
     }
   }, [])
 
+  useEffect(() => {
+    if (!isChanged) {
+      console.log('Reached story effect')
+      //fetchFiles()
+      fetchDataStories()
+      setChanged(true)
+      //}
+    }
+  }, [isChanged])
+
   const dummy = () => {
     console.log('dummy')
+  }
+
+  const handleViewDS = id => () => {
+    console.log(id)
+    navigate(`/viewDataStory/:${id}/`)
+  }
+
+  const handleEditDS = id => async () => {
+    console.log(id)
+    //a11yProps(0)
+    try {
+      console.log('reached fetch story')
+      const response = await axios.get(`${process.env.API}/datastories/${id}`)
+      console.log('received response is..')
+      console.log(response)
+      if (response.data.status === 'SUCCESS') {
+        console.log('setting edit details')
+        setDetails({
+          ...details,
+          files: response.data.response.datastory.files,
+          dataStoryName: response.data.response.datastory.name,
+          dataStoryContent: response.data.response.datastory.content,
+        })
+        setIsDraft(true)
+        setDraftID(id)
+        setValue(0)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleTFChange = e => {
@@ -182,20 +273,9 @@ export default function CreateDataStoryPanel() {
     console.log(details)
   }
 
-  // handleBack() {
-  // this.setState(prevState => ({
-  // stepIndex: prevState.stepIndex - 1,
-  //}))
-  //}
-
-  //returnToDash() {
-  // this.context.clearProject()
-  //navigate('/app/collect')
-  //}
-
   const handlePublish = async e => {
     e.preventDefault()
-    setSubmitting(true)
+    //setSubmitting(true)
 
     try {
       const {
@@ -209,43 +289,62 @@ export default function CreateDataStoryPanel() {
         console.log('Reached errors')
         setErrors({ ...errors, dataStoryName: 'Field is required' })
       } else {
-        const response = await axios.post(
-          `${process.env.API}/datastories`,
-          {
-            projectId: projectId,
-            name: dataStoryName,
-            type: dataStoryType,
-            content: dataStoryContent,
-            isDraft: false,
-          },
-          {
-            headers: headers,
-          }
-        )
-        console.log('response received is')
-        console.log(response)
-
-        if (response.data.status === 'SUCCESS') {
-          console.log('viewDataStory/${response.data.response.id}')
-          navigate(
-            `/viewDataStory/:${response.data.response.createdDatastory.id}/`,
+        console.log(isDraft)
+        if (!isDraft) {
+          const response = await axios.post(
+            `${process.env.API}/datastories`,
             {
-              state: {
-                dataStoryId: response.data.response.createdDatastory.id,
-              },
+              projectId: projectId,
+              name: dataStoryName,
+              type: dataStoryType,
+              content: dataStoryContent,
+              isDraft: false,
+            },
+            {
+              headers: headers,
             }
           )
+          console.log('response received is')
+          console.log(response)
+          if (response.data.status === 'SUCCESS') {
+            setChanged(false)
+            navigate(
+              `/viewDataStory/:${response.data.response.createdDatastory.id}/`
+            )
+          }
+        } else {
+          console.log(draftID)
+          const response = await axios.put(
+            `${process.env.API}/datastories/update-draft/${draftID}`,
+            {
+              name: dataStoryName,
+              content: dataStoryContent,
+              isDraft: false,
+            },
+            {
+              headers: headers,
+            }
+          )
+          console.log('response received is')
+          console.log(response)
+
+          if (response.data.status === 'SUCCESS') {
+            setChanged(false)
+            navigate(
+              `/viewDataStory/:${response.data.response.updatedDatastory.id}/`
+            )
+          }
         }
       }
     } catch (error) {
-      setSubmitting(false)
+      // setSubmitting(false)
       console.log(error)
     }
   }
 
   const handleSaveDraft = async e => {
     e.preventDefault()
-    setSubmitting(true)
+    // setSubmitting(true)
 
     try {
       const {
@@ -274,11 +373,21 @@ export default function CreateDataStoryPanel() {
         )
         console.log('response recieved is')
         console.log(response)
+        setChanged(false)
+        setOpen(true)
       }
     } catch (error) {
-      setSubmitting(false)
+      // setSubmitting(false)
       console.log(error)
     }
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
   }
 
   return (
@@ -296,6 +405,7 @@ export default function CreateDataStoryPanel() {
           Geo-DataStory
         </Link>
       </Breadcrumbs>
+
       <Container maxWidth="lg" style={{ backgroundColor: '#e9ecef' }}>
         <br />
         <Typography
@@ -310,6 +420,8 @@ export default function CreateDataStoryPanel() {
           <Tabs
             orientation="vertical"
             variant="fullWidth"
+            indicatorColor="primary"
+            textColor="primary"
             value={value}
             onChange={handleChange}
             aria-label="Vertical tabs"
@@ -319,9 +431,9 @@ export default function CreateDataStoryPanel() {
             <Tab label="Saved Drafts" {...a11yProps(1)} />
             <Tab label="Published Datastories" {...a11yProps(2)} />
             <Tab label="View Feedback" {...a11yProps(3)} />
-            <Tab label="Publish Feedback" {...a11yProps(4)} />
-            <Tab label="Publish Settings" {...a11yProps(5)} />
-            <Tab label="Some Future Options" {...a11yProps(6)} />
+            <Tab label="Publish Feedback" disabled {...a11yProps(4)} />
+            <Tab label="Publish Settings" disabled {...a11yProps(5)} />
+            <Tab label="Some Future Options" disabled {...a11yProps(6)} />
           </Tabs>
           <TabPanel className={classes.tabPanel} value={value} index={0}>
             <Grid container spacing={3}>
@@ -332,6 +444,7 @@ export default function CreateDataStoryPanel() {
                   variant="outlined"
                   style={{ width: '35rem' }}
                   onChange={handleTFChange}
+                  defaultValue={details.dataStoryName}
                 />
                 <br />
                 {errors.dataStoryName && (
@@ -347,9 +460,11 @@ export default function CreateDataStoryPanel() {
                 <MapWithMarkers files={details.files} />
               </Grid>
               <Grid item xs={3}>
+                {console.log(details.files)}
                 <Typography variant="body2">
-                  Click on the map to see markers. Zoom into the area and the
-                  view that you want people to see.
+                  Click on the map to see markers. Click on markers to see
+                  additional information. Zoom into the area and the view that
+                  you want people to see.
                 </Typography>
               </Grid>
               <Grid item xs={9}>
@@ -369,7 +484,7 @@ export default function CreateDataStoryPanel() {
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="body2">
-                  Add content to your story with images and videos.
+                  Add content to your story with images and videos. Click Save.
                 </Typography>
               </Grid>
               <Grid item xs={9}>
@@ -377,7 +492,7 @@ export default function CreateDataStoryPanel() {
                   type="submit"
                   variant="contained"
                   size="large"
-                  disabled={isSubmitting}
+                  disabled={details.dataStoryName === ''}
                   onClick={handleSaveDraft}
                   style={{
                     backgroundColor: '#3EC28F',
@@ -388,11 +503,20 @@ export default function CreateDataStoryPanel() {
                 >
                   Save Draft
                 </Button>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    Draft is saved!
+                  </Alert>
+                </Snackbar>
                 <Button
                   type="submit"
                   variant="contained"
                   size="large"
-                  disabled={isSubmitting}
+                  disabled={details.dataStoryName === ''}
                   onClick={handlePublish}
                   style={{
                     backgroundColor: '#3EC28F',
@@ -414,11 +538,19 @@ export default function CreateDataStoryPanel() {
               </Grid>
             </Grid>
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
+          <TabPanel className={classes.tabPanel} value={value} index={1}>
+            <DataStoriesSet
+              cards={drafts}
+              file={details.files[0]}
+              button={{ label: 'Edit', function: handleEditDS }}
+            />
           </TabPanel>
-          <TabPanel value={value} index={2}>
-            Item Three
+          <TabPanel className={classes.tabPanel} value={value} index={2}>
+            <DataStoriesSet
+              cards={published}
+              file={details.files[0]}
+              button={{ label: 'View', function: handleViewDS }}
+            />
           </TabPanel>
           <TabPanel value={value} index={3}>
             Under Development
@@ -434,6 +566,19 @@ export default function CreateDataStoryPanel() {
           </TabPanel>
         </div>
       </Container>
+      <Typography align="center" gutterBottom>
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: '#3EC28F',
+            color: 'white',
+            marginLeft: '0px',
+          }}
+          onClick={() => navigate('/app/collect')}
+        >
+          Back to Dashboard
+        </Button>
+      </Typography>
     </>
   )
 }

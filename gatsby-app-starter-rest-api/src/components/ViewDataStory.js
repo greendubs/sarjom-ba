@@ -14,7 +14,7 @@ import {
 import MapWithMarkers from 'components/common/GoogleMapMarkers'
 import MUIRichTextEditor from 'mui-rte'
 
-export default function ViewDataStory({ id }) {
+export default function ViewDataStory({ id, url }) {
   //console.log(location.pathname.split(':')[1].slice(0, -1))
   const { data } = useContext(Context)
   const [details, setDetails] = useState({
@@ -82,6 +82,7 @@ export default function ViewDataStory({ id }) {
             {' '}
             <MapWithMarkers files={details.files} />
           </Grid>
+          <br />
           <Grid item>
             <MUIRichTextEditor
               defaultValue={details.content}
@@ -89,31 +90,94 @@ export default function ViewDataStory({ id }) {
               toolbar={false}
             />
           </Grid>
-          <Grid item>
-            <Typography align="center" variant="body1">
+        </Grid>
+        <Grid container direction="row" spacing={3}>
+          <Grid item xs={6}>
+            <Typography style={{ float: 'right' }} variant="body1">
               <em>Project Name: </em>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography align="left" variant="body1">
+              <b>{details.projectName}</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography style={{ float: 'right' }} variant="body1">
+              <em>Project Owner: </em>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography align="left" variant="body1">
+              <b>{details.owner}</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography style={{ float: 'right' }} variant="body1">
+              <em>Contributors: </em>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <List style={{ padding: 0 }}>
+              {details.contributors.map(contrib => (
+                <ListItem style={{ padding: 0, margin: 0, alignItems: 'left' }}>
+                  <ListItemText primary={contrib} />
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography style={{ float: 'right' }} variant="body1">
+              <em>Share your story</em>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography align="left" variant="body1">
+              <a href={url}>{url}</a>
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/*} <Grid item xs={12}>
+          <Grid item xs={6}>
+            <Typography align="left" variant="body1">
+              <em>Project Name: </em>
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography align="left" variant="body1">
               <b>{details.projectName}</b>
             </Typography>
           </Grid>
           <Grid item>
-            <Typography align="center" variant="body1">
+            <Typography align="left" variant="body1">
               <em>Project Owner: </em>
               <b>{details.owner}</b>
             </Typography>
-            <Grid item>
-              <Typography alogn="center" variant="body1">
-                <em>Contributors: </em>
-              </Typography>
-              <List style={{ padding: 0 }}>
-                {details.contributors.map(contrib => (
-                  <ListItem>
-                    <ListItemText primary={contrib} />
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
           </Grid>
-        </Grid>
+          <Grid item>
+            <Typography align="left" variant="body1">
+              <em>Contributors: </em>{' '}
+              <span>
+                <List style={{ padding: 0 }}>
+                  {details.contributors.map(contrib => (
+                    <ListItem
+                      style={{ padding: 0, margin: 0, alignItems: 'left' }}
+                    >
+                      <ListItemText primary={contrib} />
+                    </ListItem>
+                  ))}
+                </List>
+              </span>
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography align="left">
+              {' '}
+              Share your story: <a href={url}>{url}</a>
+            </Typography>
+          </Grid>
+                  </Grid>*/}
       </Container>
     </>
   )
