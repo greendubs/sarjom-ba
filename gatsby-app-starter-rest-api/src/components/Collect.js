@@ -44,6 +44,7 @@ export default class Collect extends React.Component {
     dataStoryProjectId: '',
     dataStoryProjects: [],
     dataStoryType: '',
+    uploadProjectName: '',
   }
 
   constructor(props) {
@@ -60,6 +61,7 @@ export default class Collect extends React.Component {
       dataStoryProjectId: '',
       dataStoryProjects: [],
       dataStoryType: '',
+      uploadProjectName: '',
     }
   }
 
@@ -141,8 +143,9 @@ export default class Collect extends React.Component {
   }
 
   handleTFChange = e => {
+    console.log(e.target.name)
     this.setState({
-      newProjectName: e.target.value,
+      [e.target.name]: e.target.value,
     })
   }
 
@@ -169,15 +172,27 @@ export default class Collect extends React.Component {
     // console.log("userId: " + this.context.data.userId)
     // console.log("orgId: " + this.context.data.organizations[0].id)
     // console.log("name: " + this.state.projectName)
-    navigate('/app/collect/createProject', {
-      state: {
-        userId: this.context.data.userId,
-        orgId: this.context.data.organizations[0].id,
-        projectName: this.state.newProjectName,
-        token: this.context.data.token,
-        tokenId: this.context.data.tokenId,
-      },
-    })
+    if (this.state.task === 'Add New Project') {
+      navigate('/app/collect/createProject', {
+        state: {
+          userId: this.context.data.userId,
+          orgId: this.context.data.organizations[0].id,
+          projectName: this.state.newProjectName,
+          token: this.context.data.token,
+          tokenId: this.context.data.tokenId,
+        },
+      })
+    } else if (this.state.task === 'Upload Existing Projects') {
+      navigate('/app/collect/uploadProject', {
+        state: {
+          userId: this.context.data.userId,
+          orgId: this.context.data.organizations[0].id,
+          projectName: this.state.uploadProjectName,
+          token: this.context.data.token,
+          tokenId: this.context.data.tokenId,
+        },
+      })
+    }
   }
 
   submitDataStory() {
@@ -243,8 +258,8 @@ export default class Collect extends React.Component {
               },
               {
                 label: 'Upload Existing Projects',
-                task: () => this.dummy(),
-                hide: true,
+                task: () => this.handleClickOpen('Upload Existing Projects'),
+                hide: false,
               },
               {
                 label: 'Publish Datastory',
@@ -290,6 +305,7 @@ export default class Collect extends React.Component {
                   id="contact"
                   fullWidth
                   ref="nameInput"
+                  name="newProjectName"
                   style={{ backgroundColor: '#e9ecef' }}
                   onChange={this.handleTFChange}
                 />
@@ -317,6 +333,63 @@ export default class Collect extends React.Component {
                     (this.state.projectNames &&
                       this.state.projectNames.includes(
                         this.state.newProjectName
+                      ))
+                  }
+                  style={{
+                    backgroundColor: '#3EC28F',
+                    margin: '1rem',
+                    color: 'white',
+                  }}
+                  onClick={() => this.submit()}
+                >
+                  Create
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
+          {this.state.task === 'Upload Existing Projects' && (
+            <Dialog open={this.state.open} aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">
+                <Typography variant="h5" align="left">
+                  Upload/Host Data
+                </Typography>
+              </DialogTitle>
+              <DialogContent>
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  type="text"
+                  id="contact"
+                  fullWidth
+                  ref="nameInput"
+                  name="uploadProjectName"
+                  style={{ backgroundColor: '#e9ecef' }}
+                  onChange={this.handleTFChange}
+                />
+                <DialogContentText>
+                  <Typography
+                    variant="body2"
+                    gutterBottom
+                    align="center"
+                    style={{ color: 'black' }}
+                  >
+                    Create a unique name for your project which will be listed
+                    under your organization. This name will be used to map all
+                    files associated with this project.
+                  </Typography>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button variant="contained" onClick={() => this.handleClose()}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={
+                    this.state.uploadProjectName === '' ||
+                    (this.state.projectNames &&
+                      this.state.projectNames.includes(
+                        this.state.uploadProjectName
                       ))
                   }
                   style={{

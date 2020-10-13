@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Typography, Container, Grid } from '@material-ui/core'
 import axios from 'axios'
 import { Link, navigate } from 'gatsby'
